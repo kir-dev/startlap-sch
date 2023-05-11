@@ -11,12 +11,18 @@ datasource db {
 }
 
 model Link {
-  id    String @id @default(uuid())
-  href  String
+  id           String     @id @default(uuid())
+  href         String
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id])
 }
 
 model Collection {
-  id    String @id @default(uuid())
+  id        String @id @default(uuid())
+  links     Link[]
+  iconUrl   String
+  bannerUrl String
+  slug      String
 }
 
 model User {
