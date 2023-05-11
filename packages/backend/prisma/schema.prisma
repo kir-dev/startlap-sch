@@ -14,3 +14,15 @@ model Link {
   id    String @id @default(uuid())
   href  String
 }
+
+model Collection {
+  id    String @id @default(uuid())
+}
+
+model User {
+  id    String @id @default(uuid())
+}
+
+model Submission {
+  id    String @id @default(uuid())
+}
