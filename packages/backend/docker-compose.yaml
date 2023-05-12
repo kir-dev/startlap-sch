@@ -1,5 +1,6 @@
-version: '3.5'
+version: '3.8'
 
+name: startlap
 services:
   db:
     image: postgres:13.10
@@ -7,18 +8,9 @@ services:
       - .env
     restart: ${DOCKER_RESTART_POLICY}
     volumes:
-      - konzisite_db_folder:/var/lib/postgresql/data
+      - startlap_db_folder:/var/lib/postgresql/data
     ports:
       - '${POSTGRES_PORT}:5432'
-
-
-  adminer:
-    image: adminer
-    restart: ${DOCKER_RESTART_POLICY}
-    depends_on:
-      - db
-    ports:
-      - 8080:8080
 volumes:
-  konzisite_db_folder:
+  startlap_db_folder:
 
