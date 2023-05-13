@@ -1,0 +1,16 @@
+version: '3.8'
+
+name: startlap
+services:
+  db:
+    image: postgres:13.10
+    env_file:
+      - .env
+    restart: ${DOCKER_RESTART_POLICY}
+    volumes:
+      - startlap_db_folder:/var/lib/postgresql/data
+    ports:
+      - '${POSTGRES_PORT}:5432'
+volumes:
+  startlap_db_folder:
+
