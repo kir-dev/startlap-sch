@@ -26,6 +26,7 @@
     "@prisma/client": "4.13.0",
     "dotenv": "^16.0.3",
     "env-var": "^7.3.1",
+    "nestjs-prisma": "^0.20.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },
