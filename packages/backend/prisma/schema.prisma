@@ -42,7 +42,6 @@ model Submission {
     id           String            @id @default(uuid())
     link         Link              @relation(fields: [linkId], references: [id])
     linkId       String
-    linkName     String
     description  String
     status       Submission_Status
     adminComment String
