@@ -7,7 +7,12 @@ import { SubmissionsModule } from './submissions/submissions.module';
 import { LinksModule } from './links/links.module';
 
 @Module({
-  imports: [CollectionModule, PrismaModule.forRoot({ isGlobal: true }), SubmissionsModule],
+  imports: [
+    CollectionModule,
+    PrismaModule.forRoot({ isGlobal: true }),
+    SubmissionsModule,
+    LinksModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
