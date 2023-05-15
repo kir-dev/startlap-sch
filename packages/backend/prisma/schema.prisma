@@ -20,6 +20,7 @@ model Link {
   keywords    String[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  collections Collection[]
 }
 
 model Collection {
