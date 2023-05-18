@@ -2,26 +2,26 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Link {
-  id          String   @id @default(uuid())
+  id          String       @id @default(uuid())
   url         String
   title       String
-  slug        String   @unique
+  slug        String       @unique
   description String
   iconUrl     String?
   keywords    String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   collections Collection[]
-    Submission Submission[]
+  Submission  Submission[]
 }
 
 model Collection {
@@ -35,21 +35,34 @@ model Collection {
 }
 
 model User {
-  id String @id @default(uuid())
+  id          String       @id @default(uuid())
+  internalId  String       @unique // authSch
+  username    String
+  email       String
+  submissions Submission[]
+  role        Role         @default(USER)
 }
 
 model Submission {
-    id           String             @id @default(uuid())
-    old_link     Link?              @relation(fields: [linkId], references: [id])
-    linkId       String?
-    linkName     String
-    description  String
-    status       Submission_Status
-    adminComment String
+  id           String            @id @default(uuid())
+  old_link     Link?             @relation(fields: [linkId], references: [id])
+  linkId       String?
+  linkName     String
+  description  String
+  status       Submission_Status
+  adminComment String
+  userId       String
+  user         User              @relation(fields: [userId], references: [id])
 }
 
 enum Submission_Status {
-    IN_REVIEW
-    APPROVED
-    DECLINED
+  IN_REVIEW
+  APPROVED
+  DECLINED
+}
+
+enum Role {
+  USER
+  EDITOR
+  ADMIN
 }
