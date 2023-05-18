@@ -1,4 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { PrismaService } from 'nestjs-prisma';
+import { SubmissionEntitiy } from './entities/submission.entity';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
 
@@ -6,23 +9,25 @@ import { UpdateSubmissionDto } from './dto/update-submission.dto';
 export class SubmissionsService {
   constructor(private prisma: PrismaService){}
 
-  create(createSubmissionDto: CreateSubmissionDto) {
-    return 'This action adds a new submission'
+  create(data: SubmissionEntitiy) : Promise<SubmissionEntitiy> {
+      return this.prisma.submission.create({data})
   }
 
   findAll() {
-    return `This action returns all submissions`;
+    return this.prisma.submission.findMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} submission`;
+  async findOne(id: string) : Promise<SubmissionEntitiy> {
+    return await this.prisma.submission.findUnique({
+      where: {id}, 
+    })
   }
 
-  update(id: number, updateSubmissionDto: UpdateSubmissionDto) {
-    return `This action updates a #${id} submission`;
+  update(id: string, data: UpdateSubmissionDto) : Promise<SubmissionEntitiy> {
+    return this.prisma.submission.update({ where: {id} , data })
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} submission`;
+  remove(id: string) :Promise<SubmissionEntitiy> {
+    return this.prisma.submission.delete({where: {id}})
   }
 }
