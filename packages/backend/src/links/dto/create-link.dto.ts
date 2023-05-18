@@ -1,9 +1,14 @@
-import { ArrayMinSize, IsArray, IsNotEmpty, IsString, IsUUID, IsUrl } from 'class-validator';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+  IsUrl,
+} from 'class-validator';
 
 export class CreateLinkDto {
-  @IsUUID()
-  id: string;
-
   @IsString()
   @IsNotEmpty()
   url: string;
@@ -22,6 +27,7 @@ export class CreateLinkDto {
   description: string;
 
   @IsString()
+  @IsOptional()
   iconUrl: string;
 
   @IsArray()

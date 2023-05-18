@@ -7,9 +7,9 @@ import { Prisma } from '@prisma/client';
 @Injectable()
 export class LinksService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createLinkDto: CreateLinkDto) {
+  async create(createLinkDto: CreateLinkDto) {
     try {
-      return this.prisma.link.create({ data: createLinkDto });
+      return await this.prisma.link.create({ data: createLinkDto });
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {
