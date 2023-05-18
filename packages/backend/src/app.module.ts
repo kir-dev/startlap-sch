@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { CollectionModule } from './collection/collection.module';
 import { SubmissionsModule } from './submissions/submissions.module';
 import { LinksModule } from './links/links.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { LinksModule } from './links/links.module';
     PrismaModule.forRoot({ isGlobal: true }),
     SubmissionsModule,
     LinksModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
