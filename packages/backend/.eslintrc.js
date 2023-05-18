@@ -21,4 +21,4 @@ module.exports = {
     'prettier/prettier': 'warn',
     'max-len': ['warn', { code: 100, ignoreUrls: true }],
   },
-};
+}
