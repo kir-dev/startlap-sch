@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-link.dto';
 import { UpdateLinkDto } from './dto/update-link.dto';
 import { PrismaService } from 'nestjs-prisma';
@@ -13,7 +13,7 @@ export class LinksService {
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {
-          console.log('This slug violates the unique constraint, meaning it already exists!');
+          throw new BadRequestException('This slug violates the unique constraint!');
         }
       }
     }
@@ -35,11 +35,11 @@ export class LinksService {
     return link;
   }
 
-  update(id: string, updateLinkDto: UpdateLinkDto) {
-    return this.prisma.link.update({ where: { id }, data: updateLinkDto });
+  async update(id: string, updateLinkDto: UpdateLinkDto) {
+    return await this.prisma.link.update({ where: { id }, data: updateLinkDto });
   }
 
-  remove(id: string) {
-    return this.prisma.link.delete({ where: { id } });
+  async remove(id: string) {
+    return await this.prisma.link.delete({ where: { id } });
   }
 }
