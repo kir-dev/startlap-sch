@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { PrismaService } from 'nestjs-prisma';
 import { CreateCollectionDto } from './dto/CreateCollection.dto';
 import { UpdateCollectionDto } from './dto/UpdateCollection.dto';
-import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class CollectionService {
@@ -16,15 +16,26 @@ export class CollectionService {
     const collection = await this.prisma.collection.findUnique({
       where: { id },
     });
-    if (collection === null) {
+    if (!collection) {
       throw new NotFoundException('Collection not found');
     }
     return collection;
   }
-  update(id: string, updateCollectionDto: UpdateCollectionDto) {
-    return this.prisma.collection.update({ where: { id }, data: updateCollectionDto });
+  async update(id: string, updateCollectionDto: UpdateCollectionDto) {
+    const collection = await this.prisma.collection.update({
+      where: { id },
+      data: updateCollectionDto,
+    });
+    if (!collection) {
+      throw new NotFoundException('Collection not found');
+    }
+    return collection;
   }
   remove(id: string) {
-    return this.prisma.collection.delete({ where: { id } });
+    try {
+      this.prisma.collection.delete({ where: { id } });
+    } catch (e) {
+      Logger.warn('Collection could not be deleted with id: ' + id);
+    }
   }
 }
