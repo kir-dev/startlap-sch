@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { LinksService } from './links.service';
-import { CreateLinkDto } from './dto/create-link.dto';
-import { UpdateLinkDto } from './dto/update-link.dto';
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
+import { LinksService } from './links.service'
+import { CreateLinkDto } from './dto/create-link.dto'
+import { UpdateLinkDto } from './dto/update-link.dto'
 
 @Controller('links')
 export class LinksController {
@@ -9,26 +9,26 @@ export class LinksController {
 
   @Post()
   create(@Body() createLinkDto: CreateLinkDto) {
-    return this.linksService.create(createLinkDto);
+    return this.linksService.create(createLinkDto)
   }
 
   @Get()
   findAll() {
-    return this.linksService.findAll();
+    return this.linksService.findAll()
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.linksService.findOne(id);
+    return this.linksService.findOne(id)
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLinkDto: UpdateLinkDto) {
-    return this.linksService.update(id, updateLinkDto);
+    return this.linksService.update(id, updateLinkDto)
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.linksService.remove(id);
+    return this.linksService.remove(id)
   }
 }
