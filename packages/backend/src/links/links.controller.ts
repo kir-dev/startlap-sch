@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
 import { CreateLinkDto } from './dto/create-link.dto'
+import { slugAvailable } from './dto/slug-verification.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
 import { LinksService } from './links.service'
 
@@ -32,7 +33,7 @@ export class LinksController {
     return this.linksService.remove(id)
   }
   @Get('/slug/:slug')
-  chechSlug(@Param('slug') slug: string) {
+  checkSlug(@Param('slug') slug: string): Promise<slugAvailable> {
     return this.linksService.checkSlug(slug)
   }
 }
