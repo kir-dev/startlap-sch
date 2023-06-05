@@ -31,7 +31,7 @@ export class LinksController {
   remove(@Param('id') id: string) {
     return this.linksService.remove(id)
   }
-  @Get(':slug')
+  @Get('/slug/:slug')
   chechSlug(@Param('slug') slug: string) {
     return this.linksService.checkSlug(slug)
   }
