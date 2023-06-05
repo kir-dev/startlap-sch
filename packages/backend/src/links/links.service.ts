@@ -1,29 +1,30 @@
-import { BadRequestException, HttpException, Injectable, NotFoundException } from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
+import { PrismaService } from 'nestjs-prisma'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
-import { PrismaService } from 'nestjs-prisma'
-import { Prisma } from '@prisma/client'
+import axios from 'axios'
 
 @Injectable()
 export class LinksService {
   constructor(private readonly prisma: PrismaService) {}
+
   async create(createLinkDto: CreateLinkDto) {
     try {
-      if (this.checkUrl(createLinkDto.url)) {
+      if (await this.checkUrl(createLinkDto.url)) {
         return await this.prisma.link.create({ data: createLinkDto })
       } else {
-        throw new HttpException('The url you entered is not found!', 404)
+        throw new BadRequestException('The url you entered is not found!')
       }
     } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code === 'P2002') {
-          throw new BadRequestException('This slug violates the unique constraint!')
-        }
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+        throw new BadRequestException('This slug violates the unique constraint!')
       }
+      throw e
     }
   }
 
-  findAll() {
+  async findAll() {
     return this.prisma.link.findMany()
   }
 
@@ -38,12 +39,8 @@ export class LinksService {
   }
 
   async update(id: string, updateLinkDto: UpdateLinkDto) {
-    return await this.prisma.link.update({ where: { id }, data: updateLinkDto })
-  }
-
-  async remove(id: string) {
     try {
-      return await this.prisma.link.delete({ where: { id } })
+      return await this.prisma.link.update({ where: { id }, data: updateLinkDto })
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {
@@ -53,12 +50,16 @@ export class LinksService {
     }
   }
 
+  async remove(id: string) {
+    return await this.prisma.link.delete({ where: { id } })
+  }
+
   async checkUrl(url: string) {
-    const response = await fetch(url)
-    if (response.statusText === 'OK') {
-      return true
-    } else {
-      return false
+    try {
+      const response = await axios.head(url)
+      return response.status === 200
+    } catch (e) {
+      throw new BadRequestException('Link validation failed!')
     }
   }
 }
