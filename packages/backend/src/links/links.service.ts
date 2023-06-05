@@ -24,8 +24,14 @@ export class LinksService {
     }
   }
 
-  async findAll() {
-    return this.prisma.link.findMany()
+  async findAll(params: any) {
+    return this.prisma.link.findMany({
+      where: {
+        title: {
+          contains: params.title,
+        },
+      },
+    })
   }
 
   async findOne(id: string) {
