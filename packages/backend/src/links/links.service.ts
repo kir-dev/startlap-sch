@@ -5,6 +5,7 @@ import { PrismaService } from 'nestjs-prisma'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
+import { slugAvailable } from './dto/slug-verification.dto'
 
 @Injectable()
 export class LinksService {
@@ -63,6 +64,14 @@ export class LinksService {
 
   async remove(id: string) {
     return await this.prisma.link.delete({ where: { id } })
+  }
+  async checkSlug(slug: string): Promise<slugAvailable> {
+    const link = await this.prisma.link.findUnique({
+      where: { slug },
+    })
+    return {
+      available: link === null,
+    }
   }
 
   async checkUrl(url: string) {
