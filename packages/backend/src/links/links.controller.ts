@@ -13,7 +13,7 @@ export class LinksController {
   }
 
   @Get()
-  findAll(@Query() params: any) {
+  findAll(@Query('title') params: string) {
     return this.linksService.findAll(params)
   }
 
