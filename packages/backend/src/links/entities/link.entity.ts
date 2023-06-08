@@ -1,32 +1,32 @@
-import { IsString, IsNotEmpty, IsUrl, IsOptional, IsArray, ArrayMinSize, IsUUID } from 'class-validator';
+import { IsString, IsNotEmpty, IsUrl, IsOptional, IsArray, ArrayMinSize, IsUUID } from 'class-validator'
 
 export class Link {
   @IsUUID()
-  id: string;
+  id: string
 
   @IsString()
   @IsNotEmpty()
   @IsUrl()
-  url: string;
+  url: string
 
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title: string
 
   @IsString()
   @IsNotEmpty()
-  slug: string;
+  slug: string
 
   @IsString()
   @IsNotEmpty()
-  description: string;
+  description: string
 
   @IsString()
   @IsOptional()
-  iconUrl: string;
+  iconUrl: string
 
   @IsArray()
   @IsString({ each: true })
   @ArrayMinSize(1)
-  keywords: string;
+  keywords: string
 }
