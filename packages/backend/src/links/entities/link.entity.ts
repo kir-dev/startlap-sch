@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsUrl, IsOptional, IsArray, ArrayMinSize, IsUUID } from 'class-validator'
+import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString, IsUUID, IsUrl } from 'class-validator'
 
 export class Link {
   @IsUUID()
@@ -28,5 +28,5 @@ export class Link {
   @IsArray()
   @IsString({ each: true })
   @ArrayMinSize(1)
-  keywords: string
+  keywords: string[]
 }

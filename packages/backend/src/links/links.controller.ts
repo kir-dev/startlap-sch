@@ -1,11 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
+import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
 
 @Controller('links')
+@ApiTags('links')
 export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
@@ -15,7 +18,7 @@ export class LinksController {
   }
 
   @Get()
-  findAll(@Query() params: SearchLink) {
+  findAll(@Query() params: SearchLink): Promise<Link[]> {
     return this.linksService.findAll(params)
   }
 
