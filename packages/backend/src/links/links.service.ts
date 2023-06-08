@@ -24,8 +24,15 @@ export class LinksService {
     }
   }
 
-  async findAll() {
-    return this.prisma.link.findMany()
+  async findAll(params: string) {
+    return this.prisma.link.findMany({
+      where: {
+        title: {
+          contains: params,
+          mode: 'insensitive',
+        },
+      },
+    })
   }
 
   async findOne(id: string) {
@@ -40,13 +47,16 @@ export class LinksService {
 
   async update(id: string, updateLinkDto: UpdateLinkDto) {
     try {
-      return await this.prisma.link.update({ where: { id }, data: updateLinkDto })
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code === 'P2002') {
-          throw new BadRequestException('This slug violates the unique constraint!')
-        }
+      if (await this.checkUrl(updateLinkDto.url)) {
+        return await this.prisma.link.update({ where: { id }, data: updateLinkDto })
+      } else {
+        throw new BadRequestException('The url you entered is not found!')
       }
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
+        throw new BadRequestException('This slug violates the unique constraint!')
+      }
+      throw e
     }
   }
 
