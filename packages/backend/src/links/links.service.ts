@@ -1,9 +1,10 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
+import axios from 'axios'
 import { PrismaService } from 'nestjs-prisma'
 import { CreateLinkDto } from './dto/create-link.dto'
+import { SearchLink } from './dto/search-link.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
-import axios from 'axios'
 
 @Injectable()
 export class LinksService {
@@ -24,7 +25,7 @@ export class LinksService {
     }
   }
 
-  async findAll(params: any) {
+  async findAll(params: SearchLink) {
     return this.prisma.link.findMany({
       where: {
         title: {
