@@ -246,7 +246,7 @@ components:
           description: The url to the icon corresponding to the link
           example: https://example.com/icon.png
         keywords:
-          description: The url to the icon corresponding to the link
+          description: Some keywords that describe the website
           example:
             &a3
             - example
@@ -264,6 +264,10 @@ components:
     Link:
       type: object
       properties:
+        id:
+          type: string
+          description: The unique identifier of the link
+          example: aaaaaaaa-bbbb-cccc-dddd-0123456789ab
         url:
           type: string
           description: The url to the link
@@ -285,7 +289,7 @@ components:
           description: The url to the icon corresponding to the link
           example: https://example.com/icon.png
         keywords:
-          description: The url to the icon corresponding to the link
+          description: Some keywords that describe the website
           example:
             - example
             - link
@@ -293,6 +297,7 @@ components:
           items:
             type: string
       required:
+        - id
         - url
         - title
         - slug
@@ -323,7 +328,7 @@ components:
           description: The url to the icon corresponding to the link
           example: https://example.com/icon.png
         keywords:
-          description: The url to the icon corresponding to the link
+          description: Some keywords that describe the website
           example: *a3
           type: array
           items:

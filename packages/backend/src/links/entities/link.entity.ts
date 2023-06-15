@@ -1,10 +1,13 @@
-import { ApiHideProperty } from '@nestjs/swagger'
 import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString, IsUUID, IsUrl } from 'class-validator'
 
 export class Link {
-  @ApiHideProperty()
+  /**
+   * The unique identifier of the link
+   * @example 'aaaaaaaa-bbbb-cccc-dddd-0123456789ab'
+   */
   @IsUUID()
   id: string
+
   /**
    * The url to the link
    * @example 'https://example.com'
@@ -13,6 +16,7 @@ export class Link {
   @IsNotEmpty()
   @IsUrl()
   url: string
+
   /**
    * The title of the link
    * @example 'Example Link'
@@ -20,6 +24,7 @@ export class Link {
   @IsString()
   @IsNotEmpty()
   title: string
+
   /**
    * The slug corresponding to the link
    * @example 'example-link'
@@ -27,6 +32,7 @@ export class Link {
   @IsString()
   @IsNotEmpty()
   slug: string
+
   /**
    * The description corresponding to the link
    * @example 'This is an example link'
@@ -34,6 +40,7 @@ export class Link {
   @IsString()
   @IsNotEmpty()
   description: string
+
   /**
    * The url to the icon corresponding to the link
    * @example 'https://example.com/icon.png'
@@ -41,8 +48,9 @@ export class Link {
   @IsString()
   @IsOptional()
   iconUrl: string
+
   /**
-   * The url to the icon corresponding to the link
+   * Some keywords that describe the website
    * @example ["example","link"]
    */
   @IsArray()
