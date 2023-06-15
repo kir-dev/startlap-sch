@@ -113,7 +113,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/Link"
       tags:
         &a2
         - links
@@ -150,7 +150,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/Link"
       tags: *a2
     patch:
       operationId: LinksController_update
@@ -172,7 +172,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/Link"
       tags: *a2
     delete:
       operationId: LinksController_remove
@@ -188,7 +188,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: "#/components/schemas/Link"
       tags: *a2
   "/links/slug/{slug}":
     get:

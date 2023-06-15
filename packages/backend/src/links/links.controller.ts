@@ -13,7 +13,7 @@ export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
   @Post()
-  create(@Body() createLinkDto: CreateLinkDto) {
+  create(@Body() createLinkDto: CreateLinkDto): Promise<Link> {
     return this.linksService.create(createLinkDto)
   }
 
@@ -23,17 +23,17 @@ export class LinksController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string): Promise<Link> {
     return this.linksService.findOne(id)
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLinkDto: UpdateLinkDto) {
+  update(@Param('id') id: string, @Body() updateLinkDto: UpdateLinkDto): Promise<Link> {
     return this.linksService.update(id, updateLinkDto)
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<Link> {
     return this.linksService.remove(id)
   }
   @Get('/slug/:slug')
