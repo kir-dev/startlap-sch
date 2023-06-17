@@ -1,13 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { CreateSubmissionDto } from './dto/create-submission.dto'
-import { UpdateSubmissionDto } from './dto/update-submission.dto'
+import { Injectable } from '@nestjs/common';
+import { CreateSubmissionDto } from './dto/create-submission.dto';
+import { UpdateSubmissionDto } from './dto/update-submission.dto';
+import { PrismaService } from 'nestjs-prisma';
 
 @Injectable()
 export class SubmissionsService {
   constructor(private prisma: PrismaService) {}
 
   create(createSubmissionDto: CreateSubmissionDto) {
-    return 'This action adds a new submission'
+    return 'This action adds a new submission';
   }
 
   findAll() {
