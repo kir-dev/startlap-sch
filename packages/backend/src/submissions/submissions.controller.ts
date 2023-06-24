@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common'
-import { SubmissionsService } from './submissions.service'
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
+import { SubmissionsService } from './submissions.service'
 
 @Controller('submissions')
+@ApiTags('submissions')
 export class SubmissionsController {
   constructor(private readonly submissionsService: SubmissionsService) {}
 
