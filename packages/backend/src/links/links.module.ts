@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
-import { LinksService } from './links.service'
-import { LinksController } from './links.controller'
 import { PrismaModule } from 'nestjs-prisma'
+import { LinksController } from './links.controller'
+import { LinksService } from './links.service'
 
 @Module({
   controllers: [LinksController],

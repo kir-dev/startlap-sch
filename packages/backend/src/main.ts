@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { PrismaService } from 'nestjs-prisma'
 import { AppModule } from './app.module'
 import { BACKEND_PORT } from './util/environment'
+
 const yaml = require('yaml')
 const fs = require('fs')
 
@@ -27,4 +28,5 @@ async function bootstrap() {
   await prismaService.enableShutdownHooks(app)
   await app.listen(BACKEND_PORT)
 }
+
 bootstrap()
