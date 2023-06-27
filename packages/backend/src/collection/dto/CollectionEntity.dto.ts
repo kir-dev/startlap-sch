@@ -1,26 +1,26 @@
-import { IsNotEmpty, IsString, IsUUID, ArrayMinSize } from 'class-validator';
+import { IsNotEmpty, IsString, IsUUID, ArrayMinSize } from 'class-validator'
 
 export class CollectionEntity {
   @IsUUID('all')
-  id: string;
+  id: string
 
   @IsNotEmpty()
   @IsString()
-  iconUrl: string;
+  iconUrl: string
 
   @IsNotEmpty()
   @IsString()
-  bannerUrl: string;
+  bannerUrl: string
 
   @IsNotEmpty()
   @IsString()
-  slug: string;
+  slug: string
 
   @IsNotEmpty()
   @IsString()
-  name: string;
+  name: string
 
   //TODO replace string array with links array
   @ArrayMinSize(0)
-  links: string[];
+  links: string[]
 }

@@ -36,6 +36,7 @@ export class LinksController {
   remove(@Param('id') id: string): Promise<Link> {
     return this.linksService.remove(id)
   }
+
   @Get('/slug/:slug')
   checkSlug(@Param('slug') slug: string): Promise<slugAvailable> {
     return this.linksService.checkSlug(slug)

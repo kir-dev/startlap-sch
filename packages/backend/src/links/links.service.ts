@@ -66,6 +66,7 @@ export class LinksService {
   async remove(id: string) {
     return await this.prisma.link.delete({ where: { id } })
   }
+
   async checkSlug(slug: string): Promise<slugAvailable> {
     const link = await this.prisma.link.findUnique({
       where: { slug },

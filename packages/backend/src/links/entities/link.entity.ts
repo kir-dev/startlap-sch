@@ -1,4 +1,4 @@
-import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString, IsUUID, IsUrl } from 'class-validator'
+import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID } from 'class-validator'
 
 export class Link {
   /**
