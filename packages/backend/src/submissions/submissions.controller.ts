@@ -21,9 +21,7 @@ export class SubmissionsController {
 
   @Get(':id')
   async findOne(@Param('id', ParseUUIDPipe) id: string) {
-    const submission =  await this.submissionsService.findOne(id)
-    if (submission === null)
-      throw new NotFoundException("Submission nem található")
+    return await this.submissionsService.findOne(id)
   }
 
   @Patch(':id')
