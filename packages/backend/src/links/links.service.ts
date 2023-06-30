@@ -50,6 +50,11 @@ export class LinksService {
               mode: 'insensitive',
             },
           },
+          {
+            keywords: {
+              has: params.term.toLowerCase(),
+            },
+          },
         ],
       },
     })
