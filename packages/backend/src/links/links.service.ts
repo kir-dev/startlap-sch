@@ -12,10 +12,10 @@ import { Link } from './entities/link.entity'
 export class LinksService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createLinkDto: CreateLinkDto) {
+  async create(createLinkDto: CreateLinkDto, fileName?: string) {
     try {
       if (await this.checkUrl(createLinkDto.url)) {
-        return await this.prisma.link.create({ data: createLinkDto })
+        return await this.prisma.link.create({ data: { ...createLinkDto, iconUrl: fileName } })
       } else {
         throw new BadRequestException('The url you entered is not found!')
       }
