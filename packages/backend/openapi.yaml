@@ -11,6 +11,79 @@ paths:
             application/json:
               schema:
                 type: string
+  /collection:
+    get:
+      operationId: CollectionController_findAll
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    post:
+      operationId: CollectionController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCollectionDto"
+      responses:
+        "201":
+          description: ""
+  "/collection/{id}":
+    get:
+      operationId: CollectionController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+    patch:
+      operationId: CollectionController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCollectionDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      operationId: CollectionController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
   /submissions:
     post:
       operationId: SubmissionsController_create
@@ -24,6 +97,10 @@ paths:
       responses:
         "201":
           description: ""
+          content:
+            application/json:
+              schema:
+                type: string
       tags:
         &a1
         - submissions
@@ -33,6 +110,10 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                type: string
       tags: *a1
   "/submissions/{id}":
     get:
@@ -46,6 +127,10 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                type: string
       tags: *a1
     patch:
       operationId: SubmissionsController_update
@@ -64,6 +149,10 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                type: string
       tags: *a1
     delete:
       operationId: SubmissionsController_remove
@@ -76,6 +165,10 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                type: string
       tags: *a1
   /links:
     post:
@@ -90,15 +183,30 @@ paths:
       responses:
         "201":
           description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Link"
       tags:
         &a2
         - links
     get:
       operationId: LinksController_findAll
-      parameters: []
+      parameters:
+        - name: term
+          required: false
+          in: query
+          schema:
+            type: string
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Link"
       tags: *a2
   "/links/{id}":
     get:
@@ -112,6 +220,10 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Link"
       tags: *a2
     patch:
       operationId: LinksController_update
@@ -130,6 +242,10 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Link"
       tags: *a2
     delete:
       operationId: LinksController_remove
@@ -142,6 +258,10 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Link"
       tags: *a2
   "/links/slug/{slug}":
     get:
@@ -155,6 +275,10 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/slugAvailable"
       tags: *a2
 info:
   title: Startlap SCH
@@ -179,7 +303,119 @@ components:
       properties: {}
     CreateLinkDto:
       type: object
-      properties: {}
+      properties:
+        url:
+          type: string
+          description: The url to the link
+          example: https://example.com
+        title:
+          type: string
+          description: The title of the link
+          example: Example Link
+        slug:
+          type: string
+          description: The slug corresponding to the link
+          example: example-link
+        description:
+          type: string
+          description: The description corresponding to the link
+          example: This is an example link
+        iconUrl:
+          type: string
+          description: The url to the icon corresponding to the link
+          example: https://example.com/icon.png
+        keywords:
+          description: Some keywords that describe the website
+          example:
+            &a3
+            - example
+            - link
+          type: array
+          items:
+            type: string
+      required:
+        - url
+        - title
+        - slug
+        - description
+        - iconUrl
+        - keywords
+    Link:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the link
+          example: aaaaaaaa-bbbb-cccc-dddd-0123456789ab
+        url:
+          type: string
+          description: The url to the link
+          example: https://example.com
+        title:
+          type: string
+          description: The title of the link
+          example: Example Link
+        slug:
+          type: string
+          description: The slug corresponding to the link
+          example: example-link
+        description:
+          type: string
+          description: The description corresponding to the link
+          example: This is an example link
+        iconUrl:
+          type: string
+          description: The url to the icon corresponding to the link
+          example: https://example.com/icon.png
+        keywords:
+          description: Some keywords that describe the website
+          example:
+            - example
+            - link
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - url
+        - title
+        - slug
+        - description
+        - iconUrl
+        - keywords
     UpdateLinkDto:
       type: object
-      properties: {}
+      properties:
+        url:
+          type: string
+          description: The url to the link
+          example: https://example.com
+        title:
+          type: string
+          description: The title of the link
+          example: Example Link
+        slug:
+          type: string
+          description: The slug corresponding to the link
+          example: example-link
+        description:
+          type: string
+          description: The description corresponding to the link
+          example: This is an example link
+        iconUrl:
+          type: string
+          description: The url to the icon corresponding to the link
+          example: https://example.com/icon.png
+        keywords:
+          description: Some keywords that describe the website
+          example: *a3
+          type: array
+          items:
+            type: string
+    slugAvailable:
+      type: object
+      properties:
+        available:
+          type: boolean
+      required:
+        - available
