@@ -1,5 +1,23 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  FileTypeValidator,
+  Get,
+  MaxFileSizeValidator,
+  Param,
+  ParseFilePipe,
+  Patch,
+  Post,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiTags } from '@nestjs/swagger'
+import { unlink } from 'fs'
+import { diskStorage } from 'multer'
+import { extname, join } from 'path'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
@@ -13,8 +31,31 @@ export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
   @Post()
-  create(@Body() createLinkDto: CreateLinkDto): Promise<Link> {
-    return this.linksService.create(createLinkDto)
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './static/',
+        filename: (req, file, callback) => {
+          callback(null, `${req.body.slug}${extname(file.originalname)}`)
+        },
+      }),
+    })
+  )
+  async create(
+    @Body() createLinkDto: CreateLinkDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [new MaxFileSizeValidator({ maxSize: 1_000_000 }), new FileTypeValidator({ fileType: 'image/png' })],
+      })
+    )
+    file: Express.Multer.File
+  ): Promise<Link> {
+    try {
+      return await this.linksService.create(createLinkDto, file.filename)
+    } catch (e) {
+      unlink(join(process.cwd(), '/static', file.filename), () => {})
+      throw e
+    }
   }
 
   @Get()
