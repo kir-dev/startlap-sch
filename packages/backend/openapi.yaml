@@ -320,10 +320,6 @@ components:
           type: string
           description: The description corresponding to the link
           example: This is an example link
-        iconUrl:
-          type: string
-          description: The url to the icon corresponding to the link
-          example: https://example.com/icon.png
         keywords:
           description: Some keywords that describe the website
           example:
@@ -338,7 +334,6 @@ components:
         - title
         - slug
         - description
-        - iconUrl
         - keywords
     Link:
       type: object
@@ -402,10 +397,6 @@ components:
           type: string
           description: The description corresponding to the link
           example: This is an example link
-        iconUrl:
-          type: string
-          description: The url to the icon corresponding to the link
-          example: https://example.com/icon.png
         keywords:
           description: Some keywords that describe the website
           example: *a3
