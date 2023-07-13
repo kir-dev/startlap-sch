@@ -1,23 +1,11 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  FileTypeValidator,
-  Get,
-  MaxFileSizeValidator,
-  Param,
-  ParseFilePipe,
-  Patch,
-  Post,
-  Query,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, ParseFilePipe, Patch, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiTags } from '@nestjs/swagger'
 import { unlink } from 'fs'
 import { diskStorage } from 'multer'
 import { extname, join } from 'path'
+import { FileExtensionValidator } from 'src/util/FileExtensionValidator'
+import { FileMaxSizeValidator } from 'src/util/FileMaxSizeValidator'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
@@ -32,7 +20,7 @@ export class LinksController {
 
   @Post()
   @UseInterceptors(
-    FileInterceptor('file', {
+    FileInterceptor('icon', {
       storage: diskStorage({
         destination: './static/',
         filename: (req, file, callback) => {
@@ -45,15 +33,18 @@ export class LinksController {
     @Body() createLinkDto: CreateLinkDto,
     @UploadedFile(
       new ParseFilePipe({
-        validators: [new MaxFileSizeValidator({ maxSize: 1_000_000 }), new FileTypeValidator({ fileType: 'image/png' })],
+        validators: [new FileMaxSizeValidator({ maxSize: 1_000_000 }), new FileExtensionValidator({ fileType: 'image/*' })],
+        fileIsRequired: false,
       })
     )
-    file: Express.Multer.File
+    file?: Express.Multer.File
   ): Promise<Link> {
     try {
-      return await this.linksService.create(createLinkDto, file.filename)
+      return await this.linksService.create(createLinkDto, file?.filename)
     } catch (e) {
-      unlink(join(process.cwd(), '/static', file.filename), () => {})
+      if (file) {
+        unlink(join(process.cwd(), '/static', file.filename), () => {})
+      }
       throw e
     }
   }

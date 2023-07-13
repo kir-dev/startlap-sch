@@ -3,17 +3,13 @@ import { unlink } from 'fs'
 import { extname, join } from 'path'
 
 export class FileExtensionValidator extends FileValidator<{
-  allowedExtensions: string[]
+  fileType: string
 }> {
-  //isValid(file?: Express.Multer.File): boolean | Promise<boolean> {
-  // TODO this worked with the Express type until nest v10
-  isValid(file?: any): boolean | Promise<boolean> {
-    return this.validationOptions.allowedExtensions.includes(extname(file.originalname))
+  isValid(file?: Express.Multer.File): boolean | Promise<boolean> {
+    return !!file && 'mimetype' in file && !!file.mimetype.match(this.validationOptions.fileType)
   }
   buildErrorMessage(file: Express.Multer.File): string {
     unlink(join(process.cwd(), '/static', file.filename), () => {})
-    return `Érvénytelen kiterjesztés: ${extname(file.originalname)}! Megengedett kiterjesztések: ${this.validationOptions.allowedExtensions.join(
-      ', '
-    )}`
+    return `Invalid extension: ${extname(file.originalname)}! Only pictures are allowed!`
   }
 }
