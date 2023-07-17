@@ -8,6 +8,9 @@ export default function Home() {
       <Link className="text-blue-500" href="collections">
         Kollekciók
       </Link>
+      <Link className="text-blue-500" href="links">
+        Linkek
+      </Link>
     </main>
   );
 }
