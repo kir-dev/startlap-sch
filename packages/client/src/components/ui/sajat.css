@@ -1,0 +1,17 @@
+/*sorry, lehet nem ide kellett volna, rakjatok at ha gaz*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+h1{
+    font-size: 24px;
+    font-weight: 600;
+}
+div{
+    border: dashed 2px red;
+}
+img{
+    width: 7rem;
+    height: 7rem;
+}
