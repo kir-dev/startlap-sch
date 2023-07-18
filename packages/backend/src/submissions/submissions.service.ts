@@ -3,12 +3,13 @@ import { Prisma } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { SubmissionEntitiy } from './entities/submission.entity';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
+import { CreateSubmissionDto } from './dto/create-submission.dto';
 
 @Injectable()
 export class SubmissionsService {
   constructor(private prisma: PrismaService){}
 
-  async create(data: SubmissionEntitiy) : Promise<SubmissionEntitiy> {
+  async create(data: CreateSubmissionDto) : Promise<SubmissionEntitiy> {
     try{
       return await this.prisma.submission.create({data})
     }
@@ -17,6 +18,7 @@ export class SubmissionsService {
         if(e.code === 'P2002'){
             throw new BadRequestException("Unique constraint violation")
         }
+        throw e
       }
     }   
   }
@@ -50,6 +52,7 @@ export class SubmissionsService {
         if(e.code==='P2002'){
           throw new BadRequestException("Unique constraint violation")
         }
+        throw e
       }
     }
   }

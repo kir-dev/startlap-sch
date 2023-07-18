@@ -10,7 +10,7 @@ export class SubmissionsController {
   constructor(private readonly submissionsService: SubmissionsService) {}
 
   @Post()
-  create(@Body() data: SubmissionEntitiy) {
+  create(@Body() data: CreateSubmissionDto) {
     return this.submissionsService.create(data);
   }
 
