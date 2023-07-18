@@ -9,6 +9,13 @@
 
 
 h1{
+    font-size: 36px;
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: 600;
+    font-family: 'Work Sans', sans-serif;
+}
+h2{
     font-size: 24px;
     font-weight: 600;
     font-family: 'Work Sans', sans-serif;

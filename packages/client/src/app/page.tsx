@@ -1,15 +1,14 @@
 "use client";
-import LinkWidget from "@/components/ui/LinkWidget";
+import FavLinksContainer from "@/components/links/favLinksContainer";
 import { DummyLink, DummyLink2 } from "@/mocks/links.mock";
 
 export default function Home() {
-  const handleClick = (event: object) => {
-    console.log("meg klikkalt");
-    console.log(event);
-  };
+  const links = [DummyLink, DummyLink2];
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <LinkWidget link={DummyLink}></LinkWidget>
+    <main className="min-h-screen">
+      <h1>StartlapSCH</h1>
+      <FavLinksContainer links={links}></FavLinksContainer>
+      <FavLinksContainer links={links}></FavLinksContainer>
     </main>
   );
 }
