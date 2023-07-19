@@ -24,11 +24,11 @@ export default function LinkWidget(props: Props) {
         alt="felso sav"
       />
 
-      <div className="h-35 w-full overflow-hidden rounded-xl bg-blue-100 p-2">
+      <div className="h-35 w-full overflow-hidden rounded-xl bg-white p-2">
         <div className=" flex flex-grow flex-row">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            className="ml-0 aspect-square h-1/4 w-1/4 flex-none"
+            className="ml-0 aspect-square h-1/6 w-1/6 flex-none"
             src={link.iconUrl}
             alt="ikon"
             width={100}
