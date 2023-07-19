@@ -1,14 +1,20 @@
 "use client";
 import FavLinksContainer from "@/components/links/favLinksContainer";
-import { DummyLink, DummyLink2 } from "@/mocks/links.mock";
+// import { DummyLink, DummyLink2 } from "@/mocks/links.mock";
+import { DummyLinks } from "@/mocks/links.mock";
 
 export default function Home() {
-  const links = [DummyLink, DummyLink2];
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen  overflow-y-hidden">
       <h1>StartlapSCH</h1>
-      <FavLinksContainer links={links}></FavLinksContainer>
-      <FavLinksContainer links={links}></FavLinksContainer>
+      <FavLinksContainer
+        links={DummyLinks}
+        title="Kedvencek"
+      ></FavLinksContainer>
+      <FavLinksContainer
+        links={DummyLinks}
+        title="Felkapottak"
+      ></FavLinksContainer>
     </main>
   );
 }

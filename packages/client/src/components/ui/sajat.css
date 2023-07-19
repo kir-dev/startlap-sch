@@ -31,10 +31,12 @@ h4{ /*link*/
     color: #575757;
 
 }
-/*div{
-    border: dashed 2px red;
-}*/
-/*img{
-    width: 7rem;
-    height: 7rem;
-}*/
+.scrollbar-hidden{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hidden::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+

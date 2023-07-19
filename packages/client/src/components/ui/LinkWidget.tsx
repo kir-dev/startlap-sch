@@ -13,7 +13,7 @@ export default function LinkWidget(props: Props) {
   return (
     <Link
       href={link.url}
-      className="flex-no-wrap bg-blue  inline-block flex h-auto w-80 flex-col items-center overflow-hidden rounded-xl p-4"
+      className="flex-no-wrap bg-blue inline-block flex w-80 flex-col items-center overflow-hidden rounded-xl p-2"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -22,27 +22,27 @@ export default function LinkWidget(props: Props) {
           "https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg"
         }
         alt="felso sav"
-        width={100}
-        height={100}
       />
 
-      <div className="w-full rounded-xl bg-blue-100 p-2">
+      <div className="h-35 w-full overflow-hidden rounded-xl bg-blue-100 p-2">
         <div className=" flex flex-grow flex-row">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            className="aspect-w-1 ml-0 h-auto w-1/6 flex-none"
+            className="ml-0 aspect-square h-1/4 w-1/4 flex-none"
             src={link.iconUrl}
             alt="ikon"
             width={100}
             height={100}
           />
-          <div className="flix-grow ml-2">
-            <h2 className="text-3xl">{link.title}</h2>
+          <div className="ml-2 h-2/3 flex-grow overflow-hidden">
+            <h2 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-3xl">
+              {link.title}
+            </h2>
             <h4 className="text-xs">{link.url}</h4>
           </div>
         </div>
         <div className="">
-          <p className="mt-2 overflow-ellipsis break-normal text-base">
+          <p className="mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap  text-base">
             {link.description}
           </p>
         </div>
