@@ -1,20 +1,41 @@
+"use client";
 import React from "react";
+
+import { Button } from "@/components/ui/button";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
+
+import SearchBar from "./searchbar";
 
 export default function Navbar() {
   return (
     <>
       <header className="bg-white flex justify-between align-middle px-6 py-2 w-screen sticky border">
-        <nav>
-          <a href="#" className="text-3xl text-teal-600 font-semibold">
-            StartlapSch
+        <nav className="flex align-middle space-x-10">
+          <a href="#" className="flex align-middle">
+            <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl">
+              StartlapSch
+            </h1>
           </a>
+          <NavigationMenu className="align-sub">
+            <NavigationMenuList className="space-x-4">
+              <NavigationMenuItem>
+                <NavigationMenuLink href="#">Links</NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink href="#">Collections</NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </nav>
-        <input
-          type="text"
-          placeholder="Search.."
-          className="border-2 border-gray-300 bg-white h-10 w-1/3 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-        />
-        <a href="#">Login</a>
+        <div className="flex justify-end space-x-5 w-1/2">
+          <SearchBar></SearchBar>
+          <Button>Belépés</Button>
+        </div>
       </header>
     </>
   );
