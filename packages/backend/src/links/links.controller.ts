@@ -6,6 +6,7 @@ import { slugAvailable } from './dto/slug-verification.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
+import { visits } from './dto/visit.dto'
 
 @Controller('links')
 @ApiTags('links')
@@ -40,5 +41,10 @@ export class LinksController {
   @Get('/slug/:slug')
   checkSlug(@Param('slug') slug: string): Promise<slugAvailable> {
     return this.linksService.checkSlug(slug)
+  }
+
+  @Get(':slug')
+  visit(@Param('slug') slug: string): Promise<visits> {
+    return this.linksService.visit(slug)
   }
 }

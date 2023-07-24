@@ -106,4 +106,20 @@ export class LinksService {
       throw new BadRequestException('Link validation failed!')
     }
   }
+
+  async visit(slug: string) {
+    const link = await this.prisma.link.findUnique({
+      where: { slug },
+    })
+    if (link != null) {
+      return this.prisma.visits.create({
+        data: {
+          linkId: link.id,
+          timeStamp: new Date(),
+        },
+      })
+    } else {
+      throw new BadRequestException('The slug you entered is not found!')
+    }
+  }
 }
