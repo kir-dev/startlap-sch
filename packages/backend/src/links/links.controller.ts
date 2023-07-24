@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Res } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
@@ -43,8 +43,15 @@ export class LinksController {
     return this.linksService.checkSlug(slug)
   }
 
-  @Get(':slug')
-  visit(@Param('slug') slug: string): Promise<visits> {
-    return this.linksService.visit(slug)
+  @Get('/visit/:slug')
+  async visit(@Param('slug') slug: string, @Res() res) {
+    const link = await this.linksService.visit(slug)
+    if (link) res.redirect(await this.linksService.getUrlFromSlug(slug))
+  }
+
+  //! Testing purposes only
+  @Get('/test/test')
+  async getVisitsAll() {
+    return this.linksService.getVisitsAll()
   }
 }

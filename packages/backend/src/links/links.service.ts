@@ -111,15 +111,32 @@ export class LinksService {
     const link = await this.prisma.link.findUnique({
       where: { slug },
     })
-    if (link != null) {
+    if (link !== null) {
       return this.prisma.visits.create({
         data: {
           linkId: link.id,
-          timeStamp: new Date(),
+          timeStamp: new Date().toISOString(),
         },
       })
     } else {
       throw new BadRequestException('The slug you entered is not found!')
     }
+  }
+
+  async getUrlFromSlug(slug: string) {
+    if (slug === null) {
+      throw new NotFoundException('The slug you entered is not found!')
+    } else {
+      const link = await this.prisma.link.findUnique({
+        where: { slug },
+      })
+
+      return link.url
+    }
+  }
+
+  //! Testing purposes only
+  async getVisitsAll() {
+    return this.prisma.visits.findMany()
   }
 }
