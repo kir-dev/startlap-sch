@@ -280,6 +280,33 @@ paths:
               schema:
                 $ref: "#/components/schemas/slugAvailable"
       tags: *a2
+  "/links/visit/{slug}":
+    get:
+      operationId: LinksController_visit
+      parameters:
+        - name: slug
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      tags: *a2
+  /links/test/test:
+    get:
+      operationId: LinksController_getVisitsAll
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      tags: *a2
 info:
   title: Startlap SCH
   description: The Startlap SCH API description
