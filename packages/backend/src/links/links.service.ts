@@ -112,7 +112,7 @@ export class LinksService {
       where: { slug },
     })
     if (link !== null) {
-      await this.prisma.visits.create({
+      await this.prisma.visit.create({
         data: {
           linkId: link.id,
         },
@@ -125,6 +125,6 @@ export class LinksService {
 
   //! Testing purposes only
   async getVisitsAll() {
-    return this.prisma.visits.findMany()
+    return this.prisma.visit.findMany()
   }
 }
