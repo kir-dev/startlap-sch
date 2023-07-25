@@ -22,10 +22,10 @@ model Link {
   updatedAt   DateTime     @updatedAt
   collections Collection[]
   Submission  Submission[]
-  visits      Visits[]
+  visits      Visit[]
 }
 
-model Visits {
+model Visit {
   id String           @id @default(uuid())
   linkId String
   link Link           @relation(fields: [linkId], references: [id])

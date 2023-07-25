@@ -6,7 +6,6 @@ import { slugAvailable } from './dto/slug-verification.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
-import { visits } from './dto/visit.dto'
 
 @Controller('links')
 @ApiTags('links')

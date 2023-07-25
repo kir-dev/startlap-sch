@@ -119,7 +119,7 @@ export class LinksService {
       })
       return link
     } else {
-      throw new BadRequestException('The slug you entered is not found!')
+      throw new NotFoundException('The slug you entered is not found!')
     }
   }
 
