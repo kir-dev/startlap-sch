@@ -46,7 +46,7 @@ export class LinksController {
   @Get('/visit/:slug')
   async visit(@Param('slug') slug: string, @Res() res) {
     const link = await this.linksService.visit(slug)
-    if (link) res.redirect(await this.linksService.getUrlFromSlug(slug))
+    res.redirect(link.url)
   }
 
   //! Testing purposes only
