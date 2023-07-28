@@ -1,11 +1,9 @@
-import { Body, Controller, Delete, Get, Param, ParseFilePipe, Patch, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common'
-import { FileInterceptor } from '@nestjs/platform-express'
+import { Controller, Delete, Get, Param, ParseFilePipe, Patch, Post, Query, Req, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { Request } from 'express'
 import { unlink } from 'fs'
-import { diskStorage } from 'multer'
-import { extname, join } from 'path'
-import { FileExtensionValidator } from 'src/util/FileExtensionValidator'
-import { FileMaxSizeValidator } from 'src/util/FileMaxSizeValidator'
+import { join } from 'path'
+import { IconInterceptor, IconValidators } from 'src/util/iconHelpers'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
@@ -19,27 +17,19 @@ export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
   @Post()
-  @UseInterceptors(
-    FileInterceptor('icon', {
-      storage: diskStorage({
-        destination: './static/',
-        filename: (req, file, callback) => {
-          callback(null, `${req.body.slug}${extname(file.originalname)}`)
-        },
-      }),
-    })
-  )
+  @UseInterceptors(IconInterceptor)
   async create(
-    @Body() createLinkDto: CreateLinkDto,
+    @Req() request: Request,
     @UploadedFile(
       new ParseFilePipe({
-        validators: [new FileMaxSizeValidator({ maxSize: 1_000_000 }), new FileExtensionValidator({ fileType: 'image/*' })],
+        validators: IconValidators,
         fileIsRequired: false,
       })
     )
     file?: Express.Multer.File
   ): Promise<Link> {
     try {
+      const createLinkDto = await this.linksService.validateLink(CreateLinkDto, request)
       return await this.linksService.create(createLinkDto, file?.filename)
     } catch (e) {
       if (file) {
@@ -60,8 +50,27 @@ export class LinksController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLinkDto: UpdateLinkDto): Promise<Link> {
-    return this.linksService.update(id, updateLinkDto)
+  @UseInterceptors(IconInterceptor)
+  async update(
+    @Param('id') id: string,
+    @Req() request: Request,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: IconValidators,
+        fileIsRequired: false,
+      })
+    )
+    file?: Express.Multer.File
+  ): Promise<Link> {
+    try {
+      const updateLinkDto = await this.linksService.validateLink(UpdateLinkDto, request)
+      return await this.linksService.update(id, updateLinkDto, file?.filename)
+    } catch (e) {
+      if (file) {
+        unlink(join(process.cwd(), '/static', file.filename), () => {})
+      }
+      throw e
+    }
   }
 
   @Delete(':id')
