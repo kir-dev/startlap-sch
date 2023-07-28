@@ -1,5 +1,5 @@
 import { Controller, Delete, Get, Param, ParseFilePipe, Patch, Post, Query, Req, UploadedFile, UseInterceptors } from '@nestjs/common'
-import { ApiTags } from '@nestjs/swagger'
+import { ApiBody, ApiTags } from '@nestjs/swagger'
 import { Request } from 'express'
 import { unlink } from 'fs'
 import { join } from 'path'
@@ -17,6 +17,7 @@ export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
   @Post()
+  @ApiBody({ type: CreateLinkDto })
   @UseInterceptors(IconInterceptor)
   async create(
     @Req() request: Request,
@@ -50,6 +51,7 @@ export class LinksController {
   }
 
   @Patch(':id')
+  @ApiBody({ type: UpdateLinkDto })
   @UseInterceptors(IconInterceptor)
   async update(
     @Param('id') id: string,
