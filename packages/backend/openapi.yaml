@@ -187,7 +187,7 @@ paths:
     get:
       operationId: LinksController_findAll
       parameters:
-        - name: title
+        - name: term
           required: false
           in: query
           schema:

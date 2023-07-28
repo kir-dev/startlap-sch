@@ -33,12 +33,34 @@ export class LinksService {
   }
 
   async findAll(params: SearchLink): Promise<Link[]> {
+    if (typeof params.term === 'undefined') return this.prisma.link.findMany()
     return this.prisma.link.findMany({
       where: {
-        title: {
-          contains: params.title,
-          mode: 'insensitive',
-        },
+        OR: [
+          {
+            title: {
+              contains: params.term,
+              mode: 'insensitive',
+            },
+          },
+          {
+            slug: {
+              contains: params.term,
+              mode: 'insensitive',
+            },
+          },
+          {
+            description: {
+              contains: params.term,
+              mode: 'insensitive',
+            },
+          },
+          {
+            keywords: {
+              has: params.term.toLowerCase(),
+            },
+          },
+        ],
       },
     })
   }
