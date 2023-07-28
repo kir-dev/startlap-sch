@@ -1,7 +1,12 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import axios from 'axios'
+import { ClassConstructor, plainToClass } from 'class-transformer'
+import { validate } from 'class-validator'
+import { Request } from 'express'
+import { unlink } from 'fs'
 import { PrismaService } from 'nestjs-prisma'
+import { join } from 'path'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
@@ -70,10 +75,15 @@ export class LinksService {
     return link
   }
 
-  async update(id: string, updateLinkDto: UpdateLinkDto) {
+  async update(id: string, updateLinkDto: UpdateLinkDto, fileName?: string) {
     try {
       if (await this.checkUrl(updateLinkDto.url)) {
-        return await this.prisma.link.update({ where: { id }, data: updateLinkDto })
+        const oldLink = await this.prisma.link.findUnique({ where: { id } })
+        const newLink = await this.prisma.link.update({ where: { id }, data: { ...updateLinkDto, iconUrl: fileName } })
+        if (oldLink.iconUrl) {
+          unlink(join(process.cwd(), '/static', oldLink.iconUrl), () => {})
+        }
+        return newLink
       } else {
         throw new BadRequestException('The url you entered is not found!')
       }
@@ -105,5 +115,14 @@ export class LinksService {
     } catch (e) {
       throw new BadRequestException('Link validation failed!')
     }
+  }
+
+  async validateLink<T extends object>(dtoType: ClassConstructor<T>, req: Request) {
+    const dto = plainToClass(dtoType, req.body)
+    const errors = await validate(dto, { forbidNonWhitelisted: true, forbidUnknownValues: true })
+    if (errors.length > 0) {
+      throw new BadRequestException(errors.map(e => Object.values(e.constraints)).flat())
+    }
+    return dto
   }
 }
