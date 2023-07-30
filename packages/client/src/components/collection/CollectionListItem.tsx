@@ -1,14 +1,21 @@
+import clsx from "clsx";
 import Image from "next/image";
 
 import { Collection } from "@/types/collection.type";
 
 interface Props {
   collection: Collection;
+  className?: string;
 }
 
-export function CollectionListItem({ collection }: Props) {
+export function CollectionListItem({ collection, className }: Props) {
   return (
-    <div className="relative m-2 flex h-32 w-60 cursor-pointer flex-col overflow-hidden rounded-xl text-white shadow-2xl">
+    <div
+      className={clsx(
+        "relative m-2 flex h-32 w-60 cursor-pointer flex-col overflow-hidden rounded-xl text-white shadow-2xl",
+        className
+      )}
+    >
       <Image
         className="object-cover object-center"
         width={300}
