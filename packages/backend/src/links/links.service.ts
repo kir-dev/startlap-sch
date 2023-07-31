@@ -151,7 +151,7 @@ export class LinksService {
 
     const trendingLinks = result.map(({ _count, ...rest }) => ({
       ...rest,
-      _count: { visits: _count.linkId, linkId: undefined },
+      visits: _count.linkId,
     }))
 
     return trendingLinks
