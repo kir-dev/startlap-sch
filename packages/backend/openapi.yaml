@@ -215,6 +215,12 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
       tags: *a2
   "/links/{id}":
     get:
