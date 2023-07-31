@@ -208,6 +208,14 @@ paths:
                 items:
                   $ref: "#/components/schemas/Link"
       tags: *a2
+  /links/trending:
+    get:
+      operationId: LinksController_trending
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      tags: *a2
   "/links/{id}":
     get:
       operationId: LinksController_findOne

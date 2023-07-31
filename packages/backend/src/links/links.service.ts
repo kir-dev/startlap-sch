@@ -7,6 +7,7 @@ import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
 import { Link } from './entities/link.entity'
+import { link } from 'fs'
 
 @Injectable()
 export class LinksService {
@@ -121,6 +122,39 @@ export class LinksService {
     } else {
       throw new NotFoundException('The slug you entered is not found!')
     }
+  }
+
+  async trending() {
+    const numberOfTrendingLinks = 5
+    const trendingLinksInThePastDay = 7
+    const prevDate = new Date()
+    prevDate.setDate(prevDate.getDate() - trendingLinksInThePastDay)
+
+    const result = await this.prisma.visit.groupBy({
+      by: ['linkId'],
+      _count: {
+        linkId: true,
+      },
+      where: {
+        timeStamp: {
+          lte: new Date(),
+          gte: prevDate,
+        },
+      },
+      orderBy: {
+        _count: {
+          linkId: 'desc',
+        },
+      },
+      take: numberOfTrendingLinks,
+    })
+
+    const trendingLinks = result.map(({ _count, ...rest }) => ({
+      ...rest,
+      _count: { visits: _count.linkId, linkId: undefined },
+    }))
+
+    return trendingLinks
   }
 
   //! Testing purposes only
