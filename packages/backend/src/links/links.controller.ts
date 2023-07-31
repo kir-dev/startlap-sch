@@ -22,6 +22,11 @@ export class LinksController {
     return this.linksService.findAll(params)
   }
 
+  @Get('/trending')
+  trending() {
+    return this.linksService.trending()
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Link> {
     return this.linksService.findOne(id)
