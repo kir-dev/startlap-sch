@@ -144,37 +144,19 @@ export class LinksService {
           },
         },
       },
+      orderBy: {
+        visits: {
+          _count: 'desc',
+        },
+      },
+      take: numberOfTrendingLinks,
     })
 
-    // const result = await this.prisma.visit.groupBy({
-    //   by: ['linkId'],
-    //   _count: {
-    //     linkId: true,
-    //   },
-    //   where: {
-    //     timeStamp: {
-    //       lte: new Date(),
-    //       gte: prevDate,
-    //     },
-    //   },
-    //   orderBy: {
-    //     _count: {
-    //       linkId: 'desc',
-    //     },
-    //   },
-    //   take: numberOfTrendingLinks,
-    // })
+    const trendingLinks = result.map(({ _count, ...rest }) => ({
+      ...rest,
+      visits: _count.visits,
+    }))
 
-    // const trendingLinks = result.map(({ _count, ...rest }) => ({
-    //   ...rest,
-    //   visits: _count.linkId,
-    // }))
-
-    return result
-  }
-
-  //! Testing purposes only
-  async getVisitsAll() {
-    return this.prisma.visit.findMany()
+    return trendingLinks
   }
 }

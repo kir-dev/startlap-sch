@@ -52,10 +52,4 @@ export class LinksController {
     const link = await this.linksService.visit(slug)
     res.redirect(link.url)
   }
-
-  //! Testing purposes only
-  @Get('/test/test')
-  async getVisitsAll() {
-    return this.linksService.getVisitsAll()
-  }
 }
