@@ -1,96 +1,123 @@
 "use client";
+import { TextField } from "@/components/textField";
+import { collections } from "@/mocks/collections.mock";
+import { Collection } from "@/types/collection.type";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
 import Select from "react-select";
 
-export default function linkForm() {
+export default function LinkForm() {
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const keywords = [
-    { value: "ocean", label: "Ocean", color: "#00B8D9", isFixed: true },
-    { value: "blue", label: "Blue", color: "#0052CC", isDisabled: true },
-    { value: "purple", label: "Purple", color: "#5243AA" },
-    { value: "red", label: "Red", color: "#FF5630", isFixed: true },
-    { value: "orange", label: "Orange", color: "#FF8B00" },
-    { value: "yellow", label: "Yellow", color: "#FFC400" },
-    { value: "green", label: "Green", color: "#36B37E" },
-    { value: "forest", label: "Forest", color: "#00875A" },
-    { value: "slate", label: "Slate", color: "#253858" },
-    { value: "silver", label: "Silver", color: "#666666" },
-  ];
-  const [option, setOption] = useState({});
+  const [keywords, setKeywords] = useState("");
+  const [linkError, setLinkError] = useState(false);
+  const transformedCollections = collections.map((collection: Collection) => ({
+    value: collection.id,
+    label: collection.name,
+  }));
+  const [option, setOption] = useState<{ value: string; label: string } | null>(
+    null
+  );
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(option);
   };
+  // const checkLink = async () => {
+  //   try {
+  //     const response = await fetch(url);
+  //     console.log(response);
+  //     if (response.status != 200) setLinkError(true);
+  //   } catch (e) {
+  //     setLinkError(true);
+  //   }
+  //   console.log(linkError);
+  //   setLinkError(false);
+  // };
   return (
-    <div className="flex flex-col m-4">
-      <h2 className="mt-14 p-1 font-bold">Add new Link</h2>
-      <form
-        className="m-6 flex flex-col"
-        action="/link"
-        onSubmit={handleSubmit}
-      >
-        <div className="flex flex-row justify-between">
-          <div className="flex flex-col w-2/3 justify-normal">
-            <div className="flex flex-row mb-6 flex-grow h-2/3">
-              <input
-                className="border-purple-500 border-2 rounded-sm flex-grow flex"
-                id="url"
-                name="url"
-                value={url}
-                onChange={(event) => setUrl(event.target.value)}
-              />
-              <button className="font-bold flex items-center text-center float-right border-purple-500 border-2 rounded-sm w-1/12">
-                <svg
-                  width="100%"
-                  height="100%"
-                  viewBox="0 0 50 50"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 25L40 25M40 25L30 15M40 25L30 35"
-                    stroke="black"
-                    stroke-width="2"
-                    fill="none"
-                  />
-                </svg>
-              </button>
-            </div>
-            <input
-              className="border-purple-500  border-2 h-1/3 flex"
-              id="title"
-              name="title"
-              value={title}
-              onChange={(event) => setTitle(event.target.value)}
+    <form
+      className="m-14 ml-20 flex flex-col justify-between"
+      action="/link"
+      onSubmit={handleSubmit}
+    >
+      <h1 className=" font-bold text-2xl">Add new Link</h1>
+      <div className="flex justify-between">
+        <div className="flex flex-col w-1/2 justify-between items-center py-8">
+          <div className="flex flex-row h-16 left-0 mt-5">
+            <TextField
+              id="url"
+              name="url"
+              placeholder="Link url"
+              value={url}
+              setValue={setUrl}
             />
-          </div>
 
-          <img
-            src="https://kir-dev.hu/favicon.png"
-            className="m-6 float-right"
+            <button
+              className="font-bold flex items-center text-center justify-center float-right border-purple-500 border-2 rounded-sm w-1/6"
+              //onClick={checkLink}
+            >
+              <img src="arrow.svg" alt="arrow" className="w-1/2 h-1/2" />
+            </button>
+          </div>
+          {linkError && (
+            <h4 className="text-red-500 m-5">Failed link validation</h4>
+          )}
+          <TextField
+            id="title"
+            name="title"
+            placeholder="Title"
+            value={title}
+            setValue={setTitle}
+            className="mt-6"
+          />
+          <TextField
+            id="keywords"
+            name="keywords"
+            placeholder="Keywords"
+            value={keywords}
+            setValue={setKeywords}
+            className="object-bottom mt-20"
           />
         </div>
-
-        <p>keywords</p>
         <input
-          className="border-purple-500  border-2"
-          id="description"
-          name="description"
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
-        />
-        <Select
-          onChange={(keyword) => setOption(keyword)}
-          isMulti
-          defaultValue={[keywords[0], keywords[2]]}
-          name="keywords"
-          options={keywords}
-        />
-        <Link href="/">Drop</Link>
-        <button type="submit">Add</button>
-      </form>
-    </div>
+          type="file"
+          id="icon"
+          name="icon"
+          className="m-6 float-right"
+        ></input>
+      </div>
+      <Select
+        onChange={(collection) => setOption(collection)}
+        name="collection"
+        options={transformedCollections}
+        isSearchable
+        placeholder="Collection"
+        className="text-center w-1/2"
+      />
+      <textarea
+        placeholder="Description"
+        className="border-purple-500 border-2 rounded-sm text-center flex items-center h-44 my-10"
+        id="description"
+        name="description"
+        value={description}
+        onChange={(event) => setDescription(event.target.value)}
+      />
+      <div className="flex flex-row justify-between h-16">
+        <Link
+          className="flex border-purple-500 border-2 rounded-sm w-32 text-center items-center justify-center text-xl"
+          href="/"
+          onClick={() => {
+            console.log("red");
+          }}
+        >
+          Drop
+        </Link>
+        <button
+          className="border-purple-500 border-2 rounded-sm w-32 text-center text-xl"
+          type="submit"
+        >
+          Add
+        </button>
+      </div>
+    </form>
   );
 }
