@@ -7,7 +7,6 @@ import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
 import { Link } from './entities/link.entity'
-import { link } from 'fs'
 
 @Injectable()
 export class LinksService {
@@ -130,31 +129,48 @@ export class LinksService {
     const prevDate = new Date()
     prevDate.setDate(prevDate.getDate() - trendingLinksInThePastDay)
 
-    const result = await this.prisma.visit.groupBy({
-      by: ['linkId'],
-      _count: {
-        linkId: true,
-      },
-      where: {
-        timeStamp: {
-          lte: new Date(),
-          gte: prevDate,
-        },
-      },
-      orderBy: {
+    const result = await this.prisma.link.findMany({
+      include: {
         _count: {
-          linkId: 'desc',
+          select: {
+            visits: {
+              where: {
+                timeStamp: {
+                  lte: new Date(),
+                  gte: prevDate,
+                },
+              },
+            },
+          },
         },
       },
-      take: numberOfTrendingLinks,
     })
 
-    const trendingLinks = result.map(({ _count, ...rest }) => ({
-      ...rest,
-      visits: _count.linkId,
-    }))
+    // const result = await this.prisma.visit.groupBy({
+    //   by: ['linkId'],
+    //   _count: {
+    //     linkId: true,
+    //   },
+    //   where: {
+    //     timeStamp: {
+    //       lte: new Date(),
+    //       gte: prevDate,
+    //     },
+    //   },
+    //   orderBy: {
+    //     _count: {
+    //       linkId: 'desc',
+    //     },
+    //   },
+    //   take: numberOfTrendingLinks,
+    // })
 
-    return trendingLinks
+    // const trendingLinks = result.map(({ _count, ...rest }) => ({
+    //   ...rest,
+    //   visits: _count.linkId,
+    // }))
+
+    return result
   }
 
   //! Testing purposes only
