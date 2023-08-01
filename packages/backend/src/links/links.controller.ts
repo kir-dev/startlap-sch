@@ -4,6 +4,7 @@ import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
+import { Trending } from './dto/trending.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
 
@@ -23,7 +24,7 @@ export class LinksController {
   }
 
   @Get('/trending')
-  trending() {
+  trending(): Promise<Trending[]> {
     return this.linksService.trending()
   }
 
