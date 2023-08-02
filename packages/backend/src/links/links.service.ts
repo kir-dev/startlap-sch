@@ -1,9 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import axios from 'axios'
-import { ClassConstructor, plainToClass } from 'class-transformer'
-import { validate } from 'class-validator'
-import { Request } from 'express'
 import { unlink } from 'fs'
 import { PrismaService } from 'nestjs-prisma'
 import { join } from 'path'
@@ -115,14 +112,5 @@ export class LinksService {
     } catch (e) {
       throw new BadRequestException('Link validation failed!')
     }
-  }
-
-  async validateLink<T extends object>(dtoType: ClassConstructor<T>, req: Request) {
-    const dto = plainToClass(dtoType, req.body)
-    const errors = await validate(dto, { forbidNonWhitelisted: true, forbidUnknownValues: true })
-    if (errors.length > 0) {
-      throw new BadRequestException(errors.map(e => Object.values(e.constraints)).flat())
-    }
-    return dto
   }
 }

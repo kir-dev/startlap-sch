@@ -1147,20 +1147,20 @@
 
 "@prisma/client@4.13.0":
   version "4.13.0"
-  resolved "https://registry.npmjs.org/@prisma/client/-/client-4.13.0.tgz"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-4.13.0.tgz#271d2b9756503ea17bbdb459c7995536cf2a6191"
   integrity sha512-YaiiICcRB2hatxsbnfB66uWXjcRw3jsZdlAVxmx0cFcTc/Ad/sKdHCcWSnqyDX47vAewkjRFwiLwrOUjswVvmA==
   dependencies:
     "@prisma/engines-version" "4.13.0-50.1e7af066ee9cb95cf3a403c78d9aab3e6b04f37a"
 
 "@prisma/engines-version@4.13.0-50.1e7af066ee9cb95cf3a403c78d9aab3e6b04f37a":
   version "4.13.0-50.1e7af066ee9cb95cf3a403c78d9aab3e6b04f37a"
-  resolved "https://registry.npmjs.org/@prisma/engines-version/-/engines-version-4.13.0-50.1e7af066ee9cb95cf3a403c78d9aab3e6b04f37a.tgz"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-4.13.0-50.1e7af066ee9cb95cf3a403c78d9aab3e6b04f37a.tgz#ae338908d11685dee50e7683502d75442b955bf9"
   integrity sha512-fsQlbkhPJf08JOzKoyoD9atdUijuGBekwoOPZC3YOygXEml1MTtgXVpnUNchQlRSY82OQ6pSGQ9PxUe4arcSLQ==
 
-"@prisma/engines@4.13.0":
-  version "4.13.0"
-  resolved "https://registry.npmjs.org/@prisma/engines/-/engines-4.13.0.tgz"
-  integrity sha512-HrniowHRZXHuGT9XRgoXEaP2gJLXM5RMoItaY2PkjvuZ+iHc0Zjbm/302MB8YsPdWozAPHHn+jpFEcEn71OgPw==
+"@prisma/engines@4.16.2":
+  version "4.16.2"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-4.16.2.tgz#5ec8dd672c2173d597e469194916ad4826ce2e5f"
+  integrity sha512-vx1nxVvN4QeT/cepQce68deh/Turxy5Mr+4L4zClFuK1GlxN3+ivxfuv+ej/gvidWn1cE1uAhW7ALLNlYbRUAw==
 
 "@rollup/plugin-commonjs@^16.0.0":
   version "16.0.0"
@@ -5630,9 +5630,9 @@ neo-async@^2.6.2:
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
 nestjs-prisma@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.npmjs.org/nestjs-prisma/-/nestjs-prisma-0.20.0.tgz"
-  integrity sha512-tqOcoJQh4U8Y7akyCwluo1VFqhqjqYy8JAYYfrKRhvZ7N4trt3wYXXllRGH3LeLaom09QchHP9WEo/BAV9JMjg==
+  version "0.20.1"
+  resolved "https://registry.yarnpkg.com/nestjs-prisma/-/nestjs-prisma-0.20.1.tgz#f59d56755496fbed6beb96217a82d484e33244d8"
+  integrity sha512-mR/kPmNqdOa6tnWXVXVCqpvGbYTOZQJaJthJziG9RNIeExzhIC6xpXcOAHbMPIFEz/egVaBRABpKxTktOXoVPg==
   dependencies:
     "@angular-devkit/core" "^13.3.0"
     "@angular-devkit/schematics" "^13.3.0"
@@ -6178,11 +6178,11 @@ pretty-format@^29.0.0, pretty-format@^29.5.0:
     react-is "^18.0.0"
 
 prisma@^4.13.0:
-  version "4.13.0"
-  resolved "https://registry.npmjs.org/prisma/-/prisma-4.13.0.tgz"
-  integrity sha512-L9mqjnSmvWIRCYJ9mQkwCtj4+JDYYTdhoyo8hlsHNDXaZLh/b4hR0IoKIBbTKxZuyHQzLopb/+0Rvb69uGV7uA==
+  version "4.16.2"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-4.16.2.tgz#469e0a0991c6ae5bcde289401726bb012253339e"
+  integrity sha512-SYCsBvDf0/7XSJyf2cHTLjLeTLVXYfqp7pG5eEVafFLeT0u/hLFz/9W196nDRGUOo1JfPatAEb+uEnTQImQC1g==
   dependencies:
-    "@prisma/engines" "4.13.0"
+    "@prisma/engines" "4.16.2"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"

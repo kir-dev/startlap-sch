@@ -238,7 +238,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateLinkDto"
+              $ref: "#/components/schemas/CreateLinkDto"
       responses:
         "200":
           description: ""
@@ -323,7 +323,6 @@ components:
         keywords:
           description: Some keywords that describe the website
           example:
-            &a3
             - example
             - link
           type: array
@@ -378,31 +377,6 @@ components:
         - description
         - iconUrl
         - keywords
-    UpdateLinkDto:
-      type: object
-      properties:
-        url:
-          type: string
-          description: The url to the link
-          example: https://example.com
-        title:
-          type: string
-          description: The title of the link
-          example: Example Link
-        slug:
-          type: string
-          description: The slug corresponding to the link
-          example: example-link
-        description:
-          type: string
-          description: The description corresponding to the link
-          example: This is an example link
-        keywords:
-          description: Some keywords that describe the website
-          example: *a3
-          type: array
-          items:
-            type: string
     slugAvailable:
       type: object
       properties:

@@ -1,13 +1,10 @@
-import { Controller, Delete, Get, Param, ParseFilePipe, Patch, Post, Query, Req, UploadedFile, UseInterceptors } from '@nestjs/common'
-import { ApiBody, ApiTags } from '@nestjs/swagger'
-import { Request } from 'express'
-import { unlink } from 'fs'
-import { join } from 'path'
+import { Body, Controller, Delete, Get, Param, ParseFilePipe, Patch, Post, Query, UploadedFile, UseFilters, UseInterceptors } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
+import { DeleteFileExceptionFilter } from 'src/util/DeleteFileExceptionFilter'
 import { IconInterceptor, IconValidators } from 'src/util/iconHelpers'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
-import { UpdateLinkDto } from './dto/update-link.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
 
@@ -17,10 +14,10 @@ export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
   @Post()
-  @ApiBody({ type: CreateLinkDto })
   @UseInterceptors(IconInterceptor)
+  @UseFilters(DeleteFileExceptionFilter)
   async create(
-    @Req() request: Request,
+    @Body() createLinkDto: CreateLinkDto,
     @UploadedFile(
       new ParseFilePipe({
         validators: IconValidators,
@@ -29,15 +26,7 @@ export class LinksController {
     )
     file?: Express.Multer.File
   ): Promise<Link> {
-    try {
-      const createLinkDto = await this.linksService.validateLink(CreateLinkDto, request)
-      return await this.linksService.create(createLinkDto, file?.filename)
-    } catch (e) {
-      if (file) {
-        unlink(join(process.cwd(), '/static', file.filename), () => {})
-      }
-      throw e
-    }
+    return await this.linksService.create(createLinkDto, file?.filename)
   }
 
   @Get()
@@ -51,11 +40,11 @@ export class LinksController {
   }
 
   @Patch(':id')
-  @ApiBody({ type: UpdateLinkDto })
   @UseInterceptors(IconInterceptor)
+  @UseFilters(DeleteFileExceptionFilter)
   async update(
     @Param('id') id: string,
-    @Req() request: Request,
+    @Body() updateLinkDto: CreateLinkDto,
     @UploadedFile(
       new ParseFilePipe({
         validators: IconValidators,
@@ -64,15 +53,7 @@ export class LinksController {
     )
     file?: Express.Multer.File
   ): Promise<Link> {
-    try {
-      const updateLinkDto = await this.linksService.validateLink(UpdateLinkDto, request)
-      return await this.linksService.update(id, updateLinkDto, file?.filename)
-    } catch (e) {
-      if (file) {
-        unlink(join(process.cwd(), '/static', file.filename), () => {})
-      }
-      throw e
-    }
+    return await this.linksService.update(id, updateLinkDto, file?.filename)
   }
 
   @Delete(':id')
