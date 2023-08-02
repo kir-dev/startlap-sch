@@ -5,6 +5,7 @@ import { IconInterceptor, IconValidators } from 'src/util/iconHelpers'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
+import { UpdateLinkDto } from './dto/update-link.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
 
@@ -44,7 +45,7 @@ export class LinksController {
   @UseFilters(DeleteFileExceptionFilter)
   async update(
     @Param('id') id: string,
-    @Body() updateLinkDto: CreateLinkDto,
+    @Body() updateLinkDto: UpdateLinkDto,
     @UploadedFile(
       new ParseFilePipe({
         validators: IconValidators,
