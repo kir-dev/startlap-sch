@@ -32,7 +32,7 @@ export class Link {
   @IsString()
   @IsNotEmpty()
   @Matches(/^[a-z-]+$/, {
-    message: 'Slug should only contain lowecase letters and dashes',
+    message: 'Slug should only contain lowercase letters and dashes',
   })
   slug: string
 
