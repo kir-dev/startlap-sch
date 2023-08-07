@@ -106,4 +106,57 @@ export class LinksService {
       throw new BadRequestException('Link validation failed!')
     }
   }
+
+  async visit(slug: string) {
+    const link = await this.prisma.link.findUnique({
+      where: { slug },
+    })
+    if (link !== null) {
+      await this.prisma.visit.create({
+        data: {
+          linkId: link.id,
+        },
+      })
+      return link
+    } else {
+      throw new NotFoundException('The slug you entered is not found!')
+    }
+  }
+
+  async trending() {
+    const numberOfTrendingLinks = 5
+    const trendingLinksInThePastDay = 7
+    const prevDate = new Date()
+    prevDate.setDate(prevDate.getDate() - trendingLinksInThePastDay)
+
+    const result = await this.prisma.link.findMany({
+      include: {
+        _count: {
+          select: {
+            visits: {
+              where: {
+                timeStamp: {
+                  lte: new Date(),
+                  gte: prevDate,
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        visits: {
+          _count: 'desc',
+        },
+      },
+      take: numberOfTrendingLinks,
+    })
+
+    const trendingLinks = result.map(({ _count, ...rest }) => ({
+      ...rest,
+      visits: _count.visits,
+    }))
+
+    return trendingLinks
+  }
 }

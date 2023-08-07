@@ -1,7 +1,9 @@
 {
-    "private": true,
-    "workspaces": ["packages/*"],
-    "scripts": {
-      "dev": "yarn workspace backend dev & yarn workspace @startlap-sch/client dev & yarn workspace admin dev"
-    }
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "yarn workspace backend dev & yarn workspace @startlap-sch/client dev & yarn workspace admin dev"
   }
+}
