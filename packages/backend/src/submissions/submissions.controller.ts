@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, NotFoundException } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger'
 import { SubmissionsService } from './submissions.service';
 import { CreateSubmissionDto } from './dto/create-submission.dto';
 import { UpdateSubmissionDto } from './dto/update-submission.dto';
@@ -6,6 +7,7 @@ import { Submission_Status } from '@prisma/client';
 import { SubmissionEntitiy } from './entities/submission.entity';
 
 @Controller('submissions')
+@ApiTags('submissions')
 export class SubmissionsController {
   constructor(private readonly submissionsService: SubmissionsService) {}
 

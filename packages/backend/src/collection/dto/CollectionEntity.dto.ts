@@ -16,6 +16,10 @@ export class CollectionEntity {
   @IsString()
   slug: string
 
+  @IsNotEmpty()
+  @IsString()
+  name: string
+
   //TODO replace string array with links array
   @ArrayMinSize(0)
   links: string[]

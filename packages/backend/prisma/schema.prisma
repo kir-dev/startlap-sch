@@ -2,26 +2,34 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Link {
-  id          String   @id @default(uuid())
+  id          String       @id @default(uuid())
   url         String
   title       String
-  slug        String   @unique
+  slug        String       @unique
   description String
   iconUrl     String?
   keywords    String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   collections Collection[]
-    Submission Submission[]
+  Submission  Submission[]
+  visits      Visit[]
+}
+
+model Visit {
+  id String           @id @default(uuid())
+  linkId String
+  link Link           @relation(fields: [linkId], references: [id])
+  timeStamp DateTime  @default(now())
 }
 
 model Collection {
@@ -39,17 +47,18 @@ model User {
 }
 
 model Submission {
-    id           String             @id @default(uuid())
-    old_link     Link?              @relation(fields: [linkId], references: [id])
-    linkId       String?
-    linkName     String
-    description  String
-    status       Submission_Status
-    adminComment String
+  id           String            @id @default(uuid())
+  oldLink      Link?             @relation(fields: [oldLinkId], references: [id])
+  oldLinkId    String?
+  linkName     String
+  url          String
+  description  String
+  status       SUBMISSION_STATUS
+  adminComment String?
 }
 
-enum Submission_Status {
-    IN_REVIEW
-    APPROVED
-    DECLINED
+enum SUBMISSION_STATUS {
+  IN_REVIEW
+  APPROVED
+  DECLINED
 }

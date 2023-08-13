@@ -7,7 +7,7 @@ import { CreateSubmissionDto } from './dto/create-submission.dto';
 
 @Injectable()
 export class SubmissionsService {
-  constructor(private prisma: PrismaService){}
+  constructor(private prisma: PrismaService) {}
 
   async create(data: CreateSubmissionDto) : Promise<SubmissionEntitiy> {
     try{
