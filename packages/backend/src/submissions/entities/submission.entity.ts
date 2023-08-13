@@ -1,25 +1,30 @@
-import { Submission_Status } from "@prisma/client"
-import { ArrayMinSize, IsEnum, IsNotEmpty, IsString, IsUUID, isNotEmpty, isString } from "class-validator"
+import { SUBMISSION_STATUS } from '@prisma/client'
+import { IsEnum, IsNotEmpty, IsString, IsUUID, IsUrl } from 'class-validator'
 
 export class SubmissionEntitiy {
-    @IsUUID()
-    id:string
+  @IsUUID()
+  id: string
 
-    @IsNotEmpty()
-    @IsString()
-    linkId:string
+  @IsNotEmpty()
+  @IsString()
+  oldLinkId: string
 
-    @IsString()
-    @IsNotEmpty()
-    linkName:string
+  @IsString()
+  @IsNotEmpty()
+  linkName: string
 
-    @IsNotEmpty()
-    @IsString()
-    description:string
+  @IsString()
+  @IsNotEmpty()
+  @IsUrl()
+  url: string
 
-    @IsString()
-    adminComment:string
+  @IsNotEmpty()
+  @IsString()
+  description: string
 
-    @IsEnum(Submission_Status)
-    status:Submission_Status
+  @IsString()
+  adminComment: string
+
+  @IsEnum(SUBMISSION_STATUS)
+  status: SUBMISSION_STATUS
 }

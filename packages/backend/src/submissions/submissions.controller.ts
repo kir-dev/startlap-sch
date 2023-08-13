@@ -1,10 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, NotFoundException } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { SubmissionsService } from './submissions.service';
-import { CreateSubmissionDto } from './dto/create-submission.dto';
-import { UpdateSubmissionDto } from './dto/update-submission.dto';
-import { Submission_Status } from '@prisma/client';
-import { SubmissionEntitiy } from './entities/submission.entity';
+import { SUBMISSION_STATUS } from '@prisma/client'
+import { CreateSubmissionDto } from './dto/create-submission.dto'
+import { UpdateSubmissionDto } from './dto/update-submission.dto'
+import { SubmissionsService } from './submissions.service'
 
 @Controller('submissions')
 @ApiTags('submissions')
@@ -13,7 +12,7 @@ export class SubmissionsController {
 
   @Post()
   create(@Body() data: CreateSubmissionDto) {
-    return this.submissionsService.create(data);
+    return this.submissionsService.create(data)
   }
 
   @Get()
@@ -32,17 +31,17 @@ export class SubmissionsController {
   }
 
   @Patch(':id')
-  async approve(@Param('id:', ParseUUIDPipe) id: string){
+  async approve(@Param('id:', ParseUUIDPipe) id: string) {
     const submission = await this.submissionsService.findOne(id)
-    submission.status = Submission_Status.APPROVED
-    return this.submissionsService.update(id,submission)
+    submission.status = SUBMISSION_STATUS.APPROVED
+    return this.submissionsService.update(id, submission)
   }
 
   @Patch(':id')
-  async decline(@Param('id:', ParseUUIDPipe) id: string){
+  async decline(@Param('id:', ParseUUIDPipe) id: string) {
     const submission = await this.submissionsService.findOne(id)
-    submission.status = Submission_Status.DECLINED
-    return this.submissionsService.update(id,submission)
+    submission.status = SUBMISSION_STATUS.DECLINED
+    return this.submissionsService.update(id, submission)
   }
 
   @Delete(':id')
