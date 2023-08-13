@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseFilePipe, Patch, Post, Query, UploadedFile, UseFilters, UseInterceptors } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, ParseFilePipe, Patch, Post, Res, Query, UploadedFile, UseFilters, UseInterceptors } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { DeleteFileExceptionFilter } from 'src/util/DeleteFileExceptionFilter'
 import { IconInterceptor, IconValidators } from 'src/util/iconHelpers'
@@ -6,6 +6,7 @@ import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
+import { Trending } from './dto/trending.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
 
@@ -33,6 +34,11 @@ export class LinksController {
   @Get()
   findAll(@Query() params: SearchLink): Promise<Link[]> {
     return this.linksService.findAll(params)
+  }
+
+  @Get('/trending')
+  trending(): Promise<Trending[]> {
+    return this.linksService.trending()
   }
 
   @Get(':id')
@@ -65,5 +71,11 @@ export class LinksController {
   @Get('/slug/:slug')
   checkSlug(@Param('slug') slug: string): Promise<slugAvailable> {
     return this.linksService.checkSlug(slug)
+  }
+
+  @Get('/visit/:slug')
+  async visit(@Param('slug') slug: string, @Res() res) {
+    const link = await this.linksService.visit(slug)
+    res.redirect(link.url)
   }
 }

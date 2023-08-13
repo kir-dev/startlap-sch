@@ -24,8 +24,6 @@ async function bootstrap() {
   fs.writeFileSync('./openapi.yaml', yaml.stringify(document, {}))
   SwaggerModule.setup('api', app, document)
 
-  const prismaService: PrismaService = app.get(PrismaService)
-  await prismaService.enableShutdownHooks(app)
   await app.listen(BACKEND_PORT)
 }
 
