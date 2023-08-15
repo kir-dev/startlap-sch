@@ -215,6 +215,12 @@ paths:
       responses:
         "200":
           description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Trending"
       tags: *a2
   "/links/{id}":
     get:
@@ -341,14 +347,10 @@ components:
           type: string
           description: The description corresponding to the link
           example: This is an example link
-        iconUrl:
-          type: string
-          description: The url to the icon corresponding to the link
-          example: https://example.com/icon.png
         keywords:
           description: Some keywords that describe the website
           example:
-            &a3
+            &a4
             - example
             - link
           type: array
@@ -359,7 +361,6 @@ components:
         - title
         - slug
         - description
-        - iconUrl
         - keywords
     Link:
       type: object
@@ -391,6 +392,7 @@ components:
         keywords:
           description: Some keywords that describe the website
           example:
+            &a3
             - example
             - link
           type: array
@@ -404,9 +406,13 @@ components:
         - description
         - iconUrl
         - keywords
-    UpdateLinkDto:
+    Trending:
       type: object
       properties:
+        id:
+          type: string
+          description: The unique identifier of the link
+          example: aaaaaaaa-bbbb-cccc-dddd-0123456789ab
         url:
           type: string
           description: The url to the link
@@ -430,6 +436,42 @@ components:
         keywords:
           description: Some keywords that describe the website
           example: *a3
+          type: array
+          items:
+            type: string
+        visits:
+          type: number
+      required:
+        - id
+        - url
+        - title
+        - slug
+        - description
+        - iconUrl
+        - keywords
+        - visits
+    UpdateLinkDto:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The url to the link
+          example: https://example.com
+        title:
+          type: string
+          description: The title of the link
+          example: Example Link
+        slug:
+          type: string
+          description: The slug corresponding to the link
+          example: example-link
+        description:
+          type: string
+          description: The description corresponding to the link
+          example: This is an example link
+        keywords:
+          description: Some keywords that describe the website
+          example: *a4
           type: array
           items:
             type: string
