@@ -1,5 +1,21 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Res } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseFilePipe,
+  Patch,
+  Post,
+  Res,
+  Query,
+  UploadedFile,
+  UseFilters,
+  UseInterceptors,
+} from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { DeleteFileExceptionFilter } from 'src/util/DeleteFileExceptionFilter'
+import { IconInterceptor, IconValidators } from 'src/util/iconHelpers'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
@@ -14,8 +30,19 @@ export class LinksController {
   constructor(private readonly linksService: LinksService) {}
 
   @Post()
-  create(@Body() createLinkDto: CreateLinkDto): Promise<Link> {
-    return this.linksService.create(createLinkDto)
+  @UseInterceptors(IconInterceptor)
+  @UseFilters(DeleteFileExceptionFilter)
+  async create(
+    @Body() createLinkDto: CreateLinkDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: IconValidators,
+        fileIsRequired: false,
+      })
+    )
+    file?: Express.Multer.File
+  ): Promise<Link> {
+    return await this.linksService.create(createLinkDto, file?.filename)
   }
 
   @Get()
@@ -34,8 +61,20 @@ export class LinksController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLinkDto: UpdateLinkDto): Promise<Link> {
-    return this.linksService.update(id, updateLinkDto)
+  @UseInterceptors(IconInterceptor)
+  @UseFilters(DeleteFileExceptionFilter)
+  async update(
+    @Param('id') id: string,
+    @Body() updateLinkDto: UpdateLinkDto,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: IconValidators,
+        fileIsRequired: false,
+      })
+    )
+    file?: Express.Multer.File
+  ): Promise<Link> {
+    return await this.linksService.update(id, updateLinkDto, file?.filename)
   }
 
   @Delete(':id')
