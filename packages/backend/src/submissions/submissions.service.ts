@@ -1,29 +1,60 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
+import { PrismaService } from 'nestjs-prisma'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
-import { PrismaService } from 'nestjs-prisma'
+import { SubmissionEntitiy } from './entities/submission.entity'
 
 @Injectable()
 export class SubmissionsService {
   constructor(private prisma: PrismaService) {}
 
-  create(createSubmissionDto: CreateSubmissionDto) {
-    return 'This action adds a new submission'
+  async create(data: CreateSubmissionDto): Promise<SubmissionEntitiy> {
+    try {
+      return await this.prisma.submission.create({ data })
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === 'P2002') {
+          throw new BadRequestException('Unique constraint violation')
+        }
+        throw e
+      }
+    }
   }
 
-  findAll() {
-    return `This action returns all submissions`
+  async findAll() {
+    return await this.prisma.submission.findMany()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} submission`
+  async findOne(id: string): Promise<SubmissionEntitiy> {
+    const submission = await this.prisma.submission.findUnique({
+      where: { id },
+    })
+    if (submission === null) {
+      throw new NotFoundException('Submission not found')
+    }
+    return submission
   }
 
-  update(id: number, updateSubmissionDto: UpdateSubmissionDto) {
-    return `This action updates a #${id} submission`
+  async update(id: string, data: UpdateSubmissionDto): Promise<SubmissionEntitiy> {
+    try {
+      const submission = await this.prisma.submission.update({ where: { id }, data })
+      if (submission === null) {
+        throw new BadRequestException('Record to update not found')
+      } else {
+        return submission
+      }
+    } catch (e) {
+      if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === 'P2002') {
+          throw new BadRequestException('Unique constraint violation')
+        }
+        throw e
+      }
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} submission`
+  remove(id: string): Promise<SubmissionEntitiy> {
+    return this.prisma.submission.delete({ where: { id } })
   }
 }
