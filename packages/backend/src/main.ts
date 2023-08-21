@@ -1,12 +1,11 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { PrismaService } from 'nestjs-prisma'
 import { AppModule } from './app.module'
 import { BACKEND_PORT } from './util/environment'
 
-const yaml = require('yaml')
-const fs = require('fs')
+// import yaml from 'yaml'
+// import fs from 'fs'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -21,7 +20,7 @@ async function bootstrap() {
   )
   const config = new DocumentBuilder().setTitle('Startlap SCH').setDescription('The Startlap SCH API description').setVersion('1.0').build()
   const document = SwaggerModule.createDocument(app, config)
-  fs.writeFileSync('./openapi.yaml', yaml.stringify(document, {}))
+  // fs.writeFileSync('./openapi.yaml', yaml.stringify(document, {}))
   SwaggerModule.setup('api', app, document)
 
   await app.listen(BACKEND_PORT)
