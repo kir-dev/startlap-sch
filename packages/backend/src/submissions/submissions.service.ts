@@ -11,7 +11,7 @@ export class SubmissionsService {
 
   async create(data: CreateSubmissionDto): Promise<SubmissionEntitiy> {
     try {
-      return await this.prisma.submission.create({ data })
+      return await this.prisma.submission.create({ data: { ...data, status: 'IN_REVIEW' } })
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {

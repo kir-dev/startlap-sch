@@ -1,5 +1,5 @@
 import { SUBMISSION_STATUS } from '@prisma/client'
-import { IsEnum, IsNotEmpty, IsString, IsUUID, IsUrl } from 'class-validator'
+import { ArrayMinSize, IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, IsUrl } from 'class-validator'
 
 export class SubmissionEntitiy {
   @IsUUID()
@@ -18,9 +18,22 @@ export class SubmissionEntitiy {
   @IsUrl()
   url: string
 
+  @IsString()
+  @IsNotEmpty()
+  slug: string
+
   @IsNotEmpty()
   @IsString()
   description: string
+
+  @IsString()
+  @IsOptional()
+  iconUrl?: string
+
+  @IsArray()
+  @IsString({ each: true })
+  @ArrayMinSize(1)
+  keywords: string[]
 
   @IsString()
   adminComment: string
