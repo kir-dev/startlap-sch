@@ -50,7 +50,7 @@ model Submission {
   id           String            @id @default(uuid())
   oldLink      Link?             @relation(fields: [oldLinkId], references: [id])
   oldLinkId    String?
-  linkName     String
+  title        String
   url          String
   slug         String
   description  String

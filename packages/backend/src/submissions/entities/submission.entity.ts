@@ -1,5 +1,5 @@
 import { SUBMISSION_STATUS } from '@prisma/client'
-import { ArrayMinSize, IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, IsUrl } from 'class-validator'
+import { ArrayMinSize, IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, IsUrl, Matches } from 'class-validator'
 
 export class SubmissionEntitiy {
   @IsUUID()
@@ -11,7 +11,7 @@ export class SubmissionEntitiy {
 
   @IsString()
   @IsNotEmpty()
-  linkName: string
+  title: string
 
   @IsString()
   @IsNotEmpty()
@@ -20,6 +20,9 @@ export class SubmissionEntitiy {
 
   @IsString()
   @IsNotEmpty()
+  @Matches(/^[a-z-]+$/, {
+    message: 'Slug should only contain lowecase letters and dashes',
+  })
   slug: string
 
   @IsNotEmpty()
