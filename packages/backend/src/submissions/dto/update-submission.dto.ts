@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/mapped-types'
-import { CreateSubmissionDto } from './create-submission.dto'
+import { SubmissionEntitiy } from '../entities/submission.entity'
 
-export class UpdateSubmissionDto extends PartialType(CreateSubmissionDto) {}
+export class UpdateSubmissionDto extends PartialType(SubmissionEntitiy) {}
