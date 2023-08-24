@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsUUID, ArrayMinSize } from 'class-validator'
+import { ArrayMinSize, IsNotEmpty, IsString, IsUUID, Matches } from 'class-validator'
 
 export class CollectionEntity {
   @IsUUID('all')
@@ -14,6 +14,9 @@ export class CollectionEntity {
 
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[a-z-]+$/, {
+    message: 'Slug should only contain lowercase letters and dashes',
+  })
   slug: string
 
   @IsNotEmpty()

@@ -34,10 +34,11 @@ model Visit {
 
 model Collection {
   id        String   @id @default(uuid())
-  links     Link[]
   iconUrl   String
   bannerUrl String
   slug      String
+  name      String
+  links     Link[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

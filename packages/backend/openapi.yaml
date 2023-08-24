@@ -1,0 +1,520 @@
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      operationId: AppController_getHello
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+  /collection:
+    get:
+      operationId: CollectionController_findAll
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    post:
+      operationId: CollectionController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCollectionDto"
+      responses:
+        "201":
+          description: ""
+  "/collection/{id}":
+    get:
+      operationId: CollectionController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+    patch:
+      operationId: CollectionController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCollectionDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: object
+    delete:
+      operationId: CollectionController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+  /submissions:
+    post:
+      operationId: SubmissionsController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSubmissionDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags:
+        &a1
+        - submissions
+    get:
+      operationId: SubmissionsController_findAll
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags: *a1
+  "/submissions/{id}":
+    get:
+      operationId: SubmissionsController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags: *a1
+    patch:
+      operationId: SubmissionsController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateSubmissionDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags: *a1
+    delete:
+      operationId: SubmissionsController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: string
+      tags: *a1
+  /links:
+    post:
+      operationId: LinksController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateLinkDto"
+      responses:
+        "201":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Link"
+      tags:
+        &a2
+        - links
+    get:
+      operationId: LinksController_findAll
+      parameters:
+        - name: term
+          required: false
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Link"
+      tags: *a2
+  /links/trending:
+    get:
+      operationId: LinksController_trending
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Trending"
+      tags: *a2
+  "/links/{id}":
+    get:
+      operationId: LinksController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Link"
+      tags: *a2
+    patch:
+      operationId: LinksController_update
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateLinkDto"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Link"
+      tags: *a2
+    delete:
+      operationId: LinksController_remove
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Link"
+      tags: *a2
+  "/links/slug/{slug}":
+    get:
+      operationId: LinksController_checkSlug
+      parameters:
+        - name: slug
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/slugAvailable"
+      tags: *a2
+  "/links/visit/{slug}":
+    get:
+      operationId: LinksController_visit
+      parameters:
+        - name: slug
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        "200":
+          description: ""
+      tags: *a2
+info:
+  title: Startlap SCH
+  description: The Startlap SCH API description
+  version: "1.0"
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    CreateCollectionDto:
+      type: object
+      properties:
+        iconUrl:
+          type: string
+        bannerUrl:
+          type: string
+        slug:
+          type: string
+          pattern: /^[a-z-]+$/
+        name:
+          type: string
+      required:
+        - iconUrl
+        - bannerUrl
+        - slug
+        - name
+    UpdateCollectionDto:
+      type: object
+      properties:
+        iconUrl:
+          type: string
+        bannerUrl:
+          type: string
+        slug:
+          type: string
+          pattern: /^[a-z-]+$/
+        name:
+          type: string
+    CreateSubmissionDto:
+      type: object
+      properties: {}
+    UpdateSubmissionDto:
+      type: object
+      properties: {}
+    CreateLinkDto:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The url to the link
+          example: https://example.com
+        title:
+          type: string
+          description: The title of the link
+          example: Example Link
+        slug:
+          type: string
+          description: The slug corresponding to the link
+          example: example-link
+          pattern: /^[a-z-]+$/
+        description:
+          type: string
+          description: The description corresponding to the link
+          example: This is an example link
+        iconUrl:
+          type: string
+          description: The url to the icon corresponding to the link
+          example: https://example.com/icon.png
+        keywords:
+          description: Some keywords that describe the website
+          example:
+            &a4
+            - example
+            - link
+          type: array
+          items:
+            type: string
+      required:
+        - url
+        - title
+        - slug
+        - description
+        - iconUrl
+        - keywords
+    Link:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the link
+          example: aaaaaaaa-bbbb-cccc-dddd-0123456789ab
+        url:
+          type: string
+          description: The url to the link
+          example: https://example.com
+        title:
+          type: string
+          description: The title of the link
+          example: Example Link
+        slug:
+          type: string
+          description: The slug corresponding to the link
+          example: example-link
+          pattern: /^[a-z-]+$/
+        description:
+          type: string
+          description: The description corresponding to the link
+          example: This is an example link
+        iconUrl:
+          type: string
+          description: The url to the icon corresponding to the link
+          example: https://example.com/icon.png
+        keywords:
+          description: Some keywords that describe the website
+          example:
+            &a3
+            - example
+            - link
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - url
+        - title
+        - slug
+        - description
+        - iconUrl
+        - keywords
+    Trending:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier of the link
+          example: aaaaaaaa-bbbb-cccc-dddd-0123456789ab
+        url:
+          type: string
+          description: The url to the link
+          example: https://example.com
+        title:
+          type: string
+          description: The title of the link
+          example: Example Link
+        slug:
+          type: string
+          description: The slug corresponding to the link
+          example: example-link
+          pattern: /^[a-z-]+$/
+        description:
+          type: string
+          description: The description corresponding to the link
+          example: This is an example link
+        iconUrl:
+          type: string
+          description: The url to the icon corresponding to the link
+          example: https://example.com/icon.png
+        keywords:
+          description: Some keywords that describe the website
+          example: *a3
+          type: array
+          items:
+            type: string
+        visits:
+          type: number
+      required:
+        - id
+        - url
+        - title
+        - slug
+        - description
+        - iconUrl
+        - keywords
+        - visits
+    UpdateLinkDto:
+      type: object
+      properties:
+        url:
+          type: string
+          description: The url to the link
+          example: https://example.com
+        title:
+          type: string
+          description: The title of the link
+          example: Example Link
+        slug:
+          type: string
+          description: The slug corresponding to the link
+          example: example-link
+          pattern: /^[a-z-]+$/
+        description:
+          type: string
+          description: The description corresponding to the link
+          example: This is an example link
+        iconUrl:
+          type: string
+          description: The url to the icon corresponding to the link
+          example: https://example.com/icon.png
+        keywords:
+          description: Some keywords that describe the website
+          example: *a4
+          type: array
+          items:
+            type: string
+    slugAvailable:
+      type: object
+      properties:
+        available:
+          type: boolean
+      required:
+        - available

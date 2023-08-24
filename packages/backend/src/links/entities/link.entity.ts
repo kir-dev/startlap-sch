@@ -1,4 +1,4 @@
-import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID } from 'class-validator'
+import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID, Matches } from 'class-validator'
 
 export class Link {
   /**
@@ -31,6 +31,9 @@ export class Link {
    */
   @IsString()
   @IsNotEmpty()
+  @Matches(/^[a-z-]+$/, {
+    message: 'Slug should only contain lowercase letters and dashes',
+  })
   slug: string
 
   /**
