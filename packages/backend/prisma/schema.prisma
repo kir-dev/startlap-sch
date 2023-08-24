@@ -26,10 +26,10 @@ model Link {
 }
 
 model Visit {
-  id String           @id @default(uuid())
-  linkId String
-  link Link           @relation(fields: [linkId], references: [id])
-  timeStamp DateTime  @default(now())
+  id        String   @id @default(uuid())
+  linkId    String
+  link      Link     @relation(fields: [linkId], references: [id])
+  timeStamp DateTime @default(now())
 }
 
 model Collection {
@@ -50,9 +50,12 @@ model Submission {
   id           String            @id @default(uuid())
   oldLink      Link?             @relation(fields: [oldLinkId], references: [id])
   oldLinkId    String?
-  linkName     String
+  title        String
   url          String
+  slug         String
   description  String
+  iconUrl      String?
+  keywords     String[]
   status       SUBMISSION_STATUS
   adminComment String?
 }
