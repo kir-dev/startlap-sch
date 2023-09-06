@@ -20,8 +20,8 @@ export class SubmissionsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.submissionsService.findOne(id)
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.submissionsService.findOne(id)
   }
 
   @Patch(':id')
@@ -29,13 +29,13 @@ export class SubmissionsController {
     return this.submissionsService.update(id, updateSubmissionDto)
   }
 
-  @Patch(':id')
-  async approve(@Param('id:', ParseUUIDPipe) id: string) {
+  @Patch('/approve/:id')
+  approve(@Param('id:', ParseUUIDPipe) id: string) {
     return this.submissionsService.approve(id)
   }
 
-  @Patch(':id')
-  async decline(@Param('id:', ParseUUIDPipe) id: string) {
+  @Patch('/decline/:id')
+  decline(@Param('id:', ParseUUIDPipe) id: string) {
     return this.submissionsService.decline(id)
   }
 

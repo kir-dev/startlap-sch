@@ -42,6 +42,7 @@ export class SubmissionsService {
     const submission = await this.prisma.submission.findUnique({
       where: { id },
     })
+    if (!submission) throw new NotFoundException('No submission found')
     if (submission.status !== SUBMISSION_STATUS.IN_REVIEW) {
       throw new BadRequestException('This submission has already been closed')
     }
