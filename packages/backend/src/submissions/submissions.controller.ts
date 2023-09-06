@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { SUBMISSION_STATUS } from '@prisma/client'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
 import { SubmissionsService } from './submissions.service'
@@ -32,16 +31,12 @@ export class SubmissionsController {
 
   @Patch(':id')
   async approve(@Param('id:', ParseUUIDPipe) id: string) {
-    const submission = await this.submissionsService.findOne(id)
-    submission.status = SUBMISSION_STATUS.APPROVED
-    return this.submissionsService.update(id, submission)
+    return this.submissionsService.approve(id)
   }
 
   @Patch(':id')
   async decline(@Param('id:', ParseUUIDPipe) id: string) {
-    const submission = await this.submissionsService.findOne(id)
-    submission.status = SUBMISSION_STATUS.DECLINED
-    return this.submissionsService.update(id, submission)
+    return this.submissionsService.decline(id)
   }
 
   @Delete(':id')

@@ -38,30 +38,32 @@ export class SubmissionsService {
     return submission
   }
 
-  async update(id: string, data: UpdateSubmissionDto): Promise<SubmissionEntitiy | Link> {
-    try {
-      const submission = await this.prisma.submission.update({ where: { id }, data })
-      if (submission === null) {
-        throw new BadRequestException('Record to update not found')
-      } else {
-        if (data.status === SUBMISSION_STATUS.APPROVED) {
-          const { adminComment, status, oldLinkId, id, ...linkData } = submission
-          if (submission.oldLinkId) {
-            return this.prisma.link.update({ where: { id: oldLinkId }, data: linkData })
-          }
-          const link = await this.prisma.link.create({ data: linkData })
-          this.prisma.submission.update({ where: { id }, data: { oldLinkId: link.id } })
-          return link
-        }
-      }
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        if (e.code === 'P2002') {
-          throw new BadRequestException('Unique constraint violation')
-        }
-        throw e
-      }
+  async update(id: string, data: UpdateSubmissionDto): Promise<SubmissionEntitiy> {
+    const submission = await this.prisma.submission.findUnique({
+      where: { id },
+    })
+    if (submission.status !== SUBMISSION_STATUS.IN_REVIEW) {
+      throw new BadRequestException('This submission has already been closed')
     }
+    return this.prisma.submission.update({ where: { id }, data })
+  }
+  async approve(subIid: string): Promise<Link> {
+    const submission = await this.prisma.submission.findUnique({
+      where: { id: subIid },
+    })
+    const { adminComment, status, oldLinkId, id, ...linkData } = submission
+    if (submission.oldLinkId) {
+      return this.prisma.link.update({ where: { id: oldLinkId }, data: linkData })
+    }
+    const link = await this.prisma.link.create({ data: linkData })
+    this.prisma.submission.update({ where: { id }, data: { oldLinkId: link.id, status: SUBMISSION_STATUS.APPROVED } })
+    return link
+  }
+  async decline(id: string): Promise<SubmissionEntitiy> {
+    return this.prisma.submission.update({
+      where: { id },
+      data: { status: SUBMISSION_STATUS.DECLINED },
+    })
   }
 
   remove(id: string): Promise<SubmissionEntitiy> {
