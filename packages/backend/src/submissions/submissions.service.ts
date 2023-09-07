@@ -48,10 +48,13 @@ export class SubmissionsService {
     }
     return this.prisma.submission.update({ where: { id }, data })
   }
-  async approve(subIid: string): Promise<Link> {
+  async approve(subId: string): Promise<Link> {
     const submission = await this.prisma.submission.findUnique({
-      where: { id: subIid },
+      where: { id: subId },
     })
+    if (submission.status !== SUBMISSION_STATUS.IN_REVIEW) {
+      throw new BadRequestException('This submission has already been closed')
+    }
     const { adminComment, status, oldLinkId, id, ...linkData } = submission
     if (submission.oldLinkId) {
       return this.prisma.link.update({ where: { id: oldLinkId }, data: linkData })
@@ -61,6 +64,12 @@ export class SubmissionsService {
     return link
   }
   async decline(id: string): Promise<SubmissionEntitiy> {
+    const submission = await this.prisma.submission.findUnique({
+      where: { id },
+    })
+    if (submission.status !== SUBMISSION_STATUS.IN_REVIEW) {
+      throw new BadRequestException('This submission has already been closed')
+    }
     return this.prisma.submission.update({
       where: { id },
       data: { status: SUBMISSION_STATUS.DECLINED },
