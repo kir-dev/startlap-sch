@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
-import { LinksService } from 'src/links/links.service'
+import { PrismaService } from 'nestjs-prisma'
 import { SubmissionsController } from './submissions.controller'
 import { SubmissionsService } from './submissions.service'
 
 @Module({
   controllers: [SubmissionsController],
-  providers: [SubmissionsService, LinksService],
+  providers: [SubmissionsService, PrismaService],
 })
 export class SubmissionsModule {}

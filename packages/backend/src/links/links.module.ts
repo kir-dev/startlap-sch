@@ -7,6 +7,5 @@ import { LinksService } from './links.service'
   controllers: [LinksController],
   providers: [LinksService],
   imports: [PrismaModule],
-  exports: [LinksService],
 })
 export class LinksModule {}

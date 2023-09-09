@@ -31,13 +31,13 @@ export class SubmissionsController {
     return this.submissionsService.update(id, updateSubmissionDto)
   }
 
-  @Patch('/approve/:id')
-  approve(@Param('id:', ParseUUIDPipe) id: string): Promise<Link> {
+  @Patch('/:id/approve')
+  approve(@Param('id', ParseUUIDPipe) id: string): Promise<Link> {
     return this.submissionsService.approve(id)
   }
 
-  @Patch('/decline/:id')
-  decline(@Param('id:', ParseUUIDPipe) id: string): Promise<SubmissionEntitiy> {
+  @Patch('/:id/decline')
+  decline(@Param('id', ParseUUIDPipe) id: string): Promise<SubmissionEntitiy> {
     return this.submissionsService.decline(id)
   }
 

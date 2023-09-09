@@ -2,14 +2,13 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { Prisma, SUBMISSION_STATUS } from '@prisma/client'
 import { PrismaService } from 'nestjs-prisma'
 import { Link } from 'src/links/entities/link.entity'
-import { LinksService } from 'src/links/links.service'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
 import { SubmissionEntitiy } from './entities/submission.entity'
 
 @Injectable()
 export class SubmissionsService {
-  constructor(private prisma: PrismaService, private linksService: LinksService) {}
+  constructor(private prisma: PrismaService) {}
 
   async create(data: CreateSubmissionDto): Promise<SubmissionEntitiy> {
     try {
@@ -56,12 +55,21 @@ export class SubmissionsService {
       throw new BadRequestException('This submission has already been closed')
     }
     const { adminComment, status, oldLinkId, id, ...linkData } = submission
-    if (submission.oldLinkId) {
-      return this.prisma.link.update({ where: { id: oldLinkId }, data: linkData })
+    try {
+      if (submission.oldLinkId) {
+        await this.prisma.submission.update({ where: { id }, data: { status: SUBMISSION_STATUS.APPROVED } })
+        return this.prisma.link.update({ where: { id: oldLinkId }, data: { ...linkData } })
+      } else {
+        const link = await this.prisma.link.create({ data: linkData })
+        await this.prisma.submission.update({ where: { id }, data: { status: SUBMISSION_STATUS.APPROVED } })
+        return link
+      }
+    } catch (e) {
+      if (e.code === 'P2002') {
+        throw new BadRequestException('Unique constraint violation')
+      }
+      throw e
     }
-    const link = await this.prisma.link.create({ data: linkData })
-    this.prisma.submission.update({ where: { id }, data: { oldLinkId: link.id, status: SUBMISSION_STATUS.APPROVED } })
-    return link
   }
   async decline(id: string): Promise<SubmissionEntitiy> {
     const submission = await this.prisma.submission.findUnique({
