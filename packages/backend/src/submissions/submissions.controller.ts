@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { SUBMISSION_STATUS } from '@prisma/client'
+import { Link } from 'src/links/entities/link.entity'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
+import { SubmissionEntitiy } from './entities/submission.entity'
 import { SubmissionsService } from './submissions.service'
 
 @Controller('submissions')
@@ -21,8 +22,8 @@ export class SubmissionsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.submissionsService.findOne(id)
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
+    return this.submissionsService.findOne(id)
   }
 
   @Patch(':id')
@@ -30,18 +31,14 @@ export class SubmissionsController {
     return this.submissionsService.update(id, updateSubmissionDto)
   }
 
-  @Patch(':id')
-  async approve(@Param('id:', ParseUUIDPipe) id: string) {
-    const submission = await this.submissionsService.findOne(id)
-    submission.status = SUBMISSION_STATUS.APPROVED
-    return this.submissionsService.update(id, submission)
+  @Patch('/:id/approve')
+  approve(@Param('id', ParseUUIDPipe) id: string): Promise<Link> {
+    return this.submissionsService.approve(id)
   }
 
-  @Patch(':id')
-  async decline(@Param('id:', ParseUUIDPipe) id: string) {
-    const submission = await this.submissionsService.findOne(id)
-    submission.status = SUBMISSION_STATUS.DECLINED
-    return this.submissionsService.update(id, submission)
+  @Patch('/:id/decline')
+  decline(@Param('id', ParseUUIDPipe) id: string): Promise<SubmissionEntitiy> {
+    return this.submissionsService.decline(id)
   }
 
   @Delete(':id')

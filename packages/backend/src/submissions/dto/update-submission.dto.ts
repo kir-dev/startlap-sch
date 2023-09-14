@@ -1,4 +1,4 @@
 import { PartialType } from '@nestjs/swagger'
-import { SubmissionEntitiy } from '../entities/submission.entity'
+import { CreateSubmissionDto } from './create-submission.dto'
 
-export class UpdateSubmissionDto extends PartialType(SubmissionEntitiy) {}
+export class UpdateSubmissionDto extends PartialType(CreateSubmissionDto) {}

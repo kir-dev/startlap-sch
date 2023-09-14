@@ -7,6 +7,7 @@ export class SubmissionEntitiy {
 
   @IsNotEmpty()
   @IsString()
+  @IsOptional()
   oldLinkId: string
 
   @IsString()
