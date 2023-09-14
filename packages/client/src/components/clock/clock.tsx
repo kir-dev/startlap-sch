@@ -1,10 +1,43 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+
+type funFact = {
+  year: number;
+  text: string;
+};
 
 export default function Clock() {
   const [dateState, setDateState] = useState(new Date());
+  const [onThisDayEvent, setOnThisDayEvent] = useState<funFact>({
+    year: 2000,
+    text: "asd",
+  });
+  const url_base =
+    "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/";
+
   useEffect(() => {
-    setInterval(() => setDateState(new Date()), 30000);
+    const intervalId = setInterval(() => setDateState(new Date()), 15 * 1000);
+    fetchOnThisDayAPI();
+    //return () => clearInterval(intervalId);
   }, []);
+
+  const fetchOnThisDayAPI = async () => {
+    console.log("funFact called");
+    axios
+      .get(url_base + (dateState.getMonth() + 1) + "/" + dateState.getDay())
+      .then((response) => {
+        const event =
+          response.data.events[
+            Math.floor(Math.random() * response.data.events.length)
+          ];
+        setOnThisDayEvent({
+          text: event.text,
+          year: event.year,
+        });
+        //);
+      });
+  };
+
   const datestr = `${dateState
     .toLocaleDateString("hu-HU", {
       dateStyle: "short",
@@ -34,11 +67,14 @@ export default function Clock() {
         </div>
         <div className="flex w-fit">
           <div>
-            <h5 className="text-base text-gray-500">1969.07.20. Sunday</h5>
+            <h5 className="text-base text-gray-500"> </h5>
           </div>
           <div className="w-40  ">
             <p className="ml-4   text-xs text-gray-500">
-              Neil Armstrong & Buzz Aldrin land on the Moon
+              {`${
+                onThisDayEvent.year
+              }.${dateState.getMonth()}.${dateState.getDay()}\n
+              ${onThisDayEvent.text}`}
             </p>
           </div>
         </div>

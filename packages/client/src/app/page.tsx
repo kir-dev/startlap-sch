@@ -8,8 +8,8 @@ import { DummyLinks } from "@/mocks/links.mock";
 export default function Home() {
   return (
     <main className="min-h-screen overflow-y-hidden">
-      <Wallpaper></Wallpaper>
-      <Clock></Clock>
+      <Wallpaper />
+      <Clock />
 
       <h1>StartlapSCH</h1>
       <FavLinksContainer
