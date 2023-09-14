@@ -1,7 +1,7 @@
 import { Link as linkEntity } from "backend/src/links/entities/link.entity";
 
 export const DummyLink: linkEntity = {
-  id: "asdasd",
+  id: "asdasd1",
   url: "https://kir-dev.hu",
   title: "Kir-Dev",
   slug: "example-link",
@@ -11,7 +11,7 @@ export const DummyLink: linkEntity = {
   keywords: ["example", "link"],
 };
 export const DummyLink2: linkEntity = {
-  id: "asdasd",
+  id: "asdasd2",
   url: "https://google.com",
   title: "Google",
   slug: "example-link",
@@ -23,7 +23,7 @@ export const DummyLink2: linkEntity = {
 
 export const DummyLinks: linkEntity[] = [
   {
-    id: "asdasd",
+    id: "asdasd3",
     url: "https://kir-dev.hu",
     title: "Kir-Dev",
     slug: "example-link",
@@ -32,7 +32,7 @@ export const DummyLinks: linkEntity[] = [
     keywords: ["example", "link"],
   },
   {
-    id: "asdasd",
+    id: "asdasd4",
     url: "https://vik.hk",
     title: "VIK Hallgatói Képviselet",
     slug: "example-link",
@@ -42,7 +42,7 @@ export const DummyLinks: linkEntity[] = [
     keywords: ["example", "link"],
   },
   {
-    id: "asdasd",
+    id: "asdasd5",
     url: "https://tanulo.sch.bme.hu",
     title: "TanuloSCH",
     slug: "example-link",
@@ -51,7 +51,7 @@ export const DummyLinks: linkEntity[] = [
     keywords: ["example", "link"],
   },
   {
-    id: "asdasd",
+    id: "asdasd6",
     url: "https://schpincer.sch.bme.hu",
     title: "SCHPincér",
     slug: "example-link",
@@ -60,7 +60,7 @@ export const DummyLinks: linkEntity[] = [
     keywords: ["example", "link"],
   },
   {
-    id: "asdasd",
+    id: "asdasd7",
     url: "https://www.vik.bme.hu/",
     title: "BME VIK",
     slug: "example-link",
@@ -70,7 +70,7 @@ export const DummyLinks: linkEntity[] = [
     keywords: ["example", "link"],
   },
   {
-    id: "asdasd",
+    id: "asdasd8",
     url: "https://konzi.kir-dev.hu/",
     title: "KonziSite",
     slug: "example-link",
@@ -79,7 +79,7 @@ export const DummyLinks: linkEntity[] = [
     keywords: ["example", "link"],
   },
   {
-    id: "asdasd",
+    id: "asdasd9",
     url: "https://bazsalikom.sch.bme.hu/",
     title: "Bazsalikom",
     slug: "example-link",

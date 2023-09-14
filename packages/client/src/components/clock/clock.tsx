@@ -8,7 +8,7 @@ type funFact = {
 
 export default function Clock() {
   const [dateState, setDateState] = useState(new Date());
-  const [onThisDayEvent, setOnThisDayEvent] = useState<string>("");
+  const [onThisDayEvent, setOnThisDayEvent] = useState<funFact | undefined>();
   const url_base =
     "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/";
 
@@ -19,18 +19,31 @@ export default function Clock() {
     //return () => clearInterval(intervalId);
   }, []);
 
+  const fillWith0 = (input: number, neededLength: number) => {
+    if (input.toString().length >= neededLength) return input.toString();
+
+    const addedCount = neededLength - input.toString().length;
+    let answer = "";
+    for (let i = 0; i < addedCount; i++) {
+      answer += "0";
+    }
+    answer += input.toString();
+
+    return answer;
+  };
   const fetchOnThisDayAPI = async () => {
     axios
       .get(`${url_base}${dateState.getMonth() + 1}/${dateState.getDate()}`)
       .then((response) => {
-        const event =
+        const chosenEvent =
           response.data.events[
             Math.floor(Math.random() * response.data.events.length)
           ];
-        setOnThisDayEvent(`${event.year}.${
-          dateState.getMonth() + 1
-        }.${dateState.getDate()} \n
-        ${event.text}`);
+        const separatedEvent: funFact = {
+          text: chosenEvent.text,
+          year: chosenEvent.year,
+        };
+        setOnThisDayEvent(separatedEvent);
       });
   };
 
@@ -63,10 +76,22 @@ export default function Clock() {
         </div>
         <div className="flex w-fit">
           <div>
-            <h5 className="text-base text-gray-500"> </h5>
+            <h5 className="text-base text-gray-500">
+              {" "}
+              {typeof onThisDayEvent === "undefined"
+                ? ""
+                : fillWith0(onThisDayEvent.year, 4) +
+                  "." +
+                  fillWith0(dateState.getMonth() + 1, 2) +
+                  "." +
+                  fillWith0(dateState.getDate(), 2) +
+                  "."}
+            </h5>
           </div>
-          <div className="w-40  ">
-            <p className="ml-4   text-xs text-gray-500">{onThisDayEvent}</p>
+          <div className="h-20 w-40 overflow-ellipsis">
+            <p className="ml-2 h-1 overflow-ellipsis text-xs text-gray-500 ">
+              {typeof onThisDayEvent === "undefined" ? "" : onThisDayEvent.text}
+            </p>
           </div>
         </div>
       </div>
