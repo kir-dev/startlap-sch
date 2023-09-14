@@ -8,33 +8,29 @@ type funFact = {
 
 export default function Clock() {
   const [dateState, setDateState] = useState(new Date());
-  const [onThisDayEvent, setOnThisDayEvent] = useState<funFact>({
-    year: 2000,
-    text: "asd",
-  });
+  const [onThisDayEvent, setOnThisDayEvent] = useState<string>("");
   const url_base =
     "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/";
 
   useEffect(() => {
     const intervalId = setInterval(() => setDateState(new Date()), 15 * 1000);
+    setDateState(new Date());
     fetchOnThisDayAPI();
     //return () => clearInterval(intervalId);
   }, []);
 
   const fetchOnThisDayAPI = async () => {
-    console.log("funFact called");
     axios
-      .get(url_base + (dateState.getMonth() + 1) + "/" + dateState.getDay())
+      .get(`${url_base}${dateState.getMonth() + 1}/${dateState.getDate()}`)
       .then((response) => {
         const event =
           response.data.events[
             Math.floor(Math.random() * response.data.events.length)
           ];
-        setOnThisDayEvent({
-          text: event.text,
-          year: event.year,
-        });
-        //);
+        setOnThisDayEvent(`${event.year}.${
+          dateState.getMonth() + 1
+        }.${dateState.getDate()} \n
+        ${event.text}`);
       });
   };
 
@@ -70,12 +66,7 @@ export default function Clock() {
             <h5 className="text-base text-gray-500"> </h5>
           </div>
           <div className="w-40  ">
-            <p className="ml-4   text-xs text-gray-500">
-              {`${
-                onThisDayEvent.year
-              }.${dateState.getMonth()}.${dateState.getDay()}\n
-              ${onThisDayEvent.text}`}
-            </p>
+            <p className="ml-4   text-xs text-gray-500">{onThisDayEvent}</p>
           </div>
         </div>
       </div>
