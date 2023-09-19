@@ -1,4 +1,4 @@
-import "./sajat.css";
+import "../../app/globals.css";
 
 import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
 import Link from "next/link";

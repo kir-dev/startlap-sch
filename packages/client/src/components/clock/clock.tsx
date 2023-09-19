@@ -12,13 +12,6 @@ export default function Clock() {
   const url_base =
     "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/";
 
-  useEffect(() => {
-    const intervalId = setInterval(() => setDateState(new Date()), 15 * 1000);
-    setDateState(new Date());
-    fetchOnThisDayAPI();
-    //return () => clearInterval(intervalId);
-  }, []);
-
   const fillWith0 = (input: number, neededLength: number) => {
     if (input.toString().length >= neededLength) return input.toString();
 
@@ -58,9 +51,18 @@ export default function Clock() {
     hour: "2-digit",
     minute: "2-digit",
   })}`;
+
+  useEffect(() => {
+    const intervalId = setInterval(() => setDateState(new Date()), 15 * 1000);
+
+    fetchOnThisDayAPI();
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className="z-50 flex w-full justify-center pt-4 ">
-      <div className="m-1 w-fit">
+      <div className="m-1  w-fit">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="36"

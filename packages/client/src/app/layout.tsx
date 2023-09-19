@@ -1,9 +1,9 @@
 import "./globals.css";
 
-import { Inter } from "next/font/google";
+import { Work_Sans } from "next/font/google";
 import { ReactNode } from "react";
 
-const inter = Inter({ subsets: ["latin"] });
+const WorkSans = Work_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "StartlapSCH",
@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="hu">
-      <body className={inter.className}>{children}</body>
+      <body className={WorkSans.className}>{children}</body>
     </html>
   );
 }
