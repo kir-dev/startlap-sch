@@ -1,9 +1,25 @@
-import clsx from 'clsx'
+"use client";
+import Clock from "@/components/clock/clock";
+import FavLinksContainer from "@/components/links/favLinksContainer";
+import Wallpaper from "@/components/wallpaper/wallpaper";
+// import { DummyLink, DummyLink2 } from "@/mocks/links.mock";
+import { DummyLinks } from "@/mocks/links.mock";
 
 export default function Home() {
   return (
-    <main className='flex min-h-screen flex-col items-center justify-center'>
-      <h1 className={clsx('text-2xl')}>Hajrá Srácok!</h1>
+    <main className="min-h-screen overflow-y-hidden">
+      <Wallpaper />
+      <Clock />
+
+      <h1>StartlapSCH</h1>
+      <FavLinksContainer
+        links={DummyLinks}
+        title="Kedvencek"
+      ></FavLinksContainer>
+      <FavLinksContainer
+        links={DummyLinks}
+        title="Felkapottak"
+      ></FavLinksContainer>
     </main>
-  )
+  );
 }
