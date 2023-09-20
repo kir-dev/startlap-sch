@@ -3,7 +3,7 @@ import clsx from 'clsx'
 
 import Clock from "@/components/clock/clock";
 import FavLinksContainer from "@/components/links/favLinksContainer";
-import Navbar from "@/components/navbar/main-nav";
+import Navbar from "@/components/navbar/navbar";
 import Wallpaper from "@/components/wallpaper/wallpaper";
 import { DummyLinks } from "@/mocks/links.mock";
 
