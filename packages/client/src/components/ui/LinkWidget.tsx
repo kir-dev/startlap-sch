@@ -16,13 +16,15 @@ export default function LinkWidget(props: Props) {
       className="flex-no-wrap bg-blue inline-block flex w-80 flex-col items-center overflow-hidden rounded-xl p-2"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      {/*have changed cover image to solid color, maybe should be dependent on the link entity*/}
+      {/*      <img
         className="-z-1 -mb-3 flex h-8 w-full flex-row items-center rounded-t-xl"
         src={
           "https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg"
         }
         alt="felso sav"
-      />
+      />*/}
+      <div className="-z-1 -mb-3 flex h-8 w-full flex-row items-center rounded-t-xl bg-red-400"></div>
 
       <div className="h-35 w-full overflow-hidden rounded-xl bg-white p-2">
         <div className=" flex flex-grow flex-row">
