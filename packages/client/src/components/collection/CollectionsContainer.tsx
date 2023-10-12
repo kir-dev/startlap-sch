@@ -2,6 +2,7 @@ import { clsx } from "clsx";
 
 import { CollectionListItem } from "@/components/collection/CollectionListItem";
 import { Collection as CollectionEntity } from "@/types/collection.type";
+import React from "react";
 
 interface Props {
   collections: CollectionEntity[];

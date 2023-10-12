@@ -12,8 +12,6 @@ export default async function Collections() {
       <Clock />
       <h1>Kollekciók</h1>
       <CollectionsContainer collections={DummyCollections} />
-      <CollectionsContainer collections={DummyCollections} />
-      <CollectionsContainer collections={DummyCollections} />
     </main>
   );
 }
