@@ -1,7 +1,7 @@
 import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
 import { useEffect, useRef } from "react";
 
-import LinkWidget from "@/components/ui/LinkWidget";
+import LinkWidget from "@/components/links/LinkWidget";
 
 interface Props {
   links: LinkEntity[];
