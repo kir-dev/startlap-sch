@@ -18,3 +18,13 @@ export const CollectionMock2: Collection = {
   name: "Simonyi",
   links: ["234"],
 };
+
+export const CollectionMock3: Collection = {
+  id: "001",
+  iconUrl: "https://images.unsplash.com/photo-1550148052-b28769d7918c",
+  bannerUrl:
+    "https://images.unsplash.com/photo-1688551658116-f2be980a75b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80",
+  slug: "001",
+  name: "Kolis élet",
+  links: ["236"],
+};
