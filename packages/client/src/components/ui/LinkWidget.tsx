@@ -24,7 +24,7 @@ export default function LinkWidget(props: Props) {
         }
         alt="felso sav"
       />*/}
-      <div className="-z-1 -mb-3 flex h-8 w-full flex-row items-center rounded-t-xl bg-red-400"></div>
+      <div className="-z-1 -mb-3 flex h-6 w-full flex-row items-center rounded-t-xl bg-red-400"></div>
 
       <div className="h-35 w-full overflow-hidden rounded-xl bg-white p-2">
         <div className=" flex flex-grow flex-row">
