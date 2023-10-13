@@ -14,6 +14,7 @@ export default function CollectionsContainer({ collections }: Props) {
   function Filter(searchPhrase: string) {
     setFilteredCollection(
       collections.filter((cur) => {
+        if (searchPhrase == "") return true;
         return cur.name.toLowerCase().includes(searchPhrase);
       })
     );
