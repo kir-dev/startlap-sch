@@ -9,7 +9,7 @@ export default function Collections() {
     <main className="min-h-screen">
       <Wallpaper />
       <Clock />
-      <h1>Kollekciók</h1>
+
       <CollectionsContainer collections={DummyCollections} />
     </main>
   );

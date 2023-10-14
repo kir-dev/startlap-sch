@@ -8,24 +8,43 @@ import { Collection as CollectionEntity } from "@/types/collection.type";
 interface Props {
   collections: CollectionEntity[];
 }
+
 export default function CollectionsContainer({ collections }: Props) {
   const [filteredCollections, setFilteredCollection] = useState(collections);
 
   function Filter(searchPhrase: string) {
-    setFilteredCollection(
-      collections.filter((cur) => {
-        if (searchPhrase == "") return true;
-        return cur.name.toLowerCase().includes(searchPhrase);
-      })
-    );
+    if (searchPhrase == "") {
+      setFilteredCollection(collections);
+    } else {
+      setFilteredCollection(
+        collections.filter((cur) => {
+          return cur.name.toLowerCase().includes(searchPhrase);
+        })
+      );
+    }
   }
 
   return (
-    <main className={clsx("flex flex-wrap justify-center p-4")}>
-      <SearchField onSubmit={Filter} searchTerm={""}></SearchField>
-      {filteredCollections.map((curCollection) => (
-        <CollectionListItem collection={curCollection} key={curCollection.id} />
-      ))}
-    </main>
+    <>
+      <table className="w-full">
+        <tr className="justify-center">
+          <td>
+            <h1 className="m-2 ml-8">Kollekciók</h1>
+          </td>
+          <td>
+            <SearchField onSubmit={Filter} searchTerm={""}></SearchField>
+          </td>
+        </tr>
+        <tr></tr>
+      </table>
+      <div className={clsx("flex flex-wrap justify-start p-4")}>
+        {filteredCollections.map((curCollection) => (
+          <CollectionListItem
+            collection={curCollection}
+            key={curCollection.id}
+          />
+        ))}
+      </div>
+    </>
   );
 }

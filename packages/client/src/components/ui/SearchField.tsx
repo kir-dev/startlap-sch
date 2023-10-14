@@ -9,18 +9,18 @@ export default function SearchField(props: searchProps) {
   const [searchTerm, setSearchTerm] = useState(props.searchTerm);
 
   return (
-    <div className="absolute right-8 top-8 m-2 flex w-min flex-row items-center justify-center">
+    <div className="float-right m-2 mr-8">
       <input
-        className="m-3 h-10 rounded-2xl border-2 border-black bg-none p-5 text-lg focus:outline-none"
+        className="m-3 h-10 w-80 rounded-2xl border-2 border-black bg-none p-5 text-lg focus:outline-none"
         type="search"
         name="search"
         placeholder="Keresés"
         value={searchTerm}
         //onChange={(e) => setSearchTerm(e.target.value)}
-        //todo for some reason the filtering does not cancel if i delete the search phrase
         onChange={(e) => {
           setSearchTerm(e.target.value);
-          props.onSubmit(searchTerm);
+          //todo should use searchterm as onsubmit's argument, within a then chain or something like that??
+          props.onSubmit(e.target.value);
         }}
       />
     </div>

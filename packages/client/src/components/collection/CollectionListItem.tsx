@@ -17,7 +17,7 @@ export function CollectionListItem({ collection }: Props) {
   return (
     <Link
       href={"/collection/" + collection.id}
-      className="flex-no-wrap bg-blue relative inline-block inline flex w-96 flex-col items-center overflow-hidden rounded-xl p-2"
+      className="flex-no-wrap bg-blue relative m-2 inline-block inline flex w-96 flex-col items-center overflow-hidden rounded-xl p-2"
     >
       <div className="-z-1 -mb-3 flex h-6 w-full flex-row items-center rounded-t-xl bg-red-400"></div>
       <Image
