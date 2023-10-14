@@ -2,8 +2,8 @@ import { clsx } from "clsx";
 import React, { useState } from "react";
 
 import { CollectionListItem } from "@/components/collection/CollectionListItem";
-import SearchField from "@/components/ui/SearchField";
 import { Collection as CollectionEntity } from "@/types/collection.type";
+import SearchField from "@/components/ui/SearchField";
 
 interface Props {
   collections: CollectionEntity[];
@@ -27,15 +27,16 @@ export default function CollectionsContainer({ collections }: Props) {
   return (
     <>
       <table className="w-full">
-        <tr className="justify-center">
-          <td>
-            <h1 className="m-2 ml-8">Kollekciók</h1>
-          </td>
-          <td>
-            <SearchField onSubmit={Filter} searchTerm={""}></SearchField>
-          </td>
-        </tr>
-        <tr></tr>
+        <tbody>
+          <tr className="justify-center">
+            <td>
+              <h1 className="m-2 ml-8">Kollekciók</h1>
+            </td>
+            <td>
+              <SearchField onSubmit={Filter} searchTerm={""}></SearchField>
+            </td>
+          </tr>
+        </tbody>
       </table>
       <div className={clsx("flex flex-wrap justify-start p-4")}>
         {filteredCollections.map((curCollection) => (
