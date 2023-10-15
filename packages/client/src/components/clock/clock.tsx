@@ -51,7 +51,7 @@ export default function Clock() {
     hour: "2-digit",
     minute: "2-digit",
   })}`;
-  //
+
   useEffect(() => {
     const intervalId = setInterval(() => setDateState(new Date()), 15 * 1000);
 

@@ -2,8 +2,8 @@ import { clsx } from "clsx";
 import React, { useState } from "react";
 
 import { CollectionListItem } from "@/components/collection/CollectionListItem";
-import { Collection as CollectionEntity } from "@/types/collection.type";
 import SearchField from "@/components/ui/SearchField";
+import { Collection as CollectionEntity } from "@/types/collection.type";
 
 interface Props {
   collections: CollectionEntity[];
@@ -17,9 +17,9 @@ export default function CollectionsContainer({ collections }: Props) {
       setFilteredCollection(collections);
     } else {
       setFilteredCollection(
-        collections.filter((cur) => {
-          return cur.name.toLowerCase().includes(searchPhrase);
-        })
+        collections.filter((cur) =>
+          cur.name.toLowerCase().includes(searchPhrase)
+        )
       );
     }
   }
@@ -33,7 +33,7 @@ export default function CollectionsContainer({ collections }: Props) {
               <h1 className="m-2 ml-8">Kollekciók</h1>
             </td>
             <td>
-              <SearchField onSubmit={Filter} searchTerm={""}></SearchField>
+              <SearchField onSubmit={Filter} searchPhrase={""}></SearchField>
             </td>
           </tr>
         </tbody>

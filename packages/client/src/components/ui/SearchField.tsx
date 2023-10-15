@@ -2,11 +2,11 @@ import { useState } from "react";
 
 type searchProps = {
   onSubmit: (term: string) => void;
-  searchTerm: string;
+  searchPhrase: string;
 };
 
-export default function SearchField(props: searchProps) {
-  const [searchTerm, setSearchTerm] = useState(props.searchTerm);
+export default function SearchField({ onSubmit, searchPhrase }: searchProps) {
+  const [searchTerm, setSearchTerm] = useState(searchPhrase);
 
   return (
     <div className="float-right m-2 mr-8">
@@ -16,11 +16,9 @@ export default function SearchField(props: searchProps) {
         name="search"
         placeholder="Keresés"
         value={searchTerm}
-        //onChange={(e) => setSearchTerm(e.target.value)}
         onChange={(e) => {
           setSearchTerm(e.target.value);
-          //todo should use searchterm as onsubmit's argument, within a then chain or something like that??
-          props.onSubmit(e.target.value);
+          onSubmit(e.target.value);
         }}
       />
     </div>

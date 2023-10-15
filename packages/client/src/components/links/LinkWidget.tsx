@@ -13,7 +13,7 @@ export default function LinkWidget(props: Props) {
   return (
     <Link
       href={link.url}
-      className="flex-no-wrap bg-blue inline-block flex w-80 flex-col items-center overflow-hidden rounded-xl p-2"
+      className="flex-no-wrap bg-blue flex w-80 flex-col items-center overflow-hidden rounded-xl p-2"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {/*have changed cover image to solid color, maybe should be dependent on the link entity*/}
