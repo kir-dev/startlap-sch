@@ -1,4 +1,7 @@
 -- CreateEnum
+CREATE TYPE "UserRole" AS ENUM ('USER', 'MODERATOR', 'ADMIN');
+
+-- CreateEnum
 CREATE TYPE "SUBMISSION_STATUS" AS ENUM ('IN_REVIEW', 'APPROVED', 'DECLINED');
 
 -- CreateTable
@@ -31,6 +34,7 @@ CREATE TABLE "Collection" (
     "iconUrl" TEXT NOT NULL,
     "bannerUrl" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -40,6 +44,10 @@ CREATE TABLE "Collection" (
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
+    "fullName" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "role" "UserRole" NOT NULL DEFAULT 'USER',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -48,7 +56,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Submission" (
     "id" TEXT NOT NULL,
     "oldLinkId" TEXT,
-    "linkName" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
     "url" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
     "description" TEXT NOT NULL,

@@ -1,5 +1,5 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
-import { Prisma, SUBMISSION_STATUS } from '@prisma/client'
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
+import { Prisma, SUBMISSION_STATUS, User, UserRole } from '@prisma/client'
 import { PrismaService } from 'nestjs-prisma'
 import { Link } from 'src/links/entities/link.entity'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
@@ -10,9 +10,9 @@ import { SubmissionEntitiy } from './entities/submission.entity'
 export class SubmissionsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: CreateSubmissionDto): Promise<SubmissionEntitiy> {
+  async create(data: CreateSubmissionDto, user: User): Promise<SubmissionEntitiy> {
     try {
-      return await this.prisma.submission.create({ data: { ...data, status: SUBMISSION_STATUS.IN_REVIEW } })
+      return await this.prisma.submission.create({ data: { ...data, status: SUBMISSION_STATUS.IN_REVIEW, userId: user.id } })
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {
@@ -27,21 +27,27 @@ export class SubmissionsService {
     return await this.prisma.submission.findMany()
   }
 
-  async findOne(id: string): Promise<SubmissionEntitiy> {
+  async findOne(id: string, user: User): Promise<SubmissionEntitiy> {
     const submission = await this.prisma.submission.findUnique({
       where: { id },
     })
     if (submission === null) {
       throw new NotFoundException('Submission not found')
     }
+    if (submission.userId !== user.id && user.role !== UserRole.ADMIN) {
+      throw new ForbiddenException("You don't have permission to view this resource")
+    }
     return submission
   }
 
-  async update(id: string, data: UpdateSubmissionDto): Promise<SubmissionEntitiy> {
+  async update(id: string, data: UpdateSubmissionDto, user: User): Promise<SubmissionEntitiy> {
     const submission = await this.prisma.submission.findUnique({
       where: { id },
     })
     if (!submission) throw new NotFoundException('No submission found')
+    if (submission.userId !== user.id && user.role !== UserRole.ADMIN) {
+      throw new ForbiddenException("You don't have permission to edit this resource")
+    }
     if (submission.status !== SUBMISSION_STATUS.IN_REVIEW) {
       throw new BadRequestException('This submission has already been closed')
     }
@@ -84,7 +90,12 @@ export class SubmissionsService {
     })
   }
 
-  remove(id: string): Promise<SubmissionEntitiy> {
+  async remove(id: string, user: User): Promise<SubmissionEntitiy> {
+    const submission = await this.prisma.submission.findUnique({ where: { id } })
+    if (!submission) throw new NotFoundException('No submission found')
+    if (submission.userId !== user.id && user.role !== UserRole.ADMIN) {
+      throw new ForbiddenException("You don't have permission to delete this resource")
+    }
     return this.prisma.submission.delete({ where: { id } })
   }
 }
