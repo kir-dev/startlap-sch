@@ -64,6 +64,7 @@ CREATE TABLE "Submission" (
     "keywords" TEXT[],
     "status" "SUBMISSION_STATUS" NOT NULL,
     "adminComment" TEXT,
+    "userId" TEXT NOT NULL,
 
     CONSTRAINT "Submission_pkey" PRIMARY KEY ("id")
 );
@@ -88,6 +89,9 @@ ALTER TABLE "Visit" ADD CONSTRAINT "Visit_linkId_fkey" FOREIGN KEY ("linkId") RE
 
 -- AddForeignKey
 ALTER TABLE "Submission" ADD CONSTRAINT "Submission_oldLinkId_fkey" FOREIGN KEY ("oldLinkId") REFERENCES "Link"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Submission" ADD CONSTRAINT "Submission_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_CollectionToLink" ADD CONSTRAINT "_CollectionToLink_A_fkey" FOREIGN KEY ("A") REFERENCES "Collection"("id") ON DELETE CASCADE ON UPDATE CASCADE;
