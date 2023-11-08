@@ -4,9 +4,11 @@ import { PrismaModule } from 'nestjs-prisma'
 import { join } from 'path'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
+import { AuthModule } from './auth/auth.module'
 import { CollectionModule } from './collection/collection.module'
 import { LinksModule } from './links/links.module'
 import { SubmissionsModule } from './submissions/submissions.module'
+import { UserModule } from './user/user.module'
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { SubmissionsModule } from './submissions/submissions.module'
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'static'),
     }),
+    UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -18,7 +18,12 @@ async function bootstrap() {
       forbidUnknownValues: true,
     })
   )
-  const config = new DocumentBuilder().setTitle('Startlap SCH').setDescription('The Startlap SCH API description').setVersion('1.0').build()
+  const config = new DocumentBuilder()
+    .setTitle('Startlap SCH')
+    .setDescription('The Startlap SCH API description')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build()
   const document = SwaggerModule.createDocument(app, config)
   // fs.writeFileSync('./openapi.yaml', yaml.stringify(document, {}))
   SwaggerModule.setup('api', app, document)

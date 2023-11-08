@@ -44,7 +44,18 @@ model Collection {
 }
 
 model User {
-  id String @id @default(uuid())
+  id          String       @id
+  firstName   String
+  fullName    String
+  email       String
+  role        UserRole     @default(USER)
+  submissions Submission[]
+}
+
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
 }
 
 model Submission {
@@ -59,6 +70,8 @@ model Submission {
   keywords     String[]
   status       SUBMISSION_STATUS
   adminComment String?
+  userId       String
+  createdBy    User              @relation(fields: [userId], references: [id])
 }
 
 enum SUBMISSION_STATUS {
