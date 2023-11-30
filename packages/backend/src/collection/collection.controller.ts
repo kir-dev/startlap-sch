@@ -2,10 +2,9 @@ import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/commo
 import { CollectionService } from './collection.service'
 import { CreateCollectionDto } from './dto/CreateCollection.dto'
 import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
-import {JwtAuth} from "../auth/decorators/JwtAuth";
-import {User} from "@prisma/client";
-import {CurrentUser} from "../auth/decorators/CurrentUser.decorator";
-import {Roles} from "../auth/decorators/Roles.decorator";
+import { JwtAuth } from '../auth/decorators/JwtAuth'
+import { User } from '@prisma/client'
+import { CurrentUser } from '../auth/decorators/CurrentUser.decorator'
 
 @Controller('collection')
 export class CollectionController {
@@ -34,7 +33,7 @@ export class CollectionController {
 
   @Delete(':id')
   @JwtAuth()
-  remove(@Param('id') id: string, @CurrentUser() user:User) {
-    this.collectionService.remove(id,user)
+  remove(@Param('id') id: string, @CurrentUser() user: User) {
+    return this.collectionService.remove(id, user)
   }
 }
