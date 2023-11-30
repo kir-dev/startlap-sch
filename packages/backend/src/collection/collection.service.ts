@@ -14,9 +14,7 @@ export class CollectionService {
     return this.prisma.collection.findMany()
   }
   async findOne(id: string) {
-    const collection = await this.prisma.collection.findUnique({
-      where: { id },
-    })
+    const collection = await this.prisma.collection.findUnique({ where: { id } })
     if (!collection) {
       throw new NotFoundException('Collection not found')
     }
@@ -35,7 +33,7 @@ export class CollectionService {
       data: updateCollectionDto,
     })
   }
-  async remove(id: string, user: User): Promise<CreateCollectionDto> {
+  async remove(id: string, user: User) {
     const collection = await this.prisma.collection.findUnique({ where: { id } })
     if (!collection) {
       throw new NotFoundException('Collection not found')
