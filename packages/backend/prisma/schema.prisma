@@ -41,6 +41,8 @@ model Collection {
   links     Link[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userId    String
+  createdBy User     @relation(fields: [userId], references: [id])
 }
 
 model User {
@@ -50,6 +52,7 @@ model User {
   email       String
   role        UserRole     @default(USER)
   submissions Submission[]
+  collections Collection[]
 }
 
 enum UserRole {
