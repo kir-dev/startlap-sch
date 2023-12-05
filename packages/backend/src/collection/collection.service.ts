@@ -39,7 +39,7 @@ export class CollectionService {
       throw new NotFoundException('Collection not found')
     }
     if (collection.userId !== user.id && user.role !== UserRole.ADMIN) {
-      throw new ForbiddenException("You don't have permission to edit this resource")
+      throw new ForbiddenException("You don't have permission to delete this resource")
     }
     return this.prisma.collection.delete({ where: { id } })
   }

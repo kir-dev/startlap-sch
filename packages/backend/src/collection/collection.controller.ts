@@ -13,24 +13,20 @@ export class CollectionController {
   findAll() {
     return this.collectionService.findAll()
   }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.collectionService.findOne(id)
   }
-
   @Post()
   @JwtAuth()
   create(@Body() createCollectionDto: CreateCollectionDto, @CurrentUser() user: User) {
     return this.collectionService.create(createCollectionDto, user)
   }
-
   @Patch(':id')
   @JwtAuth()
   update(@Param('id') id: string, @Body() updateCollectionDto: UpdateCollectionDto, @CurrentUser() user: User) {
     return this.collectionService.update(id, updateCollectionDto, user)
   }
-
   @Delete(':id')
   @JwtAuth()
   remove(@Param('id') id: string, @CurrentUser() user: User) {
