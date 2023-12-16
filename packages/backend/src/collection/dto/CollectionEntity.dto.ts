@@ -1,4 +1,5 @@
 import { ArrayMinSize, IsNotEmpty, IsString, IsUUID, Matches } from 'class-validator'
+import { Link } from 'src/links/entities/link.entity'
 
 export class CollectionEntity {
   @IsUUID('all')
@@ -23,7 +24,6 @@ export class CollectionEntity {
   @IsString()
   name: string
 
-  //TODO replace string array with links array
   @ArrayMinSize(0)
-  links: string[]
+  links: Link[]
 }

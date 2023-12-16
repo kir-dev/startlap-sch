@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma, User } from '@prisma/client'
 import { PrismaService } from 'nestjs-prisma'
-import { ChangeUserRole } from './changeUserRole.dto'
+import { ChangeUserRole } from './dto/changeUserRole.dto'
+import { UserProfile } from './dto/userProfile.dto'
 
 @Injectable()
 export class UserService {
@@ -17,5 +18,10 @@ export class UserService {
 
   async updateRole(id: string, newRole: ChangeUserRole): Promise<User> {
     return await this.prisma.user.update({ where: { id }, data: { role: newRole.role } })
+  }
+
+  async getProfile(id: string): Promise<UserProfile> {
+    const user = await this.prisma.user.findUnique({ where: { id }, include: { collections: { include: { links: true } }, submissions: true } })
+    return { collections: user.collections, submissions: user.submissions }
   }
 }
