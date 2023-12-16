@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
+import { User } from '@prisma/client'
+import { CurrentUser } from '../auth/decorators/CurrentUser.decorator'
+import { JwtAuth } from '../auth/decorators/JwtAuth'
 import { CollectionService } from './collection.service'
 import { CreateCollectionDto } from './dto/CreateCollection.dto'
 import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
-import { JwtAuth } from '../auth/decorators/JwtAuth'
-import { User } from '@prisma/client'
-import { CurrentUser } from '../auth/decorators/CurrentUser.decorator'
 
 @Controller('collection')
 export class CollectionController {
@@ -31,5 +31,15 @@ export class CollectionController {
   @JwtAuth()
   remove(@Param('id') id: string, @CurrentUser() user: User) {
     return this.collectionService.remove(id, user)
+  }
+  @Post(':collectionid/links/:linkid')
+  @JwtAuth()
+  addLink(@Param('collectionid') collectionid: string, @Param('linkid') linkid: string, @CurrentUser() user: User) {
+    return this.collectionService.addLink(collectionid, linkid, user)
+  }
+  @Delete(':collectionid/links/:linkid')
+  @JwtAuth()
+  removeLink(@Param('collectionid') collectionid: string, @Param('linkid') linkid: string, @CurrentUser() user: User) {
+    return this.collectionService.removeLink(collectionid, linkid, user)
   }
 }
