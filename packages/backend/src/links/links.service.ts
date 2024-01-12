@@ -1,5 +1,5 @@
-import {BadRequestException, ForbiddenException, Injectable, NotFoundException} from '@nestjs/common'
-import {Prisma, User, UserRole} from '@prisma/client'
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
+import { Prisma, User, UserRole } from '@prisma/client'
 import axios from 'axios'
 import { unlink } from 'fs'
 import { PrismaService } from 'nestjs-prisma'
