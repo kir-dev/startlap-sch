@@ -1,5 +1,5 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
-import { Prisma, User, UserRole } from '@prisma/client'
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
 import axios from 'axios'
 import { unlink } from 'fs'
 import { PrismaService } from 'nestjs-prisma'
@@ -14,11 +14,8 @@ import { Link } from './entities/link.entity'
 export class LinksService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createLinkDto: CreateLinkDto, user: User, fileName?: string) {
+  async create(createLinkDto: CreateLinkDto, fileName?: string) {
     try {
-      if (user.role !== UserRole.ADMIN) {
-        throw new ForbiddenException("You don't have permission to create links")
-      }
       if (await this.checkUrl(createLinkDto.url)) {
         return await this.prisma.link.create({ data: { ...createLinkDto, iconUrl: fileName } })
       } else {
@@ -75,11 +72,8 @@ export class LinksService {
     return link
   }
 
-  async update(id: string, updateLinkDto: UpdateLinkDto, user: User, fileName?: string) {
+  async update(id: string, updateLinkDto: UpdateLinkDto, fileName?: string) {
     try {
-      if (user.role !== UserRole.ADMIN) {
-        throw new ForbiddenException("You don't have permission to update links")
-      }
       if (await this.checkUrl(updateLinkDto.url)) {
         const oldLink = await this.prisma.link.findUnique({ where: { id } })
         const newLink = await this.prisma.link.update({ where: { id }, data: { ...updateLinkDto, iconUrl: fileName } })
@@ -98,10 +92,7 @@ export class LinksService {
     }
   }
 
-  async remove(id: string, user: User) {
-    if (user.role !== UserRole.ADMIN) {
-      throw new ForbiddenException("You don't have permission to remove links from this collection")
-    }
+  async remove(id: string) {
     return await this.prisma.link.delete({ where: { id } })
   }
 
