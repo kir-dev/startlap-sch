@@ -23,6 +23,9 @@ import { UpdateLinkDto } from './dto/update-link.dto'
 import { Trending } from './dto/trending.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
+import { JwtAuth } from '../auth/decorators/JwtAuth'
+import { UserRole } from '@prisma/client'
+import { Roles } from '../auth/decorators/Roles.decorator'
 
 @Controller('links')
 @ApiTags('links')
@@ -32,6 +35,8 @@ export class LinksController {
   @Post()
   @UseInterceptors(IconInterceptor)
   @UseFilters(DeleteFileExceptionFilter)
+  @JwtAuth()
+  @Roles(UserRole.ADMIN)
   async create(
     @Body() createLinkDto: CreateLinkDto,
     @UploadedFile(
@@ -63,6 +68,8 @@ export class LinksController {
   @Patch(':id')
   @UseInterceptors(IconInterceptor)
   @UseFilters(DeleteFileExceptionFilter)
+  @JwtAuth()
+  @Roles(UserRole.ADMIN)
   async update(
     @Param('id') id: string,
     @Body() updateLinkDto: UpdateLinkDto,
@@ -78,6 +85,8 @@ export class LinksController {
   }
 
   @Delete(':id')
+  @JwtAuth()
+  @Roles(UserRole.ADMIN)
   remove(@Param('id') id: string): Promise<Link> {
     return this.linksService.remove(id)
   }
