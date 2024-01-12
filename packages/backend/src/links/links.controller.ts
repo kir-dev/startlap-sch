@@ -23,6 +23,9 @@ import { UpdateLinkDto } from './dto/update-link.dto'
 import { Trending } from './dto/trending.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
+import { JwtAuth } from '../auth/decorators/JwtAuth'
+import { CurrentUser } from '../auth/decorators/CurrentUser.decorator'
+import { User } from '@prisma/client'
 
 @Controller('links')
 @ApiTags('links')
@@ -32,8 +35,10 @@ export class LinksController {
   @Post()
   @UseInterceptors(IconInterceptor)
   @UseFilters(DeleteFileExceptionFilter)
+  @JwtAuth()
   async create(
     @Body() createLinkDto: CreateLinkDto,
+    @CurrentUser() user: User,
     @UploadedFile(
       new ParseFilePipe({
         validators: IconValidators,
@@ -42,7 +47,7 @@ export class LinksController {
     )
     file?: Express.Multer.File
   ): Promise<Link> {
-    return await this.linksService.create(createLinkDto, file?.filename)
+    return await this.linksService.create(createLinkDto, user, file?.filename)
   }
 
   @Get()
@@ -63,9 +68,11 @@ export class LinksController {
   @Patch(':id')
   @UseInterceptors(IconInterceptor)
   @UseFilters(DeleteFileExceptionFilter)
+  @JwtAuth()
   async update(
     @Param('id') id: string,
     @Body() updateLinkDto: UpdateLinkDto,
+    @CurrentUser() user: User,
     @UploadedFile(
       new ParseFilePipe({
         validators: IconValidators,
@@ -74,12 +81,13 @@ export class LinksController {
     )
     file?: Express.Multer.File
   ): Promise<Link> {
-    return await this.linksService.update(id, updateLinkDto, file?.filename)
+    return await this.linksService.update(id, updateLinkDto, user, file?.filename)
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<Link> {
-    return this.linksService.remove(id)
+  @JwtAuth()
+  remove(@Param('id') id: string, @CurrentUser() user: User): Promise<Link> {
+    return this.linksService.remove(id, user)
   }
 
   @Get('/slug/:slug')
