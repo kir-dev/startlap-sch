@@ -9,7 +9,6 @@ import { CreateSubmissionDto } from './dto/create-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
 import { SubmissionEntitiy } from './entities/submission.entity'
 import { SubmissionsService } from './submissions.service'
-import {slugAvailable} from "../links/dto/slug-verification.dto";
 
 @JwtAuth()
 @Controller('submissions')
