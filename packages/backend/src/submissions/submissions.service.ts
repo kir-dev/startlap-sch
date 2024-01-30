@@ -5,12 +5,16 @@ import { Link } from 'src/links/entities/link.entity'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
 import { SubmissionEntitiy } from './entities/submission.entity'
+import { LinksService } from '../links/links.service'
 
 @Injectable()
 export class SubmissionsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private link: LinksService) {}
 
   async create(data: CreateSubmissionDto, user: User): Promise<SubmissionEntitiy> {
+    if (!(await this.link.checkUrl(data.url))) {
+      throw new BadRequestException('Invalid URL')
+    }
     try {
       return await this.prisma.submission.create({ data: { ...data, status: SUBMISSION_STATUS.IN_REVIEW, userId: user.id } })
     } catch (e) {
@@ -50,6 +54,9 @@ export class SubmissionsService {
     }
     if (submission.status !== SUBMISSION_STATUS.IN_REVIEW) {
       throw new BadRequestException('This submission has already been closed')
+    }
+    if (data.url && !(await this.link.checkUrl(data.url))) {
+      throw new BadRequestException('Invalid URL')
     }
     return this.prisma.submission.update({ where: { id }, data })
   }
