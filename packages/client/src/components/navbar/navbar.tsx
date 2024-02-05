@@ -23,16 +23,16 @@ export default function Navbar() {
   };
 
   return (
-    <header className="bg-white sticky top-0 px-6 py-3 border">
-      <div className="flex justify-between items-center max-w-screen-2xl m-auto">
+    <header className="sticky top-0 border bg-white px-6 py-3">
+      <div className="m-auto flex max-w-screen-2xl items-center justify-between">
         {/*logo*/}
         <a href="#" className="flex align-middle">
-          <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight">
+          <h1 className="m-0 scroll-m-20 text-3xl font-extrabold tracking-tight">
             StartlapSch
           </h1>
         </a>
         {/*desktop menu*/}
-        <nav className="hidden md:inline-flex mr-auto items-center">
+        <nav className="mr-auto hidden items-center md:inline-flex">
           <ul className="flex space-x-4 px-10">
             <li>
               <a href="#">Links</a>
@@ -43,7 +43,7 @@ export default function Navbar() {
           </ul>
         </nav>
         {/*right-side nav*/}
-        <div className="flex justify-end items-center md:items-stretch space-x-5 w-1/2 max-w-md">
+        <div className="flex w-1/2 max-w-md items-center justify-end space-x-5 md:items-stretch">
           <span className="hidden w-full md:inline-flex">
             <SearchBar></SearchBar>
           </span>
@@ -63,7 +63,7 @@ export default function Navbar() {
 
       <div className="md:hidden">
         <div className={toggledClass}>
-          <ul className="flex flex-col pt-3 space-y-2">
+          <ul className="flex flex-col space-y-2 pt-3">
             <li>
               <a href="#">Links</a>
             </li>
