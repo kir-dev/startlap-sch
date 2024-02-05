@@ -1,5 +1,4 @@
 "use client";
-import clsx from 'clsx'
 
 import Clock from "@/components/clock/clock";
 import FavLinksContainer from "@/components/links/favLinksContainer";
@@ -10,7 +9,7 @@ import { DummyLinks } from "@/mocks/links.mock";
 export default function Home() {
   return (
     <main className="min-h-screen overflow-y-hidden">
-      <Navbar></Navbar>
+      <Navbar />
       <Wallpaper />
       <Clock />
 
