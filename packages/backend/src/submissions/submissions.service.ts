@@ -22,6 +22,9 @@ export class SubmissionsService {
         if (e.code === 'P2002') {
           throw new BadRequestException('Unique constraint violation')
         }
+        if (e.code === 'P2003') {
+          throw new BadRequestException('Foreign key constraint violation')
+        }
         throw e
       }
     }
@@ -80,6 +83,9 @@ export class SubmissionsService {
     } catch (e) {
       if (e.code === 'P2002') {
         throw new BadRequestException('Unique constraint violation')
+      }
+      if (e.code === 'P2003') {
+        throw new BadRequestException('Foreign key constraint violation')
       }
       throw e
     }
