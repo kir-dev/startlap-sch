@@ -8,7 +8,7 @@ interface Props {
 
 export function LinkListItem({ link }: Props) {
   return (
-    <a href={link.url}>
+    <a href={link.url} target="_blank">
       <div className="delay-10 m-2 flex w-60 cursor-pointer items-center overflow-hidden rounded-xl bg-white px-4 py-2 shadow-lg transition hover:scale-110">
         <Image
           className="mr-5 h-10 w-10 object-cover"
