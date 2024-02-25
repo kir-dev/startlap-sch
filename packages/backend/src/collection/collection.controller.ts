@@ -1,4 +1,7 @@
-import { Controller, Delete, Get, Patch, Param, Body, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
+import { User } from '@prisma/client'
+import { CurrentUser } from '../auth/decorators/CurrentUser.decorator'
+import { JwtAuth } from '../auth/decorators/JwtAuth'
 import { CollectionService } from './collection.service'
 import { CreateCollectionDto } from './dto/CreateCollection.dto'
 import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
@@ -10,24 +13,33 @@ export class CollectionController {
   findAll() {
     return this.collectionService.findAll()
   }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.collectionService.findOne(id)
   }
-
   @Post()
-  create(@Body() createCollectionDto: CreateCollectionDto) {
-    return this.collectionService.create(createCollectionDto)
+  @JwtAuth()
+  create(@Body() createCollectionDto: CreateCollectionDto, @CurrentUser() user: User) {
+    return this.collectionService.create(createCollectionDto, user)
   }
-
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCollectionDto: UpdateCollectionDto) {
-    return this.collectionService.update(id, updateCollectionDto)
+  @JwtAuth()
+  update(@Param('id') id: string, @Body() updateCollectionDto: UpdateCollectionDto, @CurrentUser() user: User) {
+    return this.collectionService.update(id, updateCollectionDto, user)
   }
-
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    this.collectionService.remove(id)
+  @JwtAuth()
+  remove(@Param('id') id: string, @CurrentUser() user: User) {
+    return this.collectionService.remove(id, user)
+  }
+  @Post(':collectionid/links/:linkid')
+  @JwtAuth()
+  addLink(@Param('collectionid') collectionid: string, @Param('linkid') linkid: string, @CurrentUser() user: User) {
+    return this.collectionService.addLink(collectionid, linkid, user)
+  }
+  @Delete(':collectionid/links/:linkid')
+  @JwtAuth()
+  removeLink(@Param('collectionid') collectionid: string, @Param('linkid') linkid: string, @CurrentUser() user: User) {
+    return this.collectionService.removeLink(collectionid, linkid, user)
   }
 }

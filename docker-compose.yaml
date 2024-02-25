@@ -1,0 +1,39 @@
+version: '3.8'
+
+name: startlap
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - startlap_images:/app/packages/backend/static
+    networks:
+      - startlap-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13.10
+    env_file:
+      - .env
+    restart: always
+    volumes:
+      - startlap_db_folder:/var/lib/postgresql/data
+    networks:
+      - startlap-network
+
+volumes:
+  startlap_db_folder:
+    external: true
+
+  startlap_images:
+    external: true
+
+networks:
+  startlap-network:

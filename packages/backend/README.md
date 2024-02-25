@@ -32,6 +32,14 @@
 $ yarn install
 ```
 
+## DB and AuthSCH setup
+
+First, start a PostgreSQL server locally on your machine.
+
+Then create an OAuth client at [AuthSCH](https://auth.sch.bme.hu/console/index) with the following redirect address: `http://localhost:3300/auth/callback`
+
+Finally, copy the contents of `.env.example` to a new file named `.env`. Replace the database credentials with the credentials required to connect to your local database and the AuthSCH credentials with ID and secret that AuthSCH generated for your client.
+
 ## Running the app
 
 ```bash

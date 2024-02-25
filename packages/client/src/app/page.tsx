@@ -1,13 +1,28 @@
-import clsx from "clsx";
-import Link from "next/link";
+"use client";
+
+import Clock from "@/components/clock/clock";
+import FavLinksContainer from "@/components/links/favLinksContainer";
+import Navbar from "@/components/navbar/navbar";
+import Wallpaper from "@/components/wallpaper/wallpaper";
+import { DummyLinks } from "@/mocks/links.mock";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className={clsx("text-2xl")}>Hajrá Srácok!</h1>
-      <Link className="text-blue-500" href="collections">
-        Kollekciók
-      </Link>
+    <main className="min-h-screen overflow-y-hidden">
+      {/* TODO ez menjen layout tsxbe (legalább a navbar) */}
+      <Navbar />
+      <Wallpaper />
+      <Clock />
+
+      <h1>StartlapSCH</h1>
+      <FavLinksContainer
+        links={DummyLinks}
+        title="Kedvencek"
+      ></FavLinksContainer>
+      <FavLinksContainer
+        links={DummyLinks}
+        title="Felkapottak"
+      ></FavLinksContainer>
     </main>
   );
 }

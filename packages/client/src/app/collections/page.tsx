@@ -1,21 +1,16 @@
-import { clsx } from "clsx";
-import Link from "next/link";
+"use client";
+import Clock from "@/components/clock/clock";
+import CollectionsContainer from "@/components/collection/CollectionsContainer";
+import Wallpaper from "@/components/wallpaper/wallpaper";
+import { DummyCollections } from "@/mocks/collection.mock";
 
-import { CollectionListItem } from "@/components/collection/CollectionListItem";
-import { getCollections } from "@/network/getCollections";
-
-export default async function Collections() {
-  const collections = await getCollections();
+export default function Collections() {
   return (
-    <main
-      className={clsx("flex min-h-screen flex-col items-center justify-center")}
-    >
-      {collections.map((collection) => (
-        <CollectionListItem collection={collection} key={collection.id} />
-      ))}
-      <Link className="text-blue-500" href="/">
-        Főoldal
-      </Link>
+    <main className="min-h-screen">
+      <Wallpaper />
+      <Clock />
+
+      <CollectionsContainer collections={DummyCollections} />
     </main>
   );
 }
