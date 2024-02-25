@@ -1,11 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:wght@500;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Victor+Mono:wght@500;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;600&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+body {
+}
+@variants responsive {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -81,41 +94,39 @@
   }
 }
 
-
-h1{
-    font-size: 36px;
-    margin-top: 20px;
-    margin-left: 20px;
-    font-weight: 600;
-    font-family: 'Work Sans', sans-serif;
+h1 {
+  font-size: 36px;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-weight: 600;
+  font-family: "Work Sans", sans-serif;
 }
-h2{
-    font-size: 24px;
-    font-weight: 600;
-    font-family: 'Work Sans', sans-serif;
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Work Sans", sans-serif;
 }
-h3{
-    font-size: 18px;
-    font-weight: 400;
-    font-family: 'Work Sans', sans-serif;
+h3 {
+  font-size: 18px;
+  font-weight: 400;
+  font-family: "Work Sans", sans-serif;
 }
-h4{
-    font-size: 12px;
-    font-family: 'Victor Mono', Consolas, serif;
-    color: #575757;
-
+h4 {
+  font-size: 12px;
+  font-family: "Victor Mono", Consolas, serif;
+  color: #575757;
 }
-h5{
-    font-size: 18px;
-    font-weight: 800;
-    font-family: 'Victor Mono', Consolas, serif;
-    color: #000000;
+h5 {
+  font-size: 18px;
+  font-weight: 800;
+  font-family: "Victor Mono", Consolas, serif;
+  color: #000000;
 }
-.scrollbar-hidden{
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 .scrollbar-hidden::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+  width: 0;
+  height: 0;
 }

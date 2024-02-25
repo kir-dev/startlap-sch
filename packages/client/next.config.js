@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   images: {
-    remotePatterns: [{ hostname: "images.unsplash.com" }],
+    domains: ["js.vik.wiki", "images.unsplash.com"],
   },
 };
-
-module.exports = nextConfig;
