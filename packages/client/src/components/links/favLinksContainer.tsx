@@ -1,16 +1,17 @@
+"use client";
 import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import LinkWidget from "@/components/links/LinkWidget";
+import { getLinks } from "@/network/getLinks";
 
 interface Props {
-  links: LinkEntity[];
   title: string;
 }
 
-export default function FavLinksContainer({ links, title }: Props) {
+export default function FavLinksContainer({ title }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const [links, setLinks] = useState<LinkEntity[]>([]);
   useEffect(() => {
     const container = containerRef.current;
     const handleWheel = (event: WheelEvent) => {
@@ -19,6 +20,7 @@ export default function FavLinksContainer({ links, title }: Props) {
         container.scrollLeft += event.deltaY * 0.2;
       }
     };
+    getLinks().then((data) => setLinks(data));
 
     if (container) {
       container.addEventListener("wheel", handleWheel, { passive: false });
