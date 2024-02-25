@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { CollectionListItem } from "@/components/collection/CollectionListItem";
 import SearchField from "@/components/ui/SearchField";
