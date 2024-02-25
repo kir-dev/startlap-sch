@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsString, IsUUID, ArrayMinSize } from 'class-validator'
+import { ArrayMinSize, IsNotEmpty, IsString, IsUUID, Matches } from 'class-validator'
+import { Link } from 'src/links/entities/link.entity'
 
 export class CollectionEntity {
   @IsUUID('all')
@@ -14,13 +15,15 @@ export class CollectionEntity {
 
   @IsNotEmpty()
   @IsString()
+  @Matches(/^[a-z-]+$/, {
+    message: 'Slug should only contain lowercase letters and dashes',
+  })
   slug: string
 
   @IsNotEmpty()
   @IsString()
   name: string
 
-  //TODO replace string array with links array
   @ArrayMinSize(0)
-  links: string[]
+  links: Link[]
 }

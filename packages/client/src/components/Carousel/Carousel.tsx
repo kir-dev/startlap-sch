@@ -51,7 +51,7 @@ export function Carousel({ items, name }: Props) {
         >
           {items.map((item) => (
             <div key={item.id}>
-              <CollectionListItem collection={item} className={"shadow-none"} />
+              <CollectionListItem collection={item} />
             </div>
           ))}
         </div>

@@ -26,35 +26,55 @@ model Link {
 }
 
 model Visit {
-  id String           @id @default(uuid())
-  linkId String
-  link Link           @relation(fields: [linkId], references: [id])
-  timeStamp DateTime  @default(now())
+  id        String   @id @default(uuid())
+  linkId    String
+  link      Link     @relation(fields: [linkId], references: [id])
+  timeStamp DateTime @default(now())
 }
 
 model Collection {
   id        String   @id @default(uuid())
-  links     Link[]
   iconUrl   String
   bannerUrl String
   slug      String
+  name      String
+  links     Link[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userId    String
+  createdBy User     @relation(fields: [userId], references: [id])
 }
 
 model User {
-  id String @id @default(uuid())
+  id          String       @id
+  firstName   String
+  fullName    String
+  email       String
+  role        UserRole     @default(USER)
+  submissions Submission[]
+  collections Collection[]
+}
+
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
 }
 
 model Submission {
   id           String            @id @default(uuid())
   oldLink      Link?             @relation(fields: [oldLinkId], references: [id])
   oldLinkId    String?
-  linkName     String
+  title        String
   url          String
+  slug         String
   description  String
+  iconUrl      String?
+  keywords     String[]
   status       SUBMISSION_STATUS
   adminComment String?
+  userId       String
+  createdBy    User              @relation(fields: [userId], references: [id])
 }
 
 enum SUBMISSION_STATUS {
