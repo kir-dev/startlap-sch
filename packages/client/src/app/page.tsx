@@ -9,6 +9,7 @@ import { DummyLinks } from "@/mocks/links.mock";
 export default function Home() {
   return (
     <main className="min-h-screen overflow-y-hidden">
+      {/* TODO ez menjen layout tsxbe (legalább a navbar) */}
       <Navbar />
       <Wallpaper />
       <Clock />
