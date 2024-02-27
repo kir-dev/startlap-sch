@@ -10,8 +10,8 @@ import { BACKEND_PORT } from './util/environment'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.enableCors({
-    origin: ['http://localhost:3000'],
-    methods: ['GET', 'POST'],
+    origin: [process.env.FRONTEND_HOST],
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
     credentials: true,
   })
   app.useGlobalPipes(
