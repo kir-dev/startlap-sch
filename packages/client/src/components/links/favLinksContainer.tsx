@@ -1,3 +1,4 @@
+"use client";
 import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
 import { useEffect, useRef } from "react";
 

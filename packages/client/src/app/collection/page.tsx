@@ -1,19 +1,19 @@
 "use client";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Clock from "@/components/clock/clock";
-import LinkWidget from "@/components/links/LinkWidget";
 import Wallpaper from "@/components/wallpaper/wallpaper";
+import CollectionLinksContainer from "@/components/links/CollectionLinksContainer";
 
 export default function CollectionPage() {
-  const [LinksInCollection, setLinksInCollection] = useState([]);
+  const [collectionData, setCollectionData] = useState();
   const searchParams = useSearchParams();
   const fetchData = async () => {
     const id = searchParams.get("id");
     const collection = await axios.get("/api/collection/");
-    setLinksInCollection(collection.data);
+    setCollectionData(collection.data);
   };
 
   useEffect(() => {
@@ -25,9 +25,11 @@ export default function CollectionPage() {
       <Wallpaper />
       <Clock />
 
-      {LinksInCollection.map((link, _index) => (
-        <LinkWidget key={_index} link={link} />
-      ))}
+      {collectionData === undefined ? (
+        <p>Loading...</p>
+      ) : (
+        <CollectionLinksContainer collection={collectionData} />
+      )}
     </main>
   );
 }
