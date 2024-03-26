@@ -1,16 +1,17 @@
 "use client";
+import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
 import { useEffect, useRef } from "react";
 
 import LinkWidget from "@/components/links/LinkWidget";
-import { getLinks } from "@/network/getLinks";
 
 interface Props {
   title: string;
+  links: LinkEntity[]
 }
 
-export default async function FavLinksContainer({ title }: Props) {
+export default async function FavLinksContainer({ title, links }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const links = await getLinks();
+
   useEffect(() => {
     const container = containerRef.current;
     const handleWheel = (event: WheelEvent) => {
