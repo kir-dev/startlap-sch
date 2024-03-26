@@ -1,6 +1,6 @@
-import { Link as linkEntity } from "backend/src/links/entities/link.entity";
+import { LinkEntity } from "@/types/link.type";
 
-export const DummyLink: linkEntity = {
+export const DummyLink: LinkEntity = {
   id: "asdasd1",
   url: "https://kir-dev.hu",
   title: "Kir-Dev",
@@ -10,7 +10,7 @@ export const DummyLink: linkEntity = {
   iconUrl: "https://kir-dev.hu/favicon.png",
   keywords: ["example", "link"],
 };
-export const DummyLink2: linkEntity = {
+export const DummyLink2: LinkEntity = {
   id: "asdasd2",
   url: "https://google.com",
   title: "Google",
@@ -21,7 +21,7 @@ export const DummyLink2: linkEntity = {
   keywords: ["example", "link"],
 };
 
-export const DummyLinks: linkEntity[] = [
+export const DummyLinks: LinkEntity[] = [
   {
     id: "asdasd3",
     url: "https://kir-dev.hu",

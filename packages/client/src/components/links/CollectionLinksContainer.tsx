@@ -1,6 +1,7 @@
+import { clsx } from "clsx";
+
 import LinkWidget from "@/components/links/LinkWidget";
 import { Collection } from "@/types/collection.type";
-import { clsx } from "clsx";
 
 export default function CollectionListContainer({
   collection,

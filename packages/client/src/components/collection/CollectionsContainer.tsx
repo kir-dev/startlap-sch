@@ -2,8 +2,8 @@ import { clsx } from "clsx";
 import React, { useState } from "react";
 
 import { CollectionListItem } from "@/components/collection/CollectionListItem";
-import { Collection as CollectionEntity } from "@/types/collection.type";
 import SearchField from "@/components/ui/SearchField";
+import { Collection as CollectionEntity } from "@/types/collection.type";
 
 interface Props {
   collections: CollectionEntity[];

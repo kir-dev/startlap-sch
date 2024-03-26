@@ -1,8 +1,8 @@
 "use client";
-import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
 import { useEffect, useRef } from "react";
 
 import LinkWidget from "@/components/links/LinkWidget";
+import { LinkEntity } from "@/types/link.type";
 
 interface Props {
   links: LinkEntity[];
