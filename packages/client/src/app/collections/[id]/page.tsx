@@ -1,8 +1,7 @@
-import axios from "axios";
-
 import Clock from "@/components/clock/clock";
 import CollectionLinksContainer from "@/components/links/CollectionLinksContainer";
 import Wallpaper from "@/components/wallpaper/wallpaper";
+import { fetch } from "next/dist/compiled/@edge-runtime/primitives";
 
 export default async function CollectionPage({
   params,
@@ -10,12 +9,10 @@ export default async function CollectionPage({
   params: { id: string };
 }) {
   const fetchData = async () => {
-    const response = await axios.get(
-      /*process.env["NEXT_PUBLIC_BACKEND_URL"] + */ "http://localhost:3300/collection/" +
-        params.id
+    const response = await fetch(
+      process.env.NEXT_PUBLIC_BACKEND_URL + "/collection/" + params.id
     );
-    console.log(response.data);
-    return response.data;
+    return response.json();
   };
 
   const collectionData = await fetchData();

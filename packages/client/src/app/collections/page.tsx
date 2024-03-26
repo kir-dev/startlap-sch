@@ -6,8 +6,7 @@ import Wallpaper from "@/components/wallpaper/wallpaper";
 export default async function Collections() {
   const fetchCollections = async () => {
     const response = await fetch(
-      /*process.env["NEXT_PUBLIC_BACKEND_URL"] */ "http://localhost:3300" +
-        "/collection/",
+      process.env.NEXT_PUBLIC_BACKEND_URL + "/collection/",
       { cache: "no-store" }
     );
     return response.json();
