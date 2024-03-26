@@ -5,5 +5,5 @@ export type LinkEntity = {
   slug: string;
   description: string;
   iconUrl: string;
-  keyword: string[];
+  keywords: string[];
 };

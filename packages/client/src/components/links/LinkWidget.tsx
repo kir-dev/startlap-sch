@@ -1,6 +1,6 @@
 import "../../app/globals.css";
 
-import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
+import { LinkEntity } from "@/types/link.type";
 import Link from "next/link";
 import React from "react";
 

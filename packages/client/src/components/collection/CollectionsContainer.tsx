@@ -38,6 +38,7 @@ export default function CollectionsContainer({ collections }: Props) {
           </tr>
         </tbody>
       </table>
+
       <div className={clsx("flex flex-wrap justify-start p-4")}>
         {filteredCollections.map((curCollection) => (
           <CollectionListItem
