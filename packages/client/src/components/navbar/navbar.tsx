@@ -1,6 +1,7 @@
 "use client";
 import Hamburger from "hamburger-react";
-import React, { useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
@@ -26,16 +27,16 @@ export default function Navbar() {
     <header className="sticky top-0 border bg-white px-6 py-3">
       <div className="m-auto flex max-w-screen-2xl items-center justify-between">
         {/*logo*/}
-        <a href="#" className="flex align-middle">
+        <Link href="/" className="flex align-middle">
           <h1 className="m-0 scroll-m-20 text-3xl font-extrabold tracking-tight">
             StartlapSch
           </h1>
-        </a>
+        </Link>
         {/*desktop menu*/}
         <nav className="mr-auto hidden items-center md:inline-flex">
           <ul className="flex space-x-4 px-10">
             <li>
-              <a href="#">Links</a>
+              <Link href="/links">Links</Link>
             </li>
             <li>
               <a href="#">Collections</a>

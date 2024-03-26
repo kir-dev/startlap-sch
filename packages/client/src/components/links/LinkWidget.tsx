@@ -2,7 +2,6 @@ import "../../app/globals.css";
 
 import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
 import Link from "next/link";
-import React from "react";
 
 interface Props {
   link: LinkEntity;
@@ -14,6 +13,7 @@ export default function LinkWidget(props: Props) {
     <Link
       href={link.url}
       className="flex-no-wrap bg-blue flex w-80 flex-col items-center overflow-hidden rounded-xl p-2"
+      target="_blank"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {/*have changed cover image to solid color, maybe should be dependent on the link entity*/}
