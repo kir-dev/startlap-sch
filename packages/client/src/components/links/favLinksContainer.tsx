@@ -6,10 +6,10 @@ import LinkWidget from "@/components/links/LinkWidget";
 
 interface Props {
   title: string;
-  links: LinkEntity[]
+  links: LinkEntity[];
 }
 
-export default async function FavLinksContainer({ title, links }: Props) {
+export default function FavLinksContainer({ title, links }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
