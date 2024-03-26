@@ -2,14 +2,15 @@
 import Clock from "@/components/clock/clock";
 import CollectionsContainer from "@/components/collection/CollectionsContainer";
 import Wallpaper from "@/components/wallpaper/wallpaper";
-import axios from "axios";
 
 export default async function Collections() {
   const fetchCollections = async () => {
-    const response = await axios.get(
-      process.env["NEXT_PUBLIC_BACKEND_URL"] + "/collection/"
+    const response = await fetch(
+      /*process.env["NEXT_PUBLIC_BACKEND_URL"] */ "http://localhost:3300" +
+        "/collection/",
+      { cache: "no-store" }
     );
-    return response.data;
+    return response.json();
   };
 
   const collectionsData = await fetchCollections();
