@@ -1,5 +1,3 @@
-import { fetch } from "next/dist/compiled/@edge-runtime/primitives";
-
 import Clock from "@/components/clock/clock";
 import CollectionLinksContainer from "@/components/links/CollectionLinksContainer";
 import Wallpaper from "@/components/wallpaper/wallpaper";
