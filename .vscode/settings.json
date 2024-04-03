@@ -19,6 +19,5 @@
   },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  },
-  "prettier.configPath": "packages/backend/.prettierrc"
+  }
 }

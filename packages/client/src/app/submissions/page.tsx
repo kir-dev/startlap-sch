@@ -2,11 +2,10 @@ import clsx from 'clsx'
 import Link from 'next/link'
 
 import SubmissionContainer from '@/components/submission/SubmissionContainer'
-import { getOwnSubmissions } from '@/network/getSubmissions'
+import { getOwnSubmissions } from '@/network/getOwnSubmissions'
 
 export default async function Submissions() {
   const submissions = await getOwnSubmissions()
-  console.log(submissions)
   return (
     <main className={clsx('flex min-h-screen flex-col items-center justify-center bg-slate-100')}>
       {submissions.map(submission => (
