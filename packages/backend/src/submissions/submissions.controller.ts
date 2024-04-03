@@ -26,6 +26,10 @@ export class SubmissionsController {
   findAll() {
     return this.submissionsService.findAll()
   }
+  @Get('/me')
+  getOwn(@CurrentUser() user: User) {
+    return this.submissionsService.getOwn(user)
+  }
 
   @Get(':id')
   findOne(@Param('id', ParseUUIDPipe) id: string, @CurrentUser() user: User) {
