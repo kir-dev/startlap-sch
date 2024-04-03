@@ -2,10 +2,10 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { Prisma, SUBMISSION_STATUS, User, UserRole } from '@prisma/client'
 import { PrismaService } from 'nestjs-prisma'
 import { Link } from 'src/links/entities/link.entity'
+import { LinksService } from '../links/links.service'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
 import { SubmissionEntitiy } from './entities/submission.entity'
-import { LinksService } from '../links/links.service'
 
 @Injectable()
 export class SubmissionsService {
@@ -32,6 +32,11 @@ export class SubmissionsService {
 
   async findAll() {
     return await this.prisma.submission.findMany()
+  }
+  async getOwn(user: User): Promise<SubmissionEntitiy[]> {
+    return await this.prisma.submission.findMany({
+      where: { userId: user.id },
+    })
   }
 
   async findOne(id: string, user: User): Promise<SubmissionEntitiy> {
