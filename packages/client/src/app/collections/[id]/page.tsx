@@ -1,6 +1,7 @@
 import Clock from "@/components/clock/clock";
 import CollectionLinksContainer from "@/components/links/CollectionLinksContainer";
 import Wallpaper from "@/components/wallpaper/wallpaper";
+import api from "@/network/apiSetup";
 
 export default async function CollectionPage({
   params,
@@ -8,10 +9,9 @@ export default async function CollectionPage({
   params: { id: string };
 }) {
   const fetchData = async () => {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_BACKEND_URL + "/collection/" + params.id
+    const response = await api("/collection/" + params.id
     );
-    return response.json();
+    return response.data;
   };
 
   const collectionData = await fetchData();

@@ -1,3 +1,4 @@
+"use client";
 import { clsx } from "clsx";
 import { useState } from "react";
 
@@ -5,7 +6,6 @@ import { CollectionListItem } from "@/components/collection/CollectionListItem";
 import SearchField from "@/components/ui/SearchField";
 import { Collection as CollectionEntity } from "@/types/collection.type";
 
-import { CollectionListItem2 } from "./CollectionListItem2";
 
 interface Props {
   collections: CollectionEntity[];
@@ -49,13 +49,7 @@ export default function CollectionsContainer({ collections }: Props) {
           />
 
         ))}
-        {filteredCollections.map((curCollection) => (
-          <CollectionListItem2
-            collection={curCollection}
-            key={curCollection.id}
-          />
 
-        ))}
       </div>
     </>
   );
