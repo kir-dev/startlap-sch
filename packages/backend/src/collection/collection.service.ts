@@ -14,7 +14,7 @@ export class CollectionService {
     return this.prisma.collection.findMany()
   }
   async findOne(id: string) {
-    const collection = await this.prisma.collection.findUnique({ where: { id } })
+    const collection = await this.prisma.collection.findUnique({ where: { id }, include: { links: true } })
     if (!collection) {
       throw new NotFoundException('Collection not found')
     }

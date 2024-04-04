@@ -1,16 +1,23 @@
-"use client";
 import Clock from "@/components/clock/clock";
 import CollectionsContainer from "@/components/collection/CollectionsContainer";
 import Wallpaper from "@/components/wallpaper/wallpaper";
-import { DummyCollections } from "@/mocks/collection.mock";
+import api from "@/network/apiSetup";
 
-export default function Collections() {
+export default async function Collections() {
+  const fetchCollections = async () => {
+    const response = await api(
+      "/collection/");
+    return response.data;
+  };
+
+  const collectionsData = await fetchCollections();
+
   return (
     <main className="min-h-screen">
       <Wallpaper />
       <Clock />
 
-      <CollectionsContainer collections={DummyCollections} />
+      <CollectionsContainer collections={collectionsData} />
     </main>
   );
 }

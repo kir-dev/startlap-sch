@@ -1,7 +1,8 @@
 import "../../app/globals.css";
 
-import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
 import Link from "next/link";
+
+import { LinkEntity } from "@/types/link.type";
 
 interface Props {
   link: LinkEntity;
