@@ -1,15 +1,16 @@
 "use client";
+import { Link as LinkEntity } from "backend/src/links/entities/link.entity";
 import { useEffect, useRef } from "react";
 
 import LinkWidget from "@/components/links/LinkWidget";
 import { LinkEntity } from "@/types/link.type";
 
 interface Props {
-  links: LinkEntity[];
   title: string;
+  links: LinkEntity[];
 }
 
-export default function FavLinksContainer({ links, title }: Props) {
+export default function FavLinksContainer({ title, links }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

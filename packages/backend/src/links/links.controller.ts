@@ -7,20 +7,23 @@ import {
   ParseFilePipe,
   Patch,
   Post,
-  Res,
   Query,
+  Res,
   UploadedFile,
   UseFilters,
   UseInterceptors,
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
+import { UserRole } from '@prisma/client'
 import { DeleteFileExceptionFilter } from 'src/util/DeleteFileExceptionFilter'
 import { IconInterceptor, IconValidators } from 'src/util/iconHelpers'
+import { JwtAuth } from '../auth/decorators/JwtAuth'
+import { Roles } from '../auth/decorators/Roles.decorator'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
-import { UpdateLinkDto } from './dto/update-link.dto'
 import { Trending } from './dto/trending.dto'
+import { UpdateLinkDto } from './dto/update-link.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
 
@@ -32,6 +35,8 @@ export class LinksController {
   @Post()
   @UseInterceptors(IconInterceptor)
   @UseFilters(DeleteFileExceptionFilter)
+  @JwtAuth()
+  @Roles(UserRole.ADMIN)
   async create(
     @Body() createLinkDto: CreateLinkDto,
     @UploadedFile(
@@ -63,6 +68,8 @@ export class LinksController {
   @Patch(':id')
   @UseInterceptors(IconInterceptor)
   @UseFilters(DeleteFileExceptionFilter)
+  @JwtAuth()
+  @Roles(UserRole.ADMIN)
   async update(
     @Param('id') id: string,
     @Body() updateLinkDto: UpdateLinkDto,
@@ -78,6 +85,8 @@ export class LinksController {
   }
 
   @Delete(':id')
+  @JwtAuth()
+  @Roles(UserRole.ADMIN)
   remove(@Param('id') id: string): Promise<Link> {
     return this.linksService.remove(id)
   }

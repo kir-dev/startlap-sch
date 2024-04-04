@@ -13,6 +13,8 @@ export default function Clock() {
   const url_base =
     "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/";
 
+  // TODO just use padStart()
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
   const fillWith0 = (input: number, neededLength: number) => {
     if (input.toString().length >= neededLength) return input.toString();
 

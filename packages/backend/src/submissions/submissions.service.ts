@@ -2,21 +2,28 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { Prisma, SUBMISSION_STATUS, User, UserRole } from '@prisma/client'
 import { PrismaService } from 'nestjs-prisma'
 import { Link } from 'src/links/entities/link.entity'
+import { LinksService } from '../links/links.service'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
 import { SubmissionEntitiy } from './entities/submission.entity'
 
 @Injectable()
 export class SubmissionsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService, private link: LinksService) {}
 
   async create(data: CreateSubmissionDto, user: User): Promise<SubmissionEntitiy> {
+    if (!(await this.link.checkUrl(data.url))) {
+      throw new BadRequestException('Invalid URL')
+    }
     try {
       return await this.prisma.submission.create({ data: { ...data, status: SUBMISSION_STATUS.IN_REVIEW, userId: user.id } })
     } catch (e) {
       if (e instanceof Prisma.PrismaClientKnownRequestError) {
         if (e.code === 'P2002') {
           throw new BadRequestException('Unique constraint violation')
+        }
+        if (e.code === 'P2003') {
+          throw new BadRequestException('Foreign key constraint violation')
         }
         throw e
       }
@@ -25,6 +32,11 @@ export class SubmissionsService {
 
   async findAll() {
     return await this.prisma.submission.findMany()
+  }
+  async getOwn(user: User): Promise<SubmissionEntitiy[]> {
+    return await this.prisma.submission.findMany({
+      where: { userId: user.id },
+    })
   }
 
   async findOne(id: string, user: User): Promise<SubmissionEntitiy> {
@@ -51,6 +63,9 @@ export class SubmissionsService {
     if (submission.status !== SUBMISSION_STATUS.IN_REVIEW) {
       throw new BadRequestException('This submission has already been closed')
     }
+    if (data.url && !(await this.link.checkUrl(data.url))) {
+      throw new BadRequestException('Invalid URL')
+    }
     return this.prisma.submission.update({ where: { id }, data })
   }
   async approve(subId: string): Promise<Link> {
@@ -73,6 +88,9 @@ export class SubmissionsService {
     } catch (e) {
       if (e.code === 'P2002') {
         throw new BadRequestException('Unique constraint violation')
+      }
+      if (e.code === 'P2003') {
+        throw new BadRequestException('Foreign key constraint violation')
       }
       throw e
     }
