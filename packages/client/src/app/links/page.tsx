@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import Link from "next/link";
 
-import { LinkListItem } from "@/components/link/LinkListItem";
+import LinkWidget from "@/components/links/LinkWidget";
 import { getLinks } from "@/network/getLinks";
 
 export default async function Links() {
@@ -13,7 +13,7 @@ export default async function Links() {
       )}
     >
       {links.map((link) => (
-        <LinkListItem link={link} key={link.id} />
+        <LinkWidget link={link} key={link.id} />
       ))}
       <Link className="text-blue-500" href="/">
         Főoldal
