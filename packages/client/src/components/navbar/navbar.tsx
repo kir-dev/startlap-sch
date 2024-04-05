@@ -28,6 +28,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 border bg-white px-6 py-3">
+      <Clock />
       <div className="m-auto flex max-w-screen-2xl items-center justify-between">
         {/*logo*/}
         <Link href="/" className="flex align-middle">
@@ -46,7 +47,7 @@ export default function Navbar() {
             </li>
           </ul>
         </nav>
-        <Clock />
+
         {/*right-side nav*/}
         <div className="flex w-1/2 max-w-md items-center justify-end space-x-5 md:items-stretch">
           <span className="hidden w-full md:inline-flex">

@@ -62,7 +62,7 @@ export default function Clock() {
   }, []);
 
   return (
-    <div className="z-50 flex w-full justify-center pt-4 ">
+    <div className="fixed z-50 flex w-full justify-center ">
       <div className="m-1  w-fit">
         <svg
           xmlns="http://www.w3.org/2000/svg"
