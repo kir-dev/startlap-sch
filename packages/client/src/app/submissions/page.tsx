@@ -7,7 +7,7 @@ import { getOwnSubmissions } from '@/network/getOwnSubmissions'
 export default async function Submissions() {
   const submissions = await getOwnSubmissions()
   return (
-    <main className={clsx('flex min-h-screen flex-col items-center justify-center bg-slate-100')}>
+    <main className={clsx('flex flex-col items-center justify-center bg-slate-100')}>
       {submissions.map(submission => (
         <SubmissionContainer submission={submission} key={submission.id} />
       ))}
