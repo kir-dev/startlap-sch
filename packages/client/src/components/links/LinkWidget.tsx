@@ -16,11 +16,14 @@ export default function LinkWidget(props: Props) {
 
   const visitLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    //Actual link, for counting clicks
     window.open(process.env.NEXT_PUBLIC_API_URL+"/links/visit/"+ link.slug);
   };
   return (
     <Link
+        //Fake link for preview
       href={link.url}
+      title={link.url}
       className="flex-no-wrap bg-blue flex w-80 flex-col items-center overflow-hidden rounded-xl p-2"
       target="_blank"
       onClick={(e) => visitLink(e)}
