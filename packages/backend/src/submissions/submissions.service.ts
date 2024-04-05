@@ -75,7 +75,7 @@ export class SubmissionsService {
     if (submission.status !== SUBMISSION_STATUS.IN_REVIEW) {
       throw new BadRequestException('This submission has already been closed')
     }
-    const { adminComment, status, oldLinkId, id, ...linkData } = submission
+    const { adminComment, status, oldLinkId, id, userId, ...linkData } = submission
     try {
       if (submission.oldLinkId) {
         await this.prisma.submission.update({ where: { id }, data: { status: SUBMISSION_STATUS.APPROVED } })
