@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { Link, User, UserRole } from '@prisma/client'
 import { CurrentUser } from 'src/auth/decorators/CurrentUser.decorator'
@@ -29,8 +29,12 @@ export class UserController {
   favorite(@Param('id') id: string, @CurrentUser() user: User): Promise<void> {
     return this.userService.saveFavorite(id, user)
   }
+  @Delete('/favorites/:id')
+  removeFavorite(@Param('id') id: string, @CurrentUser() user: User): Promise<void> {
+    return this.userService.removeFavorite(id, user)
+  }
   @Get('/favorites')
-  async favorites(@CurrentUser() user: User): Promise<Link[]> {
+  favorites(@CurrentUser() user: User): Promise<Link[]> {
     return this.userService.getFavorites(user)
   }
 }

@@ -28,6 +28,9 @@ export class UserService {
     const res = await this.prisma.user.update({ where: { id: user.id }, data: { favorites: { connect: { id } } } })
     return
   }
+  async removeFavorite(id: string, user: User): Promise<void> {
+    const res = await this.prisma.user.update({ where: { id: user.id }, data: { favorites: { disconnect: { id } } } })
+  }
   async getFavorites(user: User): Promise<Link[]> {
     const res = await this.prisma.user.findUnique({ where: { id: user.id }, include: { favorites: true } })
     return res.favorites
