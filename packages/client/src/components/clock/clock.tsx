@@ -90,7 +90,7 @@ export default function Clock() {
             </h5>
           </div>
           <div className="h-fit w-40">
-            <p className="ml-2 h-fit text-xs text-gray-500 ">
+            <p className="ml-2 h-20 overflow-hidden text-xs text-gray-500 ">
               {typeof onThisDayEvent === "undefined" ? "" : onThisDayEvent.text}
             </p>
           </div>

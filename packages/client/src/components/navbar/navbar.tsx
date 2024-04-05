@@ -27,7 +27,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 border bg-white px-6 py-3">
       <div className="grid grid-cols-3 items-center justify-between">
-        <div className="align items-center">
+        <div className="align flex items-center">
           <Link href="/" className="flex w-fit align-middle">
             <h1 className="m-0 w-fit text-3xl font-extrabold tracking-tight">
               StartlapSCH
@@ -48,7 +48,7 @@ export default function Navbar() {
         <Clock />
 
         {/*right-side nav*/}
-        <div className="max-w-md items-center space-x-5 text-right md:items-stretch">
+        <div className="space-x-5 text-right md:items-stretch">
           {/*<span className="hidden w-full md:inline-flex">
             <SearchBar></SearchBar>
           </span>*/}
