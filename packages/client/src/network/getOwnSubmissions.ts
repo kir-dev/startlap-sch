@@ -5,7 +5,7 @@ import api from './apiSetup'
 export async function getOwnSubmissions() {
   try {
     const response = await api.get('/submissions/me')
-    const data: Submission[] = await response.data
+    const data: Submission[] = response.data
     return data
   } catch (e) {
     console.error(e)
