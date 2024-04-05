@@ -1,9 +1,9 @@
-'use client';
-import "../../app/globals.css";
+'use client'
+import '../../app/globals.css'
 import '../../app/globals.css'
 
-import Link from "next/link";
-import React from "react";
+import Link from 'next/link'
+import React from 'react'
 
 import { cn } from '@/lib/utils'
 import { LinkEntity } from '@/types/link.type'
@@ -14,21 +14,21 @@ interface Props {
 }
 
 export default function LinkWidget(props: Props) {
-  const link = props.link;
+  const link = props.link
 
   const visitLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     //Actual link, for counting clicks
-    window.open(process.env.NEXT_PUBLIC_API_URL+"/links/visit/"+ link.slug);
-  };
+    window.open(process.env.NEXT_PUBLIC_API_URL + '/links/visit/' + link.slug)
+  }
   return (
     <Link
-        //Fake link for preview
+      //Fake link for preview
       href={link.url}
       title={link.url}
-      className="flex-no-wrap bg-blue flex w-80 flex-col items-center overflow-hidden rounded-xl p-2"
-      target="_blank"
-      onClick={(e) => visitLink(e)}
+      className='flex-no-wrap bg-blue flex w-80 flex-col items-center overflow-hidden rounded-xl p-2'
+      target='_blank'
+      onClick={e => visitLink(e)}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {/*have changed cover image to solid color, maybe should be dependent on the link entity*/}
