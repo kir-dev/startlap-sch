@@ -7,9 +7,9 @@ import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
 @Injectable()
 export class CollectionService {
   constructor(private readonly prisma: PrismaService) {}
-  create({ linkIds, ...createCollectionDto }: CreateCollectionDto, user: User) {
+  async create({ linkIds, ...createCollectionDto }: CreateCollectionDto, user: User) {
     try {
-      return this.prisma.collection.create({
+      return await this.prisma.collection.create({
         data: {
           ...createCollectionDto,
           userId: user.id,
