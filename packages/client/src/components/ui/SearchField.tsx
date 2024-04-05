@@ -1,26 +1,26 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 type searchProps = {
-  onSubmit: (term: string) => void;
-  searchPhrase: string;
-};
+  onSubmit: (term: string) => void
+  searchPhrase: string
+}
 
 export default function SearchField({ onSubmit, searchPhrase }: searchProps) {
-  const [searchTerm, setSearchTerm] = useState(searchPhrase);
+  const [searchTerm, setSearchTerm] = useState(searchPhrase)
 
   return (
-    <div className="float-right m-2 mr-8">
+    <div className='float-right m-2 mr-8'>
       <input
-        className="m-3 h-10 w-80 rounded-2xl border-2 border-black bg-none p-5 text-lg focus:outline-none"
-        type="search"
-        name="search"
-        placeholder="Keresés"
+        className='m-3 h-10 w-80 rounded-2xl border-2 border-black bg-none p-5 text-lg focus:outline-none'
+        type='search'
+        name='search'
+        placeholder='Keresés'
         value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          onSubmit(e.target.value);
+        onChange={e => {
+          setSearchTerm(e.target.value)
+          onSubmit(e.target.value)
         }}
       />
     </div>
-  );
+  )
 }

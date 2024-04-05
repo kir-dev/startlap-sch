@@ -5,8 +5,8 @@ paths:
       operationId: AppController_getHello
       parameters: []
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
@@ -16,8 +16,8 @@ paths:
       operationId: CollectionController_findAll
       parameters: []
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
@@ -32,11 +32,11 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateCollectionDto"
+              $ref: '#/components/schemas/CreateCollectionDto'
       responses:
-        "201":
-          description: ""
-  "/collection/{id}":
+        '201':
+          description: ''
+  '/collection/{id}':
     get:
       operationId: CollectionController_findOne
       parameters:
@@ -46,8 +46,8 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
@@ -65,10 +65,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateCollectionDto"
+              $ref: '#/components/schemas/UpdateCollectionDto'
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
@@ -82,8 +82,8 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
   /submissions:
     post:
       operationId: SubmissionsController_create
@@ -93,29 +93,28 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateSubmissionDto"
+              $ref: '#/components/schemas/CreateSubmissionDto'
       responses:
-        "201":
-          description: ""
+        '201':
+          description: ''
           content:
             application/json:
               schema:
                 type: string
-      tags:
-        &a1
+      tags: &a1
         - submissions
     get:
       operationId: SubmissionsController_findAll
       parameters: []
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
                 type: string
       tags: *a1
-  "/submissions/{id}":
+  '/submissions/{id}':
     get:
       operationId: SubmissionsController_findOne
       parameters:
@@ -125,8 +124,8 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
@@ -145,10 +144,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateSubmissionDto"
+              $ref: '#/components/schemas/UpdateSubmissionDto'
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
@@ -163,8 +162,8 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
@@ -179,16 +178,15 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateLinkDto"
+              $ref: '#/components/schemas/CreateLinkDto'
       responses:
-        "201":
-          description: ""
+        '201':
+          description: ''
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Link"
-      tags:
-        &a2
+                $ref: '#/components/schemas/Link'
+      tags: &a2
         - links
     get:
       operationId: LinksController_findAll
@@ -199,30 +197,30 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Link"
+                  $ref: '#/components/schemas/Link'
       tags: *a2
   /links/trending:
     get:
       operationId: LinksController_trending
       parameters: []
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Trending"
+                  $ref: '#/components/schemas/Trending'
       tags: *a2
-  "/links/{id}":
+  '/links/{id}':
     get:
       operationId: LinksController_findOne
       parameters:
@@ -232,12 +230,12 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Link"
+                $ref: '#/components/schemas/Link'
       tags: *a2
     patch:
       operationId: LinksController_update
@@ -252,14 +250,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UpdateLinkDto"
+              $ref: '#/components/schemas/UpdateLinkDto'
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Link"
+                $ref: '#/components/schemas/Link'
       tags: *a2
     delete:
       operationId: LinksController_remove
@@ -270,14 +268,14 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Link"
+                $ref: '#/components/schemas/Link'
       tags: *a2
-  "/links/slug/{slug}":
+  '/links/slug/{slug}':
     get:
       operationId: LinksController_checkSlug
       parameters:
@@ -287,14 +285,14 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/slugAvailable"
+                $ref: '#/components/schemas/slugAvailable'
       tags: *a2
-  "/links/visit/{slug}":
+  '/links/visit/{slug}':
     get:
       operationId: LinksController_visit
       parameters:
@@ -304,13 +302,13 @@ paths:
           schema:
             type: string
       responses:
-        "200":
-          description: ""
+        '200':
+          description: ''
       tags: *a2
 info:
   title: Startlap SCH
   description: The Startlap SCH API description
-  version: "1.0"
+  version: '1.0'
   contact: {}
 tags: []
 servers: []
@@ -377,8 +375,7 @@ components:
           example: https://example.com/icon.png
         keywords:
           description: Some keywords that describe the website
-          example:
-            &a4
+          example: &a4
             - example
             - link
           type: array
@@ -421,8 +418,7 @@ components:
           example: https://example.com/icon.png
         keywords:
           description: Some keywords that describe the website
-          example:
-            &a3
+          example: &a3
             - example
             - link
           type: array

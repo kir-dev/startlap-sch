@@ -4,6 +4,12 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn workspace backend dev & yarn workspace @startlap-sch/client dev & yarn workspace admin dev"
+    "dev": "concurrently \"yarn workspace backend dev\" \"yarn workspace @startlap-sch/client dev\" \"yarn workspace admin dev\"",
+    "dev:frontend": "concurrently \"yarn workspace @startlap-sch/client dev\" \"yarn workspace admin dev\"",
+    "dev:client": "yarn workspace @startlap-sch/client dev",
+    "dev:backend": "yarn workspace backend dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
