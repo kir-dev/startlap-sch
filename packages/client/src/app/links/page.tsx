@@ -1,18 +1,20 @@
-import React from "react";
-
+'use client'
 import LinkWidget from '@/components/links/LinkWidget'
-import { getLinks } from '@/network/getLinks'
+import { useSearchLink } from '@/components/links/useSearchLink'
+import SearchField from '@/components/ui/SearchField'
 
-export default async function Links() {
-  const links = await getLinks()
+export default function Links() {
+  const { links, loading, searchTerm, setSearchTerm } = useSearchLink()
   return (
-    <main >
-        {/*<div className='grid auto-cols-auto auto-rows-auto justify-center place-items-center pt-10 pl-5 pr-5 gap-y-3 gap-x-6' style={ { gridTemplateColumns: 'repeat(auto-fit, minmax(300px,1fr))' } }>*/}
-        <div className='flex flex-wrap justify-center gap-x-5 p-5'>
+    <main>
+      <div className='flex flex-col items-end'>
+        <SearchField searchPhrase={searchTerm} onSubmit={setSearchTerm} />
+        <div className='flex flex-wrap justify-center gap-x-5 p-5 w-full items-start'>
           {links.map(link => (
-                <LinkWidget link={link} key={link.id}/>
+            <LinkWidget link={link} key={link.id} />
           ))}
         </div>
+      </div>
     </main>
   )
 }
