@@ -31,7 +31,9 @@ export default function LinkWidget(props: Props) {
         <div className=" flex flex-grow flex-row">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            className="ml-0 aspect-square h-1/6 w-1/6 flex-none"
+            className={` ml-0 aspect-square flex-none ${
+              link.iconUrl === null ? "h-8 w-8" : "h-1/6 w-1/6"
+            }`}
             src={
               link.iconUrl === null
                 ? `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${link.url.replace(
