@@ -6,4 +6,5 @@ export class UserProfile {
   submissions: SubmissionEntitiy[]
   firstName: string
   email: string
+  role: string
 }
