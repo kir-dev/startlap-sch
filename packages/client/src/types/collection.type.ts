@@ -13,3 +13,7 @@ export interface Collection extends Omit<CollectionPreview, 'links'> {
 }
 
 export type GetCollectionsDto = CollectionPreview[]
+
+export type CreateCollectionDto = Pick<Collection, 'name' | 'slug' | 'bannerUrl'> & {
+  linkIds: string[]
+}
