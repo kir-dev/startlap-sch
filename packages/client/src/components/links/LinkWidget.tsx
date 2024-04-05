@@ -1,9 +1,10 @@
 'use client'
 import '../../app/globals.css'
-import '../../app/globals.css'
 
 import Link from 'next/link'
 import React from 'react'
+
+import { BsFire } from 'react-icons/bs'
 
 import { cn } from '@/lib/utils'
 import { LinkEntity } from '@/types/link.type'
@@ -30,18 +31,9 @@ export default function LinkWidget(props: Props) {
       target='_blank'
       onClick={e => visitLink(e)}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      {/*have changed cover image to solid color, maybe should be dependent on the link entity*/}
-      {/*      <img
-        className="-z-1 -mb-3 flex h-8 w-full flex-row items-center rounded-t-xl"
-        src={
-          "https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg"
-        }
-        alt="felso sav"
-      />*/}
       <div className='-z-1 -mb-3 flex h-6 w-full flex-row items-center rounded-t-xl bg-red-400'></div>
 
-      <div className='h-35 w-full overflow-hidden rounded-xl bg-white p-2'>
+      <div className='h-35 relative w-full overflow-hidden rounded-xl bg-white p-2'>
         <div className=' flex flex-grow flex-row'>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -61,8 +53,13 @@ export default function LinkWidget(props: Props) {
           <div className='ml-2 h-2/3 flex-grow overflow-hidden'>
             <h2 className='overflow-hidden overflow-ellipsis whitespace-nowrap text-3xl'>{link.title}</h2>
             <h4 className='text-xs'>{link.url}</h4>
-            {/*We don't want to show the number of visits if it's zero*/}
-            {!!props.visits && <p className='mt-0.5 text-xs'>Látogatások száma: {props.visits}</p>}
+
+            {!!props.visits && props.visits > 10 && (
+              <div className={'absolute right-2 top-3 flex items-center'} title='Kattintások száma'>
+                <BsFire color={'red'} size={14} className='inline' />
+                <h4 className={'text-s'}>{props.visits}</h4>
+              </div>
+            )}
           </div>
         </div>
         <div className='ml-2'>
