@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 
-import SubmissionContainer from '@/components/submission/SubmissionContainer'
+import SubmissionCard from '@/components/submission/SubmissionCard'
 import { getOwnSubmissions } from '@/network/getOwnSubmissions'
 
 export default async function Submissions() {
@@ -9,7 +9,7 @@ export default async function Submissions() {
   return (
     <main className={clsx('flex flex-col items-center justify-center bg-slate-100')}>
       {submissions.map(submission => (
-        <SubmissionContainer submission={submission} key={submission.id} />
+        <SubmissionCard submission={submission} key={submission.id} />
       ))}
       <Link className='text-blue-500' href='/'>
         Főoldal
