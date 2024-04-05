@@ -8,7 +8,17 @@ import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
 export class CollectionService {
   constructor(private readonly prisma: PrismaService) {}
   create(createCollectionDto: CreateCollectionDto, user: User) {
-    return this.prisma.collection.create({ data: { ...createCollectionDto, userId: user.id } })
+    return this.prisma.collection.create({
+      data: {
+        ...createCollectionDto,
+        userId: user.id,
+        links: {
+          connect: createCollectionDto.linkIds.map(link => ({
+            id: link,
+          })),
+        },
+      },
+    })
   }
   findAll() {
     return this.prisma.collection.findMany()
