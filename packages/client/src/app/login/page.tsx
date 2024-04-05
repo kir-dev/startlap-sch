@@ -3,6 +3,8 @@
 import { redirect } from 'next/navigation'
 import { FormEvent } from 'react'
 
+export const dynamic = 'force-dynamic'
+
 export default function LoginPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -32,3 +34,4 @@ export default function LoginPage() {
     </form>
   )
 }
+

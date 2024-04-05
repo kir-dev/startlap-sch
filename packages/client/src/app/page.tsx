@@ -2,6 +2,8 @@ import FavLinksContainer from '@/components/links/favLinksContainer'
 import { getFavLinks } from '@/network/getFavLinks'
 import { getLinks } from '@/network/getLinks'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   // const collections = await getCollections();
   const links = await getLinks()
@@ -16,3 +18,4 @@ export default async function Home() {
     </main>
   )
 }
+

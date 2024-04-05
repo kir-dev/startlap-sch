@@ -4,6 +4,8 @@ import Link from 'next/link'
 import SubmissionContainer from '@/components/submission/SubmissionContainer'
 import { getOwnSubmissions } from '@/network/getOwnSubmissions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Submissions() {
   const submissions = await getOwnSubmissions()
   return (
@@ -17,3 +19,4 @@ export default async function Submissions() {
     </main>
   )
 }
+
