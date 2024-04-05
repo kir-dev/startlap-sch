@@ -1,12 +1,12 @@
 'use client'
-import { Link as LinkEntity } from 'backend/src/links/entities/link.entity'
 import { useEffect, useRef } from 'react'
 
 import LinkWidget from '@/components/links/LinkWidget'
+import { LinkWithVisitsEntity } from '@/types/link.type'
 
 interface Props {
   title: string
-  links: LinkEntity[]
+  links: LinkWithVisitsEntity[]
 }
 
 export default function FavLinksContainer({ title, links }: Props) {
@@ -38,7 +38,7 @@ export default function FavLinksContainer({ title, links }: Props) {
       <div className='flex pl-4' ref={containerRef} style={{ overflowX: 'hidden' }}>
         {links.map(link => (
           <div className='w-80' key={link.id}>
-            <LinkWidget link={link} />
+            <LinkWidget link={link} visits={link.visits} />
           </div>
         ))}
       </div>
