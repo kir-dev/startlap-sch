@@ -3,11 +3,11 @@ import { getLinks } from "@/network/getLinks";
 
 export default async function Home() {
   // const collections = await getCollections();
-  const links = await getLinks()
+  const links = await getLinks();
   return (
     <main className="min-h-screen overflow-y-hidden">
       <FavLinksContainer title="Felkapottak" links={links}></FavLinksContainer>
       {/* <Carousel items={DummyCollections} name="Kollekciók" /> */}
     </main>
-  )
+  );
 }

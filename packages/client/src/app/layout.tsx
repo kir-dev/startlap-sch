@@ -3,10 +3,8 @@ import './globals.css'
 import { Work_Sans } from 'next/font/google'
 import { ReactNode } from 'react'
 
-import Navbar from "@/components/navbar/navbar";
-import Wallpaper from "@/components/wallpaper/wallpaper";
-
-const WorkSans = Work_Sans({ subsets: ["latin"] });
+import Navbar from '@/components/navbar/navbar'
+import Wallpaper from '@/components/wallpaper/wallpaper'
 
 const WorkSans = Work_Sans({ subsets: ['latin'] })
 
@@ -17,7 +15,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="hu">
+    <html lang='hu'>
       <body className={WorkSans.className}>
         <Navbar />
         <Wallpaper />
