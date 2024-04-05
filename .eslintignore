@@ -3,8 +3,8 @@
 *.png
 *.jpg
 *.jpeg
-/out/*
-/dist/*
-/build/*
-/rules
-packages/client/tailwind.config.js/
+**/out/*
+**/dist/*
+**/build/*
+**/rules
+**/.eslintrc.js

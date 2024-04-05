@@ -7,7 +7,7 @@ on:
     branches: ['master', 'staging']
 
 jobs:
-  backend-eslint:
+  check-code-style:
     name: ESLint Check
     runs-on: ubuntu-latest
     permissions:
@@ -18,72 +18,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Dev Dependencies
-        run: |
-          npm install --only=dev
-        working-directory: './packages/backend'
+      - name: Install Dependencies
+        run: yarn install
 
       - name: Run ESLint
-        run: npm run lint
-        working-directory: './packages/backend'
-
-  backend-prettier:
-    name: Prettier Check
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-      actions: read
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install Dev Dependencies
-        run: |
-          npm install --only=dev
-        working-directory: './packages/backend'
+        run: npx eslint .
 
       - name: Run Prettier
-        run: npm run prettier
-        working-directory: './packages/backend'
-#
-#  frontend-eslint:
-#    name: ESLint Check
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      security-events: write
-#      actions: read
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Install Dev Dependencies
-#        run: |
-#          npm install --only=dev
-#        working-directory: "./packages/frontend"
-#
-#      - name: Run ESLint
-#        run: npm run lint
-#        working-directory: "./packages/frontend"
-#
-#  frontend-prettier:
-#    name: Prettier Check
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      security-events: write
-#      actions: read
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v3
-#
-#      - name: Install Dev Dependencies
-#        run: |
-#          npm install --only=dev
-#        working-directory: "./packages/frontend"
-#
-#      - name: Run Prettier
-#        run: npm run prettier
-#        working-directory: "./packages/frontend"
-
+        run: npx prettier --check .
