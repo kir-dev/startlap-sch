@@ -11,7 +11,7 @@ export default async function Page() {
       <h1>
         <span className='italic'>zs</span>admin
       </h1>
-      <div className='flex'>
+      <div className='flex flex-wrap px-4 justify-center gap-4'>
         {submissions.map(submission => (
           <SubmissionCard key={submission.id} submission={submission} />
         ))}

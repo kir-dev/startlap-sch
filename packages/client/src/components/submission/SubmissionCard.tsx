@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import { Button } from '@/components/ui/button'
 import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'
 /*import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'*/
@@ -7,9 +9,11 @@ import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
 export default function SubmissionContainer({ submission }: { submission: Submission }) {
+  const router = useRouter()
   const changeStatus = useSubmissionChangeStatus()
   const changeSubmissionStatus = async (approved:boolean) => {
-    changeStatus.trigger({ id: submission.id, approved, })
+    changeStatus.trigger({ id: submission.id, approved, }).then(() => router.refresh())
+
   }
   const getStatusColor = (status: Submission['status']) => {
     switch (status) {
@@ -76,7 +80,7 @@ export default function SubmissionContainer({ submission }: { submission: Submis
         </div>
         <div className='my-4 flex w-full justify-evenly'>
           <Button variant={'destructive'} onClick={()=>changeSubmissionStatus(false)}>Elutasítás</Button>
-          <Button onClick={()=>changeSubmissionStatus(false)}>Jóváhagyás</Button>
+          <Button onClick={()=>changeSubmissionStatus(true)}>Jóváhagyás</Button>
         </div>
       </div>
     </div>
