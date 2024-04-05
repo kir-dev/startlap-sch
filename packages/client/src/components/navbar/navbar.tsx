@@ -60,10 +60,10 @@ export default function Navbar() {
         <div className={toggledClass}>
           <ul className='flex flex-col space-y-2 pt-3'>
             <li>
-              <a href='#'>Links</a>
+              <a href='/links'>Links</a>
             </li>
             <li>
-              <a href='#'>Collections</a>
+              <a href='/collections'>Collections</a>
             </li>
           </ul>
         </div>
