@@ -1,21 +1,17 @@
-import "../../app/globals.css";
+import '../../app/globals.css'
 
-import Link from "next/link";
+import Link from 'next/link'
 
-import { LinkEntity } from "@/types/link.type";
+import { LinkEntity } from '@/types/link.type'
 
 interface Props {
-  link: LinkEntity;
+  link: LinkEntity
 }
 
 export default function LinkWidget(props: Props) {
-  const link = props.link;
+  const link = props.link
   return (
-    <Link
-      href={link.url}
-      className="flex-no-wrap bg-blue flex w-80 flex-col items-center overflow-hidden rounded-xl p-2"
-      target="_blank"
-    >
+    <Link href={link.url} className='flex-no-wrap bg-blue flex w-80 flex-col items-center overflow-hidden rounded-xl p-2' target='_blank'>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {/*have changed cover image to solid color, maybe should be dependent on the link entity*/}
       {/*      <img
@@ -27,8 +23,8 @@ export default function LinkWidget(props: Props) {
       />*/}
       <div className="-z-1 -mb-3 flex h-6 w-full flex-row items-center rounded-t-xl bg-red-400"></div>
 
-      <div className="h-35 w-full overflow-hidden rounded-xl bg-white p-2">
-        <div className=" flex flex-grow flex-row">
+      <div className='h-35 w-full overflow-hidden rounded-xl bg-white p-2'>
+        <div className=' flex flex-grow flex-row'>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className={` ml-0 aspect-square flex-none ${
@@ -53,12 +49,10 @@ export default function LinkWidget(props: Props) {
             <h4 className="text-xs">{link.url}</h4>
           </div>
         </div>
-        <div className="">
-          <p className="mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap  text-base">
-            {link.description}
-          </p>
+        <div className=''>
+          <p className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap  text-base'>{link.description}</p>
         </div>
       </div>
     </Link>
-  );
+  )
 }
