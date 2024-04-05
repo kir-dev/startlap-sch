@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import Clock from "@/components/clock/clock";
 import { Button } from "@/components/ui/button";
 
 import SearchBar from "../ui/searchbar";
@@ -45,11 +46,13 @@ export default function Navbar() {
             </li>
           </ul>
         </nav>
+        <Clock />
         {/*right-side nav*/}
         <div className="flex w-1/2 max-w-md items-center justify-end space-x-5 md:items-stretch">
           <span className="hidden w-full md:inline-flex">
             <SearchBar></SearchBar>
           </span>
+          {/*todo set state*/}
           <Button>
             <a href={`${process.env.NEXT_PUBLIC_API_URL}/auth/login`}>
               Belépés

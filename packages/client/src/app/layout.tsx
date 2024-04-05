@@ -4,6 +4,7 @@ import { Work_Sans } from "next/font/google";
 import { ReactNode } from "react";
 
 import Navbar from "@/components/navbar/navbar";
+import Wallpaper from "@/components/wallpaper/wallpaper";
 
 const WorkSans = Work_Sans({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="hu">
       <body className={WorkSans.className}>
         <Navbar />
+        <Wallpaper />
         {children}
       </body>
     </html>
