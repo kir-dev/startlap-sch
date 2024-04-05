@@ -5,21 +5,25 @@ import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
 export default function SubmissionContainer({ submission }: { submission: Submission }) {
+  /*  const approveSubmission = async () => {
+    const res = authorizedApi(`/submissions/${submission.id}/approve.ts`)
+    router.reload()
+  }*/
   const getStatusColor = (status: Submission['status']) => {
     switch (status) {
       case 'APPROVED':
-        return <div className={'rounded bg-green-200'}>Elfogadva</div>
+        return 'bg-green-200'
       case 'DECLINED':
-        return <div className={'bg-gred-200 rounded'}>Elutasítva</div>
+        return 'bg-red-200'
       case 'IN_REVIEW':
-        return <div className={'rounded bg-yellow-200'}>Leadva</div>
+        return 'bg-amber-200'
     }
   }
 
   return (
-    <div className='flex-no-wrap bg-blue flex w-96 flex-col items-center overflow-hidden rounded-xl p-2'>
-      <div className='-z-1 -mb-3 flex h-10 w-full flex-row items-center rounded-t-xl bg-amber-300 p-2'>
-        <h4>{submission.id}</h4>
+    <div className='flex-no-wrap bg-blue flex w-96 flex-col items-center overflow-ellipsis rounded-xl p-2'>
+      <div className='-z-1  ${getStatusColor(submission.status)} -mb-3 flex h-10 w-full flex-row items-center rounded-t-xl p-2'>
+        <h4 className='w-full text-center'>{submission.id}</h4>
       </div>
       <div className='h-35 relative w-full overflow-hidden rounded-xl bg-white p-2'>
         <div className=' flex flex-grow flex-row'>
@@ -49,12 +53,25 @@ export default function SubmissionContainer({ submission }: { submission: Submis
           <p className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{submission.description}</p>
           <h6>keywords</h6>
           {submission.keywords.map((keyword: string, _index) => (
-            <div key={_index} className={'m-1 inline-block w-fit rounded bg-gray-100 p-1'}>
+            <div key={_index} className={'m-1 inline-block w-fit rounded bg-gray-100 px-2 py-1'}>
               {keyword}
             </div>
           ))}
+          {submission.oldLinkId && (
+            <>
+              <h6>Old Link Id:</h6>
+              <p>{submission.oldLinkId}</p>
+            </>
+          )}
+          <hr></hr>
+          {submission.adminComment && submission.adminComment !== '' && (
+            <>
+              <h6>admin comment</h6>
+              <p>{submission.adminComment}</p>
+            </>
+          )}
         </div>
-        <div className='flex w-full justify-evenly'>
+        <div className='my-4 flex w-full justify-evenly'>
           <Button variant={'destructive'}>Elutasítás</Button>
           <Button>Jóváhagyás</Button>
         </div>
