@@ -6,7 +6,6 @@
   "printWidth": 150,
   "jsxSingleQuote": true,
   "bracketSameLine": false,
-  "endOfLine": "crlf",
   "tabWidth": 2,
   "arrowParens": "avoid"
 }
