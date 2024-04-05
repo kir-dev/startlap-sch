@@ -10,7 +10,7 @@ export default async function Collections() {
   const collectionsData = await fetchCollections()
 
   return (
-    <main className='min-h-screen'>
+    <main>
       <CollectionsContainer collections={collectionsData} />
     </main>
   )
