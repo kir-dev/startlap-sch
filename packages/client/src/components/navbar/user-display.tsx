@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie'
+import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
@@ -19,6 +20,12 @@ export function UserDisplay() {
         </Button>
       )}
       {profile.data && (
+        <>
+        <Button asChild variant="ghost">
+        <Link href='/admin'>
+          Admin panel
+        </Link>
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger>
             <Button variant='outline'>{profile.data.firstName}</Button>
@@ -27,6 +34,7 @@ export function UserDisplay() {
             <DropdownMenuItem onClick={onLogout}>Kijelentkezés</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        </>
       )}
     </>
   )

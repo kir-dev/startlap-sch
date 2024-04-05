@@ -1,11 +1,14 @@
-import SubmissionCard from '@/components/submission/SubmissionCard'
+
+import SubmissionCard from '@/components/submission/AdminSubmissionCard'
 import { getAllSubmissions } from '@/network/getAllSubmissions'
-import { getProfile } from '@/network/getProfile'
 
 export default async function Page() {
-  const user = await getProfile()
+  //const user = await getProfile()
   const submissions = await getAllSubmissions()
-
+  //console.log(user)
+  // if(user?.role !== 'ADMIN' && user?.role !== 'MODERATOR') {
+  //   return redirect('/')
+  // }
   return (
     <>
       <h1>
