@@ -55,14 +55,12 @@ export default function Clock() {
 
   useEffect(() => {
     const intervalId = setInterval(() => setDateState(new Date()), 15 * 1000);
-
     fetchOnThisDayAPI();
-
     return () => clearInterval(intervalId);
   }, []);
 
   return (
-    <div className="fixed z-50 flex w-full justify-center ">
+    <div className="absolute z-50 flex w-full justify-center ">
       <div className="m-1  w-fit">
         <svg
           xmlns="http://www.w3.org/2000/svg"
