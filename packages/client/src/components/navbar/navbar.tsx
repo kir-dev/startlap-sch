@@ -34,7 +34,7 @@ export default function Navbar() {
             </h1>
           </Link>
           {/*desktop menu*/}
-          <nav className="mr-auto items-center">
+          <nav className="mr-auto items-center max-md:hidden">
             <ul className="flex space-x-4 px-10">
               <li>
                 <Link href="/links">Links</Link>
@@ -45,10 +45,11 @@ export default function Navbar() {
             </ul>
           </nav>
         </div>
-        <Clock />
-
+        <div>
+          <Clock />
+        </div>
         {/*right-side nav*/}
-        <div className="space-x-5 text-right md:items-stretch">
+        <div className="flex items-center justify-end space-x-5 text-right md:items-stretch">
           {/*<span className="hidden w-full md:inline-flex">
             <SearchBar></SearchBar>
           </span>*/}
