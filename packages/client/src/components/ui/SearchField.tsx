@@ -1,11 +1,9 @@
-
 type searchProps = {
   onSubmit: (term: string) => void
   searchPhrase: string
 }
 
 export default function SearchField({ onSubmit, searchPhrase }: searchProps) {
-
   return (
     <div className='m-2 mr-8 w-fit'>
       <input
