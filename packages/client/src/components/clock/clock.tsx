@@ -73,6 +73,7 @@ export default function Clock() {
                 : fillWith0(onThisDayEvent.year, 4) + '.' + fillWith0(dateState.getMonth() + 1, 2) + '.' + fillWith0(dateState.getDate(), 2) + '.'}
             </h5>
           </div>
+
           <div className='h-8 w-40'>
             <p className='ml-2 h-fit w-80 rounded bg-white p-2 pt-0 text-xs text-gray-500 group-hover:opacity-100  '>
               {typeof onThisDayEvent === 'undefined' ? '' : onThisDayEvent.text}
