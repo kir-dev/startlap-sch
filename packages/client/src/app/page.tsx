@@ -1,12 +1,11 @@
 import FavLinksContainer from '@/components/links/favLinksContainer'
-import { getLinks } from '@/network/getLinks'
+import { getTrendingLinks } from '@/network/getTrendingLinks'
 
 export default async function Home() {
   // const collections = await getCollections();
-  const links = await getLinks()
+  const links = await getTrendingLinks()
   return (
-    <main className='min-h-screen overflow-y-hidden'>
-      <h1>StartlapSCH</h1>
+    <main className='overflow-y-hidden'>
       <FavLinksContainer title='Felkapottak' links={links}></FavLinksContainer>
       {/* <Carousel items={DummyCollections} name="Kollekciók" /> */}
     </main>

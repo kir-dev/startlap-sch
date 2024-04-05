@@ -10,7 +10,7 @@ export default async function CollectionPage({ params }: { params: { id: string 
   const collectionData = await fetchData()
 
   return (
-    <main className='min-h-screen'>
+    <main>
       <CollectionLinksContainer collection={collectionData} />
     </main>
   )
