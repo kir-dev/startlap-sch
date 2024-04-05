@@ -7,8 +7,6 @@ import { useState } from "react";
 import Clock from "@/components/clock/clock";
 import { Button } from "@/components/ui/button";
 
-import SearchBar from "../ui/searchbar";
-
 export default function Navbar() {
   const [isMenuVisible, setMenuVisible] = useState(false);
   const [toggledClass, toggleClass] = useState(
@@ -28,31 +26,32 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 border bg-white px-6 py-3">
-      <Clock />
-      <div className="m-auto flex max-w-screen-2xl items-center justify-between">
-        {/*logo*/}
-        <Link href="/" className="flex align-middle">
-          <h1 className="m-0 scroll-m-20 text-3xl font-extrabold tracking-tight">
-            StartlapSch
-          </h1>
-        </Link>
-        {/*desktop menu*/}
-        <nav className="mr-auto hidden items-center md:inline-flex">
-          <ul className="flex space-x-4 px-10">
-            <li>
-              <Link href="/links">Links</Link>
-            </li>
-            <li>
-              <Link href="/collections">Collections</Link>
-            </li>
-          </ul>
-        </nav>
+      <div className="grid grid-cols-3 items-center justify-between">
+        <div className="align items-center">
+          <Link href="/" className="flex w-fit align-middle">
+            <h1 className="m-0 w-fit text-3xl font-extrabold tracking-tight">
+              StartlapSCH
+            </h1>
+          </Link>
+          {/*desktop menu*/}
+          <nav className="mr-auto items-center">
+            <ul className="flex space-x-4 px-10">
+              <li>
+                <Link href="/links">Links</Link>
+              </li>
+              <li>
+                <Link href="/collections">Collections</Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <Clock />
 
         {/*right-side nav*/}
-        <div className="flex w-1/2 max-w-md items-center justify-end space-x-5 md:items-stretch">
-          <span className="hidden w-full md:inline-flex">
+        <div className="max-w-md items-center space-x-5 text-right md:items-stretch">
+          {/*<span className="hidden w-full md:inline-flex">
             <SearchBar></SearchBar>
-          </span>
+          </span>*/}
           {/*todo set state*/}
           <Button>
             <a href={`${process.env.NEXT_PUBLIC_API_URL}/auth/login`}>
@@ -71,7 +70,6 @@ export default function Navbar() {
       </div>
 
       {/*mobile menu*/}
-
       <div className="md:hidden">
         <div className={toggledClass}>
           <ul className="flex flex-col space-y-2 pt-3">
