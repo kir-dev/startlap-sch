@@ -6,7 +6,6 @@ export type LinkEntity = {
   description: string
   iconUrl?: string
   keywords: string[]
-  visits?: number
 }
 
 export interface LinkWithVisitsEntity extends LinkEntity {

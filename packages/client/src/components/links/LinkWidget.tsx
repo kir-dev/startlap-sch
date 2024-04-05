@@ -6,6 +6,7 @@ import { LinkEntity } from '@/types/link.type'
 
 interface Props {
   link: LinkEntity
+  visits?: number
 }
 
 export default function LinkWidget(props: Props) {
@@ -48,7 +49,7 @@ export default function LinkWidget(props: Props) {
             </h2>
             <h4 className="text-xs">{link.url}</h4>
             {/*We don't want to show the number of visits if it's zero*/}
-            {!!link.visits && <p className='mt-0.5 text-xs'>Látogatások száma: {link.visits}</p>}
+            {!!props.visits && <p className='mt-0.5 text-xs'>Látogatások száma: {props.visits}</p>}
           </div>
         </div>
         <div className='ml-2'>
