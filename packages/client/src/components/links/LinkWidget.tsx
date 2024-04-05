@@ -21,7 +21,7 @@ export default function LinkWidget(props: Props) {
         }
         alt="felso sav"
       />*/}
-      <div className="-z-1 -mb-3 flex h-6 w-full flex-row items-center rounded-t-xl bg-red-400"></div>
+      <div className='-z-1 -mb-3 flex h-6 w-full flex-row items-center rounded-t-xl bg-red-400'></div>
 
       <div className='h-35 w-full overflow-hidden rounded-xl bg-white p-2'>
         <div className=' flex flex-grow flex-row'>
@@ -47,9 +47,11 @@ export default function LinkWidget(props: Props) {
               {link.title}
             </h2>
             <h4 className="text-xs">{link.url}</h4>
+            {/*We don't want to show the number of visits if it's zero*/}
+            {!!link.visits && <p className='mt-0.5 text-xs'>Látogatások száma: {link.visits}</p>}
           </div>
         </div>
-        <div className=''>
+        <div className='ml-2'>
           <p className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap  text-base'>{link.description}</p>
         </div>
       </div>
