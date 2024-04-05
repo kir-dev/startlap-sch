@@ -7,11 +7,11 @@ export default async function Collections() {
     return response.data;
   };
 
-  const collectionsData = await fetchCollections();
+  const collectionsData = await fetchCollections()
 
   return (
     <main className="min-h-screen">
       <CollectionsContainer collections={collectionsData} />
     </main>
-  );
+  )
 }
