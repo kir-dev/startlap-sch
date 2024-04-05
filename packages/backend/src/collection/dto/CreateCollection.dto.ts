@@ -1,9 +1,6 @@
 import { ApiProperty, PickType } from '@nestjs/swagger'
+import { ArrayMinSize, IsArray } from 'class-validator'
 import { CollectionEntity } from './CollectionEntity.dto'
-import { ArrayMinSize, IsArray, IsNotEmpty, ValidateNested } from 'class-validator'
-import { Link } from '../../links/entities/link.entity'
-import { Type } from 'class-transformer'
-
 
 export class CreateCollectionDto extends PickType(CollectionEntity, ['bannerUrl', 'slug', 'name']) {
   @IsArray()
