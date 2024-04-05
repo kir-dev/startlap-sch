@@ -1,8 +1,6 @@
 'use client'
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
-import Popup from '@/components/ui/Popup'
 import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
@@ -73,18 +71,6 @@ export default function SubmissionCard({ submission }: { submission: Submission 
             </>
           )}
         </div>
-        {submission.status === 'IN_REVIEW' && (
-          <div className='my-4 flex w-full justify-evenly'>
-            <Popup
-              title='Biztosan el szertnéd utasítani?'
-              description='Adj visszajelzést a beadónak'
-              onConfirm={(feedback: string) => changeSubmissionStatus(false)}
-            >
-              <Button variant={'destructive'}>Elutasítás</Button>
-            </Popup>
-            <Button onClick={() => changeSubmissionStatus(true)}>Jóváhagyás</Button>
-          </div>
-        )}
       </div>
     </div>
   )

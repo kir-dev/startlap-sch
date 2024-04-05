@@ -2,6 +2,7 @@
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
+import Popup from '@/components/ui/Popup'
 import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'
 /*import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'*/
 import { cn } from '@/lib/utils'
@@ -79,12 +80,18 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
             </>
           )}
         </div>
-        <div className='my-4 flex w-full justify-evenly'>
-          <Button variant={'destructive'} onClick={() => changeSubmissionStatus(false)}>
-            Elutasítás
-          </Button>
-          <Button onClick={() => changeSubmissionStatus(true)}>Jóváhagyás</Button>
-        </div>
+        {submission.status === 'IN_REVIEW' && (
+          <div className='my-4 flex w-full justify-evenly'>
+            <Popup
+              title='Biztosan el szertnéd utasítani?'
+              description='Adj visszajelzést a beadónak'
+              onConfirm={(feedback: string) => changeSubmissionStatus(false)}
+            >
+              <Button variant={'destructive'}>Elutasítás</Button>
+            </Popup>
+            <Button onClick={() => changeSubmissionStatus(true)}>Jóváhagyás</Button>
+          </div>
+        )}
       </div>
     </div>
   )
