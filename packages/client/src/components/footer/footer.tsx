@@ -13,7 +13,7 @@ export default function Footer() {
         </Link>
         <div className='flex flex-col text-center'>
           <p>Made with ♥ by Kir-Dev</p>
-          <p>© 2024</p>
+          <p>© {new Date().getFullYear()}</p>
           <div className='flex justify-center'>
             <Link target='_blank' href='https://github.com/kir-dev'>
               <TbBrandGithub size={24} />
@@ -36,3 +36,4 @@ export default function Footer() {
     </footer>
   )
 }
+
