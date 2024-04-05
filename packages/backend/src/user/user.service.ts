@@ -22,7 +22,7 @@ export class UserService {
 
   async getProfile(id: string): Promise<UserProfile> {
     const user = await this.prisma.user.findUnique({ where: { id }, include: { collections: { include: { links: true } }, submissions: true } })
-    return { collections: user.collections, submissions: user.submissions }
+    return { collections: user.collections, submissions: user.submissions, firstName: user.firstName, email: user.email }
   }
   async saveFavorite(id: string, user: User): Promise<void> {
     const res = await this.prisma.user.update({ where: { id: user.id }, data: { favorites: { connect: { id } } } })
