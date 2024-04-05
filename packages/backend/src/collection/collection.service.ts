@@ -7,18 +7,22 @@ import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
 @Injectable()
 export class CollectionService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createCollectionDto: CreateCollectionDto, user: User) {
-    return this.prisma.collection.create({
-      data: {
-        ...createCollectionDto,
-        userId: user.id,
-        links: {
-          connect: createCollectionDto.linkIds.map(link => ({
-            id: link,
-          })),
+  create({ linkIds, ...createCollectionDto }: CreateCollectionDto, user: User) {
+    try {
+      return this.prisma.collection.create({
+        data: {
+          ...createCollectionDto,
+          userId: user.id,
+          links: {
+            connect: linkIds.map(link => ({
+              id: link,
+            })),
+          },
         },
-      },
-    })
+      })
+    } catch (e) {
+      throw new NotFoundException('Link not found')
+    }
   }
   findAll() {
     return this.prisma.collection.findMany()
