@@ -10,3 +10,5 @@ export type Submission = {
   adminComment: string
   status: 'IN_REVIEW' | 'APPROVED' | 'DECLINED'
 }
+
+export type CreateSubmissionDto = Omit<Submission, 'id' | 'adminComment' | 'status' | 'oldLinkId'>
