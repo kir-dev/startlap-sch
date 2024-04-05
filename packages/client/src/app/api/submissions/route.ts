@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(response.data)
   } catch (e) {
     if (isAxiosError(e)) {
-      return console.log(e.response?.data)
+      return console.error(e.response?.data)
     }
     return NextResponse.json({ error: 'An error occurred' }, { status: 500 })
   }

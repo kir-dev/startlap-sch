@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { TbCheck, TbExclamationCircle, TbLoader } from 'react-icons/tb'
 
 import { useCheckLink } from '@/hooks/mutations/use-check.link'
@@ -12,7 +12,6 @@ export function CheckLink({ link }: CheckLinkProps) {
 
   useDebouncedEffect(
     () => {
-      console.log('Checking link', link)
       linkStatus.trigger(link)
     },
     500,
