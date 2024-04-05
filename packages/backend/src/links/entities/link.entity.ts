@@ -1,4 +1,4 @@
-import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString, IsUrl, IsUUID, Matches } from 'class-validator'
+import { ArrayMinSize, IsArray, IsNotEmpty, IsString, IsUrl, IsUUID, Matches } from 'class-validator'
 
 export class Link {
   /**
@@ -43,14 +43,6 @@ export class Link {
   @IsString()
   @IsNotEmpty()
   description: string
-
-  /**
-   * The url to the icon corresponding to the link
-   * @example 'https://example.com/icon.png'
-   */
-  @IsString()
-  @IsOptional()
-  iconUrl: string
 
   /**
    * Some keywords that describe the website

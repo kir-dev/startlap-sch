@@ -16,7 +16,6 @@ model Link {
   title       String
   slug        String       @unique
   description String
-  iconUrl     String?
   keywords    String[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -35,7 +34,6 @@ model Visit {
 
 model Collection {
   id        String   @id @default(uuid())
-  iconUrl   String
   bannerUrl String
   slug      String
   name      String
@@ -71,7 +69,6 @@ model Submission {
   url          String
   slug         String
   description  String
-  iconUrl      String?
   keywords     String[]
   status       SUBMISSION_STATUS
   adminComment String?

@@ -1,9 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import axios from 'axios'
-import { unlink } from 'fs'
 import { PrismaService } from 'nestjs-prisma'
-import { join } from 'path'
 import { CreateLinkDto } from './dto/create-link.dto'
 import { SearchLink } from './dto/search-link.dto'
 import { slugAvailable } from './dto/slug-verification.dto'
@@ -17,7 +15,7 @@ export class LinksService {
   async create(createLinkDto: CreateLinkDto, fileName?: string) {
     try {
       if (await this.checkUrl(createLinkDto.url)) {
-        return await this.prisma.link.create({ data: { ...createLinkDto, iconUrl: fileName } })
+        return await this.prisma.link.create({ data: createLinkDto })
       } else {
         throw new BadRequestException('The url you entered is not found!')
       }
@@ -76,10 +74,7 @@ export class LinksService {
     try {
       if (await this.checkUrl(updateLinkDto.url)) {
         const oldLink = await this.prisma.link.findUnique({ where: { id } })
-        const newLink = await this.prisma.link.update({ where: { id }, data: { ...updateLinkDto, iconUrl: fileName } })
-        if (oldLink.iconUrl) {
-          unlink(join(process.cwd(), '/static', oldLink.iconUrl), () => {})
-        }
+        const newLink = await this.prisma.link.update({ where: { id }, data: updateLinkDto })
         return newLink
       } else {
         throw new BadRequestException('The url you entered is not found!')

@@ -30,10 +30,6 @@ export class SubmissionEntitiy {
   @IsString()
   description: string
 
-  @IsString()
-  @IsOptional()
-  iconUrl?: string
-
   @IsArray()
   @IsString({ each: true })
   @ArrayMinSize(1)
