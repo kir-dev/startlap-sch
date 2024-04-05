@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Prisma, User } from '@prisma/client'
+import { Link, Prisma, User } from '@prisma/client'
 import { PrismaService } from 'nestjs-prisma'
 import { ChangeUserRole } from './dto/changeUserRole.dto'
 import { UserProfile } from './dto/userProfile.dto'
@@ -23,5 +23,16 @@ export class UserService {
   async getProfile(id: string): Promise<UserProfile> {
     const user = await this.prisma.user.findUnique({ where: { id }, include: { collections: { include: { links: true } }, submissions: true } })
     return { collections: user.collections, submissions: user.submissions }
+  }
+  async saveFavorite(id: string, user: User): Promise<void> {
+    const res = await this.prisma.user.update({ where: { id: user.id }, data: { favorites: { connect: { id } } } })
+    return
+  }
+  async removeFavorite(id: string, user: User): Promise<void> {
+    const res = await this.prisma.user.update({ where: { id: user.id }, data: { favorites: { disconnect: { id } } } })
+  }
+  async getFavorites(user: User): Promise<Link[]> {
+    const res = await this.prisma.user.findUnique({ where: { id: user.id }, include: { favorites: true } })
+    return res.favorites
   }
 }
