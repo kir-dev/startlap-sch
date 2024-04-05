@@ -1,11 +1,10 @@
 'use client'
 import Hamburger from 'hamburger-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import Clock from '@/components/clock/clock'
-import { Button } from '@/components/ui/button'
+import { UserDisplay } from '@/components/navbar/user-display'
 
 export default function Navbar() {
   const [isMenuVisible, setMenuVisible] = useState(false)
@@ -20,7 +19,6 @@ export default function Navbar() {
       toggleClass('transition-all duration-200 ease-in-out opacity-100 h-20')
     }
   }
-  const router = useRouter()
 
   return (
     <header className='sticky top-0 border bg-white px-6 py-3'>
@@ -50,9 +48,7 @@ export default function Navbar() {
             <SearchBar></SearchBar>
           </span>*/}
           {/*todo set state*/}
-          <Button>
-            <a href={`${process.env.NEXT_PUBLIC_API_URL}/auth/login`}>Belépés</a>
-          </Button>
+          <UserDisplay />
           <button className='md:hidden' onClick={toggleMenu}>
             <Hamburger rounded toggled={isMenuVisible} direction='right' size={30} />
           </button>
