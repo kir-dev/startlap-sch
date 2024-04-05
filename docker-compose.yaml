@@ -7,7 +7,7 @@ services:
     build:
       context: .
     ports:
-      - "${BACKEND_PORT}:${BACKEND_PORT}"
+      - '${BACKEND_PORT}:${BACKEND_PORT}'
     env_file:
       - .env
     restart: always
