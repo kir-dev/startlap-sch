@@ -1,9 +1,9 @@
-import { CollectionEntity } from "backend/dist/collection/dto/CollectionEntity.dto";
-import { SubmissionEntitiy } from "backend/dist/submissions/entities/submission.entity";
+import { Collection } from '@/types/collection.type'
+import { Submission } from '@/types/submission.type'
 
 export class UserProfile {
-  collections: CollectionEntity[];
-  submissions: SubmissionEntitiy[];
-  firstName: string;
-  email: string;
+  collections: Collection[]
+  submissions: Submission[]
+  firstName: string
+  email: string
 }
