@@ -9,7 +9,8 @@ export async function PATCH(request: NextRequest) {
   const id = body.id
   const approve = body.approved
   try {
-    const response = await authorizedApi.post<Submission>(`/submissions/${id}/`)
+    const response = await authorizedApi.patch<Submission>(`/submissions/${id}/${approve ? 'approve' : 'decline'}`)
+    console.log(response.data)
     return NextResponse.json(response.data)
   } catch (e) {
     if (isAxiosError(e)) {
