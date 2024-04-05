@@ -5,21 +5,21 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { TagInputField } from '@/components/form-field/tag-input-field'
 import { TextField } from '@/components/form-field/text-field'
 import { TextareaField } from '@/components/form-field/textarea-field'
 import { CheckLink } from '@/components/links/CheckLink'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { useCreateSubmission } from '@/hooks/mutations/use-create-submission'
-import { CreateSubmissionDto } from '@/types/submission.type'
 
 const CreateLinksFormSchema = z.object({
   title: z.string({ required_error: 'Kötelező mező' }).min(3, { message: 'Legalább 3 karakter hosszú legyen' }),
-  url: z.string().url({ message: 'Nem megfelelő URL formátum' }),
-  slug: z.string().regex(/^[a-z-]+$/, { message: 'A slug csak kisbetűket és kötőjelet tartalmazhat' }),
+  url: z.string({ required_error: 'Kötelező mező' }).url({ message: 'Nem megfelelő URL formátum' }),
+  slug: z.string({ required_error: 'Kötelező mező' }).regex(/^[a-z-]+$/, { message: 'A slug csak kisbetűket és kötőjelet tartalmazhat' }),
   description: z.string({ required_error: 'Kötelező mező' }),
-  iconUrl: z.string().url({ message: 'Nem megfelelő URL formátum' }).optional(),
-  keywords: z.string().optional(),
+  iconUrl: z.string({ required_error: 'Kötelező mező' }).url({ message: 'Nem megfelelő URL formátum' }).optional(),
+  keywords: z.array(z.string()),
 })
 
 export function CreateLinksForm() {
@@ -27,18 +27,13 @@ export function CreateLinksForm() {
   const router = useRouter()
   const form = useForm<z.infer<typeof CreateLinksFormSchema>>({
     resolver: zodResolver(CreateLinksFormSchema),
+    defaultValues: {
+      keywords: [],
+    },
   })
 
   const onSubmit = form.handleSubmit(data => {
-    const dto: CreateSubmissionDto = {
-      title: data.title,
-      url: data.url,
-      description: data.description,
-      iconUrl: data.iconUrl,
-      keywords: data.keywords?.split(',') ?? [],
-      slug: data.slug,
-    }
-    createSubmission.trigger(dto).then(() => {
+    createSubmission.trigger(data).then(() => {
       router.push('/profile')
     })
   })
@@ -54,7 +49,7 @@ export function CreateLinksForm() {
         <TextField control={form.control} name='iconUrl' label='Link ikon URL-je' placeholder='https://' />
         <TextField control={form.control} name='slug' label='Link olvasható slug-ja' />
         <TextareaField control={form.control} name='description' label='Link leírása' />
-        <TextField control={form.control} name='keywords' label='Link kulcsszavai' />
+        <TagInputField control={form.control} name='keywords' label='Link kulcsszavai (üss vesszőt)' />
         <Button className='mt-5' type='submit'>
           Mentés
         </Button>
