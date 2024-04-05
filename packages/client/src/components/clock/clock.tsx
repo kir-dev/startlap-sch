@@ -13,8 +13,6 @@ export default function Clock() {
   const url_base =
     "https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/";
 
-  // TODO just use padStart()
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/padStart
   const fillWith0 = (input: number, neededLength: number) => {
     if (input.toString().length >= neededLength) return input.toString();
 
@@ -57,14 +55,12 @@ export default function Clock() {
 
   useEffect(() => {
     const intervalId = setInterval(() => setDateState(new Date()), 15 * 1000);
-
     fetchOnThisDayAPI();
-
     return () => clearInterval(intervalId);
   }, []);
 
   return (
-    <div className="z-50 flex w-full justify-center pt-4 ">
+    <div className="absolute z-50 flex w-full justify-center ">
       <div className="m-1  w-fit">
         <svg
           xmlns="http://www.w3.org/2000/svg"
