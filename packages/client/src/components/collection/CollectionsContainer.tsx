@@ -4,10 +4,10 @@ import { useState } from 'react'
 
 import { CollectionListItem } from '@/components/collection/CollectionListItem'
 import SearchField from '@/components/ui/SearchField'
-import { Collection as CollectionEntity } from '@/types/collection.type'
+import { GetCollectionsDto } from '@/types/collection.type'
 
 interface Props {
-  collections: CollectionEntity[]
+  collections: GetCollectionsDto
 }
 
 export default function CollectionsContainer({ collections }: Props) {
@@ -23,20 +23,12 @@ export default function CollectionsContainer({ collections }: Props) {
 
   return (
     <>
-      <table className='w-full'>
-        <tbody>
-          <tr className='justify-center'>
-            <td>
-              <h1 className='m-2 ml-8'>Kollekciók</h1>
-            </td>
-            <td>
-              <SearchField onSubmit={Filter} searchPhrase={''}></SearchField>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div className='flex flex-col items-center justify-between p-8 md:flex-row'>
+        <h1 className='m-0'>Kollekciók</h1>
+        <SearchField onSubmit={Filter} searchPhrase={''}></SearchField>
+      </div>
 
-      <div className={clsx('flex flex-wrap justify-start p-4')}>
+      <div className={clsx('flex flex-wrap justify-center gap-4 p-4')}>
         {filteredCollections.map(curCollection => (
           <CollectionListItem collection={curCollection} key={curCollection.id} />
         ))}

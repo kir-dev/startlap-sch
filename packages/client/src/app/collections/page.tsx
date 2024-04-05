@@ -1,13 +1,8 @@
 import CollectionsContainer from '@/components/collection/CollectionsContainer'
-import api from '@/network/apiSetup'
+import { getCollections } from '@/network/getCollections'
 
 export default async function Collections() {
-  const fetchCollections = async () => {
-    const response = await api('/collection/')
-    return response.data
-  }
-
-  const collectionsData = await fetchCollections()
+  const collectionsData = await getCollections()
 
   return (
     <main>
