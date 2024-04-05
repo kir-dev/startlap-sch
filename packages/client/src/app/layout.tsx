@@ -3,8 +3,10 @@ import './globals.css'
 import { Work_Sans } from 'next/font/google'
 import { ReactNode } from 'react'
 
+import Footer from '@/components/footer/footer'
 import Navbar from '@/components/navbar/navbar'
 import Wallpaper from '@/components/wallpaper/wallpaper'
+import { cn } from '@/lib/utils'
 
 const WorkSans = Work_Sans({ subsets: ['latin'] })
 
@@ -15,11 +17,14 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang='hu'>
-      <body className={WorkSans.className}>
-        <Navbar />
-        <Wallpaper />
-        {children}
+    <html lang='hu' className='h-screen'>
+      <body className={cn(WorkSans.className, 'flex h-screen flex-col  justify-between')}>
+        <div>
+          <Navbar />
+          <Wallpaper />
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   )

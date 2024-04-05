@@ -3,6 +3,7 @@ import '../../app/globals.css'
 
 import Link from 'next/link'
 import React from 'react'
+
 import { BsFire } from 'react-icons/bs'
 
 import { cn } from '@/lib/utils'

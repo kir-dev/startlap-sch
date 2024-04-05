@@ -35,7 +35,6 @@ model Visit {
 
 model Collection {
   id        String   @id @default(uuid())
-  iconUrl   String
   bannerUrl String
   slug      String
   name      String
