@@ -25,9 +25,9 @@ export default function SubmissionCard({ submission }: { submission: Submission 
   }
 
   return (
-    <div className='flex-no-wrap bg-blue flex w-96 flex-col items-center overflow-ellipsis rounded-xl p-2'>
-      <div className={`-z-1 ${getStatusColor(submission.status)} -mb-3 flex h-10 w-full flex-row items-center rounded-t-xl p-2`}>
-        <h4 className='w-full text-center'>{submission.id}</h4>
+    <div className='flex-no-wrap bg-blue flex w-96 flex-col items-center rounded-xl p-2'>
+      <div className={`-z-1 ${getStatusColor(submission.status)} -mb-3 flex h-10 w-full flex-row items-center rounded-t-xl p-1`}>
+        <h4 className='-mt-2 w-full text-center'>{submission.id}</h4>
       </div>
       <div className='h-35 relative w-full overflow-hidden rounded-xl bg-white p-2'>
         <div className=' flex flex-grow flex-row'>
@@ -45,16 +45,16 @@ export default function SubmissionCard({ submission }: { submission: Submission 
             width={100}
             height={100}
           />
-          <div className='ml-2 h-2/3 flex-grow overflow-hidden'>
-            <h2 className='overflow-hidden overflow-ellipsis whitespace-nowrap text-3xl'>{submission.title}</h2>
+          <div className='ml-2 h-2/3 flex-grow'>
+            <h2 className=' text-3xl'>{submission.title}</h2>
             <h4 className='text-xs'>{submission.url}</h4>
           </div>
         </div>
         <div className='ml-2'>
           <h6>slug</h6>
-          <h4 className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{submission.slug}</h4>
+          <h4 className='mt-2 text-base'>{submission.slug}</h4>
           <h6>desc</h6>
-          <p className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{submission.description}</p>
+          <p className='mt-2 text-base'>{submission.description}</p>
           <h6>keywords</h6>
           {submission.keywords.map((keyword: string, _index) => (
             <div key={_index} className={'m-1 inline-block w-fit rounded bg-gray-100 px-2 py-1'}>
@@ -67,7 +67,6 @@ export default function SubmissionCard({ submission }: { submission: Submission 
               <p>{submission.oldLinkId}</p>
             </>
           )}
-          <hr></hr>
           {submission.adminComment && submission.adminComment !== '' && (
             <>
               <h6>admin comment</h6>
