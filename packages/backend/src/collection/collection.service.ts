@@ -24,8 +24,12 @@ export class CollectionService {
       throw new NotFoundException('Link not found')
     }
   }
-  findAll() {
-    return this.prisma.collection.findMany()
+  async findAll() {
+    const result = await this.prisma.collection.findMany({ include: { _count: { select: { links: true } } } })
+    return result.map(({ _count, ...collection }) => ({
+      ...collection,
+      links: _count.links,
+    }))
   }
   async findOne(id: string) {
     const collection = await this.prisma.collection.findUnique({ where: { id }, include: { links: true } })

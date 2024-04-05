@@ -1,11 +1,15 @@
 import { LinkEntity } from '@/types/link.type'
 
-export type Collection = {
+export type CollectionPreview = {
   id: string
   bannerUrl: string
   slug: string
   name: string
+  links: number
+}
+
+export interface Collection extends Omit<CollectionPreview, 'links'> {
   links: LinkEntity[]
 }
 
-export type GetCollectionsDto = Collection[]
+export type GetCollectionsDto = CollectionPreview[]
