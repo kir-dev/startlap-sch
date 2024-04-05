@@ -7,7 +7,7 @@ import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-chan
 import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
-export default function SubmissionContainer({ submission }: { submission: Submission }) {
+export default function SubmissionCard({ submission }: { submission: Submission }) {
   const changeStatus = useSubmissionChangeStatus()
   const changeSubmissionStatus = async (approved: boolean) => {
     changeStatus.trigger({ id: submission.id, approved })
