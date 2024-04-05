@@ -9,10 +9,6 @@ export class CollectionEntity {
 
   @IsNotEmpty()
   @IsString()
-  iconUrl: string
-
-  @IsNotEmpty()
-  @IsString()
   bannerUrl: string
 
   @IsNotEmpty()
