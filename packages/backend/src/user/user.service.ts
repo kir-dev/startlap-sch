@@ -33,6 +33,6 @@ export class UserService {
   }
   async getFavorites(user: User): Promise<Link[]> {
     const res = await this.prisma.user.findUnique({ where: { id: user.id }, include: { favorites: true } })
-    return res.favorites
+    return res.favorites.map(response => ({ ...response, isFavorite: true }))
   }
 }

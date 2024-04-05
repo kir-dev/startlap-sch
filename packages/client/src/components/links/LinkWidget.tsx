@@ -1,13 +1,16 @@
 'use client'
 import '../../app/globals.css'
 
-import Link from 'next/link'
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import React from 'react'
-
 import { BsFire } from 'react-icons/bs'
+import { FaRegStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 
 import { cn } from '@/lib/utils'
 import { LinkEntity } from '@/types/link.type'
+
 
 interface Props {
   link: LinkEntity
@@ -16,19 +19,30 @@ interface Props {
 
 export default function LinkWidget(props: Props) {
   const link = props.link
-
-  const visitLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const router = useRouter()
+  const makeFavorite = async (e: React.MouseEvent<SVGElement>) => {
+    e.stopPropagation();
+    await axios.post("/api/favorites/", {id: link.id})
+    router.refresh()
+  }
+  const removeFavorite = async (e: React.MouseEvent<SVGElement>) => {
+    e.stopPropagation();
+    //console.log(link.id)
+    await axios.delete("/api/favorites/" + link.id)
+    router.refresh()
+  }
+  const visitLink = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()
     //Actual link, for counting clicks
     window.open(process.env.NEXT_PUBLIC_API_URL + '/links/visit/' + link.slug)
   }
+
   return (
-    <Link
+    <div
       //Fake link for preview
-      href={link.url}
       title={link.url}
-      className='flex-no-wrap bg-blue flex w-80 flex-col items-center overflow-hidden rounded-xl p-2'
-      target='_blank'
+      className='flex-no-wrap bg-blue flex w-80 flex-col items-center overflow-hidden rounded-xl p-2 cursor-pointer'
+
       onClick={e => visitLink(e)}
     >
       <div className='-z-1 -mb-3 flex h-6 w-full flex-row items-center rounded-t-xl bg-red-400'></div>
@@ -51,11 +65,17 @@ export default function LinkWidget(props: Props) {
             height={100}
           />
           <div className='ml-2 h-2/3 flex-grow overflow-hidden'>
-            <h2 className='overflow-hidden overflow-ellipsis whitespace-nowrap text-3xl'>{link.title}</h2>
-            <h4 className='text-xs'>{link.url}</h4>
+            <div className='flex justify-between'>
+              <h2 className='overflow-hidden overflow-ellipsis text-3xl'>{link.title}</h2>
+              {!link.isFavorite ?
+                  <FaRegStar className='align-super justify-end text-3xl p-0.5 rounded text-slate-500 z-10 hover:text-amber-300' title='Favorite' onClick={e => makeFavorite(e)}/>
+               : <FaStar className='align-super justify-end text-3xl p-0.5 rounded text-amber-300 z-10 hover:text-amber-200' onClick={(e) => removeFavorite(e)}/>
+              }
 
+            </div>
+            <h4 className='text-xs'>{link.url}</h4>
             {!!props.visits && props.visits > 10 && (
-              <div className={'absolute right-2 top-3 flex items-center'} title='Kattintások száma'>
+              <div className={'absolute right-2 bottom-2 flex items-center'} title='Kattintások száma'>
                 <BsFire color={'red'} size={14} className='inline' />
                 <h4 className={'text-s'}>{props.visits}</h4>
               </div>
@@ -63,9 +83,11 @@ export default function LinkWidget(props: Props) {
           </div>
         </div>
         <div className='ml-2'>
-          <p className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap  text-base'>{link.description}</p>
+          <p className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{link.description}
+
+          </p>
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
