@@ -1,6 +1,7 @@
 # Startlap-SCH
 
 This is a monorepo containing three seperate packages of the Startlap application:
+
 - backend: The REST API, written with NestJS
 - client: The UI for the regular users, written with NextJS
 - admin: Admin panel for admins only, written with bare React
