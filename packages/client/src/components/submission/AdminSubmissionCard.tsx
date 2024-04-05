@@ -1,9 +1,18 @@
+'use client'
 import Link from 'next/link'
 
+import { Button } from '@/components/ui/button'
+import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'
+/*import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'*/
 import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
-export default function SubmissionCard({ submission }: { submission: Submission }) {
+export default function AdminSubmissionCard({ submission }: { submission: Submission }) {
+  const changeStatus = useSubmissionChangeStatus()
+  const changeSubmissionStatus = async (approved: boolean) => {
+    changeStatus.trigger({ id: submission.id, approved })
+  }
+
   const getStatusColor = (status: Submission['status']) => {
     switch (status) {
       case 'APPROVED':
@@ -69,6 +78,12 @@ export default function SubmissionCard({ submission }: { submission: Submission 
               <p>{submission.adminComment}</p>
             </>
           )}
+        </div>
+        <div className='my-4 flex w-full justify-evenly'>
+          <Button variant={'destructive'} onClick={() => changeSubmissionStatus(false)}>
+            Elutasítás
+          </Button>
+          <Button onClick={() => changeSubmissionStatus(true)}>Jóváhagyás</Button>
         </div>
       </div>
     </div>

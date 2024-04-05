@@ -41,7 +41,7 @@ export class SubmissionsController {
     return this.submissionsService.update(id, updateSubmissionDto, user)
   }
 
-  @Patch('/:id/approve.ts')
+  @Patch('/:id/approve')
   @Roles(UserRole.ADMIN, UserRole.MODERATOR)
   approve(@Param('id', ParseUUIDPipe) id: string): Promise<Link> {
     return this.submissionsService.approve(id)
