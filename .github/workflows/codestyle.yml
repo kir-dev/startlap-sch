@@ -2,9 +2,9 @@ name: Code Style Check
 
 on:
   push:
-    branches: ['master']
+    branches: ['master', 'staging']
   pull_request:
-    branches: ['master']
+    branches: ['master', 'staging']
 
 jobs:
   backend-eslint:
@@ -86,3 +86,4 @@ jobs:
 #      - name: Run Prettier
 #        run: npm run prettier
 #        working-directory: "./packages/frontend"
+
