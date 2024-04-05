@@ -1,4 +1,4 @@
-import SubmissionContainer from '@/components/submission/SubmissionContainer'
+import SubmissionCard from '@/components/submission/SubmissionCard'
 import { getAllSubmissions } from '@/network/getAllSubmissions'
 import { getProfile } from '@/network/getProfile'
 
@@ -11,9 +11,11 @@ export default async function Page() {
       <h1>
         <span className='italic'>zs</span>admin
       </h1>
-      {submissions.map(submission => (
-        <SubmissionContainer key={submission.id} submission={submission} />
-      ))}
+      <div className='flex'>
+        {submissions.map(submission => (
+          <SubmissionCard key={submission.id} submission={submission} />
+        ))}
+      </div>
     </>
   )
 }

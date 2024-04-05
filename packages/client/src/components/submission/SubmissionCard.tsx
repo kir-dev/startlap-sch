@@ -1,17 +1,16 @@
-import { router } from 'next/client'
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
-import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'
+/*import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'*/
 import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
-export default function SubmissionContainer({ submission }: { submission: Submission }) {
-  const changeStatus = useSubmissionChangeStatus()
-  const approveSubmission = async () => {
+export default function SubmissionCard({ submission }: { submission: Submission }) {
+  /*const changeStatus = useSubmissionChangeStatus()
+    const approveSubmission = async () => {
     changeStatus.trigger({ id: submission.id, approved: true })
     router.reload()
-  }
+  }*/
   const getStatusColor = (status: Submission['status']) => {
     switch (status) {
       case 'APPROVED':
@@ -20,12 +19,14 @@ export default function SubmissionContainer({ submission }: { submission: Submis
         return 'bg-red-200'
       case 'IN_REVIEW':
         return 'bg-amber-200'
+      default:
+        return 'bg-gray-200'
     }
   }
 
   return (
     <div className='flex-no-wrap bg-blue flex w-96 flex-col items-center overflow-ellipsis rounded-xl p-2'>
-      <div className='-z-1  ${getStatusColor(submission.status)} -mb-3 flex h-10 w-full flex-row items-center rounded-t-xl p-2'>
+      <div className={`-z-1 ${getStatusColor(submission.status)} -mb-3 flex h-10 w-full flex-row items-center rounded-t-xl p-2`}>
         <h4 className='w-full text-center'>{submission.id}</h4>
       </div>
       <div className='h-35 relative w-full overflow-hidden rounded-xl bg-white p-2'>
