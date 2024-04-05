@@ -1,14 +1,17 @@
+import { router } from 'next/client'
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
+import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'
 import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
 export default function SubmissionContainer({ submission }: { submission: Submission }) {
-  /*  const approveSubmission = async () => {
-    const res = authorizedApi(`/submissions/${submission.id}/approve.ts`)
+  const changeStatus = useSubmissionChangeStatus()
+  const approveSubmission = async () => {
+    changeStatus.trigger({ id: submission.id, approved: true })
     router.reload()
-  }*/
+  }
   const getStatusColor = (status: Submission['status']) => {
     switch (status) {
       case 'APPROVED':
