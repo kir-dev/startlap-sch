@@ -15,7 +15,9 @@ export function TagInput({ value, onChange }: TagInputProps) {
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const split = e.target.value.split(',')
     const last = split.pop()
-    setTags([...tags, ...split.filter(Boolean)])
+    const newTags = [...tags, ...split.filter(Boolean)]
+    setTags(newTags)
+    onChange(newTags)
     setInputValue(last ?? '')
   }
 
