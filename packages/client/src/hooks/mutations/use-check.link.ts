@@ -5,8 +5,8 @@ export function useCheckLink() {
   return useSWRMutation('check-link', async (_, { arg }: { arg: string | undefined }) => {
     if (!arg) return false
     try {
-      const res = await axios.head(arg)
-      return res.status === 200
+      const res = await axios.post('/api/check-link', arg)
+      return Boolean(res.data.success)
     } catch {
       return false
     }
