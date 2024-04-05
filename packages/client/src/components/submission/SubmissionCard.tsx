@@ -1,17 +1,16 @@
-import Link from 'next/link'
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
+import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'
 /*import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'*/
 import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
-export default function SubmissionCard({ submission }: { submission: Submission }) {
-  /*const changeStatus = useSubmissionChangeStatus()
-    const approveSubmission = async () => {
-    changeStatus.trigger({ id: submission.id, approved: true })
-    router.reload()
-  }*/
+export default function SubmissionContainer({ submission }: { submission: Submission }) {
+  const changeStatus = useSubmissionChangeStatus()
+  const changeSubmissionStatus = async (approved:boolean) => {
+    changeStatus.trigger({ id: submission.id, approved, })
+  }
   const getStatusColor = (status: Submission['status']) => {
     switch (status) {
       case 'APPROVED':
@@ -78,9 +77,9 @@ export default function SubmissionCard({ submission }: { submission: Submission 
             </>
           )}
         </div>
-        <div className='my-4 flex w-full justify-end gap-2 pr-2'>
-          <Button variant={'destructive'}>Elutasítás</Button>
-          <Button>Jóváhagyás</Button>
+        <div className='my-4 flex w-full justify-evenly'>
+          <Button variant={'destructive'} onClick={()=>changeSubmissionStatus(false)}>Elutasítás</Button>
+          <Button onClick={()=>changeSubmissionStatus(false)}>Jóváhagyás</Button>
         </div>
       </div>
     </div>
