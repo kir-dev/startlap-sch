@@ -3,6 +3,8 @@ import "./globals.css";
 import { Work_Sans } from "next/font/google";
 import { ReactNode } from "react";
 
+import Navbar from "@/components/navbar/navbar";
+
 const WorkSans = Work_Sans({ subsets: ["latin"] });
 
 export const metadata = {
@@ -13,7 +15,10 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="hu">
-      <body className={WorkSans.className}>{children}</body>
+      <body className={WorkSans.className}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
