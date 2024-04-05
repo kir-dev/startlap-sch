@@ -23,6 +23,7 @@ model Link {
   collections Collection[]
   Submission  Submission[]
   visits      Visit[]
+  favoritedBy User[]
 }
 
 model Visit {
@@ -34,7 +35,6 @@ model Visit {
 
 model Collection {
   id        String   @id @default(uuid())
-  iconUrl   String
   bannerUrl String
   slug      String
   name      String
@@ -53,6 +53,7 @@ model User {
   role        UserRole     @default(USER)
   submissions Submission[]
   collections Collection[]
+  favorites   Link[]
 }
 
 enum UserRole {

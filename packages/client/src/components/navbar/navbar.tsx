@@ -1,12 +1,10 @@
 'use client'
 import Hamburger from 'hamburger-react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
-import { Button } from '@/components/ui/button'
-
-import SearchBar from '../ui/searchbar'
+import Clock from '@/components/clock/clock'
+import { UserDisplay } from '@/components/navbar/user-display'
 
 export default function Navbar() {
   const [isMenuVisible, setMenuVisible] = useState(false)
@@ -21,34 +19,36 @@ export default function Navbar() {
       toggleClass('transition-all duration-200 ease-in-out opacity-100 h-20')
     }
   }
-  const router = useRouter()
 
   return (
-    <header className='sticky top-0 border bg-white px-6 py-3'>
-      <div className='m-auto flex max-w-screen-2xl items-center justify-between'>
-        {/*logo*/}
-        <Link href='/' className='flex align-middle'>
-          <h1 className='m-0 scroll-m-20 text-3xl font-extrabold tracking-tight'>StartlapSch</h1>
-        </Link>
-        {/*desktop menu*/}
-        <nav className='mr-auto hidden items-center md:inline-flex'>
-          <ul className='flex space-x-4 px-10'>
-            <li>
-              <Link href='/links'>Links</Link>
-            </li>
-            <li>
-              <a href='#'>Collections</a>
-            </li>
-          </ul>
-        </nav>
+    <header className='sticky top-0 z-10 border bg-white px-6 py-3'>
+      <div className='grid grid-cols-3 items-center justify-between'>
+        <div className='align flex items-center'>
+          <Link href='/' className='flex w-fit align-middle'>
+            <h1 className='m-0 w-fit text-3xl font-extrabold tracking-tight'>StartlapSCH</h1>
+          </Link>
+          {/*desktop menu*/}
+          <nav className='mr-auto items-center max-md:hidden'>
+            <ul className='flex space-x-4 px-10'>
+              <li>
+                <Link href='/links'>Links</Link>
+              </li>
+              <li>
+                <Link href='/collections'>Collections</Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div>
+          <Clock />
+        </div>
         {/*right-side nav*/}
-        <div className='flex w-1/2 max-w-md items-center justify-end space-x-5 md:items-stretch'>
-          <span className='hidden w-full md:inline-flex'>
+        <div className='flex items-center justify-end space-x-5 text-right md:items-stretch'>
+          {/*<span className="hidden w-full md:inline-flex">
             <SearchBar></SearchBar>
-          </span>
-          <Button>
-            <a href={`${process.env.NEXT_PUBLIC_API_URL}/auth/login`}>Belépés</a>
-          </Button>
+          </span>*/}
+          {/*todo set state*/}
+          <UserDisplay />
           <button className='md:hidden' onClick={toggleMenu}>
             <Hamburger rounded toggled={isMenuVisible} direction='right' size={30} />
           </button>
@@ -56,15 +56,14 @@ export default function Navbar() {
       </div>
 
       {/*mobile menu*/}
-
       <div className='md:hidden'>
         <div className={toggledClass}>
           <ul className='flex flex-col space-y-2 pt-3'>
             <li>
-              <a href='#'>Links</a>
+              <Link href='/links'>Links</Link>
             </li>
             <li>
-              <a href='#'>Collections</a>
+              <Link href='/collections'>Collections</Link>
             </li>
           </ul>
         </div>

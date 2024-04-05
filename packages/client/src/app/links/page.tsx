@@ -1,23 +1,33 @@
-import { clsx } from "clsx";
-import Link from "next/link";
+'use client'
+import Link from 'next/link'
+import { TbLink } from 'react-icons/tb'
 
-import LinkWidget from "@/components/links/LinkWidget";
-import { getLinks } from "@/network/getLinks";
+import LinkWidget from '@/components/links/LinkWidget'
+import { Button } from '@/components/ui/button'
+import SearchField from '@/components/ui/SearchField'
+import { useProfile } from '@/hooks/queries/use-profile'
+import { useSearchLink } from '@/hooks/useSearchLink'
 
-export default async function Links() {
-  const links = await getLinks();
+export default function Links() {
+  const profile = useProfile()
+  const { links, loading, searchTerm, setSearchTerm } = useSearchLink()
   return (
-    <main
-      className={clsx(
-        "flex min-h-screen flex-col items-center justify-center bg-slate-100"
+    <main>
+      <div className='flex flex-col items-end'>
+        <SearchField searchPhrase={searchTerm} onSubmit={setSearchTerm} />
+        <div className='flex w-full flex-wrap items-start justify-center gap-x-5 p-5'>
+          {links.map(link => (
+            <LinkWidget link={link} key={link.id} />
+          ))}
+        </div>
+      </div>
+      {profile.data && (
+        <Button asChild>
+          <Link href='/links/new'>
+            <TbLink /> Új link
+          </Link>
+        </Button>
       )}
-    >
-      {links.map((link) => (
-        <LinkWidget link={link} key={link.id} />
-      ))}
-      <Link className="text-blue-500" href="/">
-        Főoldal
-      </Link>
     </main>
-  );
+  )
 }

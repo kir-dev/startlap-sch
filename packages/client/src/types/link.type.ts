@@ -4,8 +4,12 @@ export type LinkEntity = {
   title: string
   slug: string
   description: string
-  iconUrl: string
+  iconUrl?: string
   keywords: string[]
-};
+}
 
-export type GetLinksDto = LinkEntity[];
+export interface LinkWithVisitsEntity extends LinkEntity {
+  visits: number
+}
+
+export type GetLinksDto = LinkEntity[]

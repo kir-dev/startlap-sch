@@ -1,12 +1,19 @@
-import { LinkEntity } from "@/types/link.type";
+import { LinkEntity } from '@/types/link.type'
 
-export type Collection = {
-  id: string;
-  iconUrl: string;
-  bannerUrl: string;
-  slug: string;
-  name: string;
-  links: LinkEntity[];
-};
+export type CollectionPreview = {
+  id: string
+  bannerUrl: string
+  slug: string
+  name: string
+  links: number
+}
 
-export type GetCollectionsDto = Collection[];
+export interface Collection extends Omit<CollectionPreview, 'links'> {
+  links: LinkEntity[]
+}
+
+export type GetCollectionsDto = CollectionPreview[]
+
+export type CreateCollectionDto = Pick<Collection, 'name' | 'slug' | 'bannerUrl'> & {
+  linkIds: string[]
+}

@@ -2,9 +2,9 @@ name: Code Style Check
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ['master']
   pull_request:
-    branches: [ "master" ]
+    branches: ['master']
 
 jobs:
   backend-eslint:
@@ -21,11 +21,11 @@ jobs:
       - name: Install Dev Dependencies
         run: |
           npm install --only=dev
-        working-directory: "./packages/backend"
+        working-directory: './packages/backend'
 
       - name: Run ESLint
         run: npm run lint
-        working-directory: "./packages/backend"
+        working-directory: './packages/backend'
 
   backend-prettier:
     name: Prettier Check
@@ -41,11 +41,11 @@ jobs:
       - name: Install Dev Dependencies
         run: |
           npm install --only=dev
-        working-directory: "./packages/backend"
+        working-directory: './packages/backend'
 
       - name: Run Prettier
         run: npm run prettier
-        working-directory: "./packages/backend"
+        working-directory: './packages/backend'
 #
 #  frontend-eslint:
 #    name: ESLint Check
