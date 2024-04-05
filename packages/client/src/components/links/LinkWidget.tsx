@@ -32,7 +32,14 @@ export default function LinkWidget(props: Props) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             className="ml-0 aspect-square h-1/6 w-1/6 flex-none"
-            src={link.iconUrl}
+            src={
+              link.iconUrl === null
+                ? `https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${link.url.replace(
+                    "www.",
+                    ""
+                  )}&size=128`
+                : link.iconUrl
+            }
             alt="ikon"
             width={100}
             height={100}
