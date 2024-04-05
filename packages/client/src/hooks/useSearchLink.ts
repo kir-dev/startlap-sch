@@ -9,22 +9,19 @@ export function useSearchLink() {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   useEffect(() => {
-    console.log('Search term:', searchTerm);
     const searchLinks = async () => {
-      console.log('Searching links...');
       try {
         setLoading(true);
-        // Your backend API endpoint for searching links
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/links`, { params: { term:searchTerm } });
         if (response.status === 200) {
-          const data = await response.data;
-          setFilteredLinks(data); // Assuming your backend returns an array of links
-          console.log('Fetched data:', data);
+          const data = response.data;
+          setFilteredLinks(data);
         } else {
           console.error('Failed to fetch data');
         }
       } catch (error) {
         console.error('Error:', error);
+        setFilteredLinks([]);
       } finally {
         setLoading(false);
       }

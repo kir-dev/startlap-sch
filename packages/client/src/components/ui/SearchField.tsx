@@ -15,7 +15,6 @@ export default function SearchField({ onSubmit, searchPhrase }: searchProps) {
         placeholder='Keresés'
         value={searchPhrase}
         onChange={e => {
-          console.log("change")
           onSubmit(e.target.value)
         }}
       />

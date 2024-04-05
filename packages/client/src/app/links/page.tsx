@@ -1,7 +1,7 @@
 'use client'
 import LinkWidget from '@/components/links/LinkWidget'
-import { useSearchLink } from '@/components/links/useSearchLink'
 import SearchField from '@/components/ui/SearchField'
+import { useSearchLink } from '@/hooks/useSearchLink'
 
 export default function Links() {
   const { links, loading, searchTerm, setSearchTerm } = useSearchLink()
