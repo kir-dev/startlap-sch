@@ -1,13 +1,18 @@
 'use client'
+import Link from 'next/link'
+import { TbLink } from 'react-icons/tb'
+
 import LinkWidget from '@/components/links/LinkWidget'
+import { Button } from '@/components/ui/button'
 import SearchField from '@/components/ui/SearchField'
+import { useProfile } from '@/hooks/queries/use-profile'
 import { useSearchLink } from '@/hooks/useSearchLink'
 
 export const dynamic = 'force-dynamic'
 
 export default function Links() {
+  const profile = useProfile()
   const { links, searchTerm, setSearchTerm } = useSearchLink()
-
   return (
     <main>
       <div className='flex flex-col items-end'>
@@ -18,6 +23,13 @@ export default function Links() {
           ))}
         </div>
       </div>
+      {profile.data && (
+        <Button asChild>
+          <Link href='/links/new'>
+            <TbLink /> Új link
+          </Link>
+        </Button>
+      )}
     </main>
   )
 }
