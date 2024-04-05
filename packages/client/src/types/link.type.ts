@@ -6,6 +6,6 @@ export type LinkEntity = {
   description: string
   iconUrl: string
   keywords: string[]
-};
+}
 
-export type GetLinksDto = LinkEntity[];
+export type GetLinksDto = LinkEntity[]
