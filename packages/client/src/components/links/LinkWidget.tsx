@@ -3,7 +3,7 @@ import '../../app/globals.css'
 
 import Link from 'next/link'
 import React from 'react'
-import { TbCampfire } from 'react-icons/tb'
+import { BsFire } from 'react-icons/bs'
 
 import { cn } from '@/lib/utils'
 import { LinkEntity } from '@/types/link.type'
@@ -54,11 +54,9 @@ export default function LinkWidget(props: Props) {
             <h4 className='text-xs'>{link.url}</h4>
 
             {!!props.visits && props.visits > 10 && (
-              <div className={'absolute right-2 top-3'} title='Kattintások száma'>
-                <h4 className={'text-s'}>
-                  <TbCampfire color={'red'} className='inline' />
-                  {props.visits}
-                </h4>
+              <div className={'absolute right-2 top-3 flex items-center'} title='Kattintások száma'>
+                <BsFire color={'red'} size={14} className='inline' />
+                <h4 className={'text-s'}>{props.visits}</h4>
               </div>
             )}
           </div>
