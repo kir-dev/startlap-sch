@@ -29,7 +29,6 @@ export default function LinkWidget(props: Props) {
   }
   const removeFavorite = async (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation()
-    //console.log(link.id)
     await axios.delete('/api/favorites/' + link.id)
     router.refresh()
   }
@@ -67,20 +66,15 @@ export default function LinkWidget(props: Props) {
           />
           <div className='ml-2 h-2/3 flex-grow overflow-hidden'>
             <div className='flex justify-between'>
-              <h2 className='overflow-hidden overflow-ellipsis text-3xl'>{link.title}</h2>
-              {user.data &&
-                (!link.isFavorite ? (
-                  <FaRegStar
-                    className='z-10 justify-end rounded p-0.5 align-super text-3xl text-slate-500 hover:text-amber-300'
-                    title='Favorite'
-                    onClick={e => makeFavorite(e)}
-                  />
-                ) : (
-                  <FaStar
-                    className='z-10 justify-end rounded p-0.5 align-super text-3xl text-amber-300 hover:text-amber-200'
-                    onClick={e => removeFavorite(e)}
-                  />
-                ))}
+              <h2 className='flex basis-5/6 overflow-hidden overflow-ellipsis text-3xl'>{link.title}</h2>
+              <div className='flex basis-1/6 justify-end rounded p-0.5 align-super text-3xl'>
+                {user.data &&
+                  (!link.isFavorite ? (
+                    <FaRegStar className='text-slate-500 hover:text-amber-300' title='Favorite' onClick={e => makeFavorite(e)} />
+                  ) : (
+                    <FaStar className='text-amber-300 hover:text-amber-200' title='Unfavorite' onClick={e => removeFavorite(e)} />
+                  ))}
+              </div>
             </div>
             <h4 className='text-xs'>{link.url}</h4>
             {!!props.visits && props.visits > 10 && (
