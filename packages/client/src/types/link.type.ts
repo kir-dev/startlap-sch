@@ -14,3 +14,4 @@ export interface LinkWithVisitsEntity extends LinkEntity {
 }
 
 export type GetLinksDto = LinkEntity[]
+
