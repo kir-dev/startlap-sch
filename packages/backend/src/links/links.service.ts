@@ -97,7 +97,7 @@ export class LinksService {
         const oldLink = await this.prisma.link.findUnique({ where: { id } })
         const newLink = await this.prisma.link.update({ where: { id }, data: { ...updateLinkDto, iconUrl: fileName } })
         if (oldLink.iconUrl) {
-          unlink(join(process.cwd(), '/static', oldLink.iconUrl), () => {})
+          unlink(join(process.cwd(), '/static', oldLink.iconUrl), () => undefined)
         }
         return newLink
       } else {

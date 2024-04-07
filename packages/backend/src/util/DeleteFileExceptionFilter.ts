@@ -15,7 +15,7 @@ export class DeleteFileExceptionFilter extends BaseExceptionFilter {
     const ctx = host.switchToHttp()
     const request = ctx.getRequest<Request>()
     if (request.file) {
-      unlink(join(process.cwd(), '/static', request.file.filename), () => {})
+      unlink(join(process.cwd(), '/static', request.file.filename), () => undefined)
     }
     super.catch(exception, host)
   }

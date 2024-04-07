@@ -21,19 +21,17 @@ export function UserDisplay() {
       )}
       {profile.data && (
         <>
-        <Button asChild variant="ghost">
-        <Link href='/admin'>
-          Admin panel
-        </Link>
-        </Button>
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant='outline'>{profile.data.firstName}</Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem onClick={onLogout}>Kijelentkezés</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+          <Button asChild variant='ghost'>
+            <Link href='/admin'>Admin panel</Link>
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Button variant='outline'>{profile.data.firstName}</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem onClick={onLogout}>Kijelentkezés</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </>
       )}
     </>
