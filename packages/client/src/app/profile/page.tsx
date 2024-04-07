@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 
+import Submissions from '@/app/submissions/page'
 import { getProfile } from '@/network/getProfile'
 
 export default async function ProfilePage() {
@@ -7,14 +8,8 @@ export default async function ProfilePage() {
   if (!profile) return notFound()
   return (
     <main>
-      <h1>Profile</h1>
-      <p>{profile.firstName}</p>
-      {profile.submissions.map(submission => (
-        <div key={submission.id}>
-          <h2>{submission.title}</h2>
-          <p>{submission.status}</p>
-        </div>
-      ))}
+      <h1>{profile.firstName} link javaslatai</h1>
+      {await Submissions()}
     </main>
   )
 }
