@@ -1,39 +1,11 @@
 'use client'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 
-type funFact = {
-  year: number
-  text: string
-}
+import { fillWith0, FunFact, funFactOfTheDay } from '@/lib/utils'
 
 export default function Clock() {
   const [dateState, setDateState] = useState(new Date())
-  const [onThisDayEvent, setOnThisDayEvent] = useState<funFact | undefined>()
-  const url_base = 'https://api.wikimedia.org/feed/v1/wikipedia/en/onthisday/all/'
-
-  const fillWith0 = (input: number, neededLength: number) => {
-    if (input.toString().length >= neededLength) return input.toString()
-
-    const addedCount = neededLength - input.toString().length
-    let answer = ''
-    for (let i = 0; i < addedCount; i++) {
-      answer += '0'
-    }
-    answer += input.toString()
-
-    return answer
-  }
-  const fetchOnThisDayAPI = async () => {
-    axios.get(`${url_base}${dateState.getMonth() + 1}/${dateState.getDate()}`).then(response => {
-      const chosenEvent = response.data.events[Math.floor(Math.random() * response.data.events.length)]
-      const separatedEvent: funFact = {
-        text: chosenEvent.text,
-        year: chosenEvent.year,
-      }
-      setOnThisDayEvent(separatedEvent)
-    })
-  }
+  const [onThisDayEvent, setOnThisDayEvent] = useState<FunFact | undefined>()
 
   const datestr = `${dateState
     .toLocaleDateString('hu-HU', {
@@ -47,9 +19,17 @@ export default function Clock() {
     minute: '2-digit',
   })}`
 
+  const day = dateState.getDate()
+  useEffect(
+    () => {
+      funFactOfTheDay(dateState).then(fact => setOnThisDayEvent(fact))
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [day]
+  )
+
   useEffect(() => {
     const intervalId = setInterval(() => setDateState(new Date()), 15 * 1000)
-    fetchOnThisDayAPI()
     return () => clearInterval(intervalId)
   }, [])
 

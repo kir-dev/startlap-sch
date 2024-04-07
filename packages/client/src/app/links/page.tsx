@@ -8,9 +8,11 @@ import SearchField from '@/components/ui/SearchField'
 import { useProfile } from '@/hooks/queries/use-profile'
 import { useSearchLink } from '@/hooks/useSearchLink'
 
+export const dynamic = 'force-dynamic'
+
 export default function Links() {
   const profile = useProfile()
-  const { links, loading, searchTerm, setSearchTerm } = useSearchLink()
+  const { links, searchTerm, setSearchTerm } = useSearchLink()
   return (
     <main>
       <div className='flex flex-col items-end'>

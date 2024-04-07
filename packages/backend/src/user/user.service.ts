@@ -25,14 +25,14 @@ export class UserService {
     return { collections: user.collections, submissions: user.submissions, firstName: user.firstName, email: user.email, role: user.role }
   }
   async saveFavorite(id: string, user: User): Promise<void> {
-    const res = await this.prisma.user.update({ where: { id: user.id }, data: { favorites: { connect: { id } } } })
+    await this.prisma.user.update({ where: { id: user.id }, data: { favorites: { connect: { id } } } })
     return
   }
   async removeFavorite(id: string, user: User): Promise<void> {
-    const res = await this.prisma.user.update({ where: { id: user.id }, data: { favorites: { disconnect: { id } } } })
+    await this.prisma.user.update({ where: { id: user.id }, data: { favorites: { disconnect: { id } } } })
   }
   async getFavorites(user: User): Promise<Link[]> {
     const res = await this.prisma.user.findUnique({ where: { id: user.id }, include: { favorites: true } })
-    return res.favorites
+    return res.favorites.map(response => ({ ...response, isFavorite: true }))
   }
 }

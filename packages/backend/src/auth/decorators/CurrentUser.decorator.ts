@@ -15,7 +15,7 @@ export const CurrentUser = createParamDecorator<keyof User | undefined>(
       throw new InternalServerErrorException('CurrentUser decorator invoked without authGuard')
     }
 
-    if (key && !user.hasOwnProperty(key)) {
+    if (key && !Object.prototype.hasOwnProperty.call(user, key)) {
       throw new InternalServerErrorException(`Unknown key ${key} in CurrentUser decorator`)
     }
 
@@ -32,7 +32,7 @@ export const CurrentUserOptional = createParamDecorator<keyof User | undefined>(
    */
   (key, context: ExecutionContext) => {
     const user: User = context.switchToHttp().getRequest().user
-    if (key && !user?.hasOwnProperty(key)) {
+    if (key && !Object.prototype.hasOwnProperty.call(user, key)) {
       throw new InternalServerErrorException(`Unknown key ${key} in CurrentUser decorator`)
     }
 

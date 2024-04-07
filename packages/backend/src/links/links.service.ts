@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common'
-import { Prisma } from '@prisma/client'
+import { Prisma, User } from '@prisma/client'
 import axios from 'axios'
 import { unlink } from 'fs'
 import { PrismaService } from 'nestjs-prisma'
@@ -29,9 +29,20 @@ export class LinksService {
     }
   }
 
-  async findAll(params: SearchLink): Promise<Link[]> {
-    if (typeof params.term === 'undefined') return this.prisma.link.findMany()
-    return this.prisma.link.findMany({
+  async findAll(params: SearchLink, user: User | undefined): Promise<Link[]> {
+    if (typeof params.term === 'undefined') {
+      const links = await this.prisma.link.findMany({
+        include: {
+          favoritedBy: {
+            where: {
+              id: user?.id,
+            },
+          },
+        },
+      })
+      return links.map(({ favoritedBy, ...link }) => ({ ...link, isFavorite: favoritedBy.length > 0 }))
+    }
+    const links = await this.prisma.link.findMany({
       where: {
         OR: [
           {
@@ -59,7 +70,15 @@ export class LinksService {
           },
         ],
       },
+      include: {
+        favoritedBy: {
+          where: {
+            id: user?.id,
+          },
+        },
+      },
     })
+    return links.map(({ favoritedBy, ...link }) => ({ ...link, isFavorite: favoritedBy.length > 0 }))
   }
 
   async findOne(id: string) {
@@ -78,7 +97,7 @@ export class LinksService {
         const oldLink = await this.prisma.link.findUnique({ where: { id } })
         const newLink = await this.prisma.link.update({ where: { id }, data: { ...updateLinkDto, iconUrl: fileName } })
         if (oldLink.iconUrl) {
-          unlink(join(process.cwd(), '/static', oldLink.iconUrl), () => {})
+          unlink(join(process.cwd(), '/static', oldLink.iconUrl), () => undefined)
         }
         return newLink
       } else {
