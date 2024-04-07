@@ -1,5 +1,4 @@
 'use client'
-import { clsx } from 'clsx'
 import Link from 'next/link'
 import { useState } from 'react'
 import { TbPlus } from 'react-icons/tb'
@@ -27,25 +26,25 @@ export default function CollectionsContainer({ collections }: Props) {
   }
 
   return (
-    <>
-      <div className='flex flex-col items-center justify-between p-8 md:flex-row'>
-        <h1 className='m-0'>Kollekciók</h1>
-        <SearchField onSubmit={Filter} searchPhrase={''}></SearchField>
+    <main>
+      <div className='flex flex-col items-end'>
+        <div className='flex items-center'>
+          {profile.data && (
+            <Button asChild className='text-lg'>
+              <Link href='/links/new'>
+                <TbPlus />
+                <span className='ml-4 max-md:hidden'>Új kollekció javaslat</span>
+              </Link>
+            </Button>
+          )}
+          <SearchField searchPhrase={''} onSubmit={Filter} />
+        </div>
+        <div className='flex w-full flex-wrap items-start justify-center gap-4 p-4'>
+          {filteredCollections.map(collection => (
+            <CollectionListItem collection={collection} key={collection.id} />
+          ))}
+        </div>
       </div>
-
-      <div className={clsx('flex flex-wrap justify-center gap-4 p-4')}>
-        {filteredCollections.map(curCollection => (
-          <CollectionListItem collection={curCollection} key={curCollection.id} />
-        ))}
-      </div>
-      {profile.data && (
-        <Button asChild>
-          <Link href='/collections/new'>
-            <TbPlus />
-            Új kollekció
-          </Link>
-        </Button>
-      )}
-    </>
+    </main>
   )
 }
