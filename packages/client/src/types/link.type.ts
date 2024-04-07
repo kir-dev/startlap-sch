@@ -6,6 +6,7 @@ export type LinkEntity = {
   description: string
   iconUrl?: string
   keywords: string[]
+  isFavorite: boolean
 }
 
 export interface LinkWithVisitsEntity extends LinkEntity {
