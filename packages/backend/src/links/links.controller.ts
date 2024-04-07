@@ -14,7 +14,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { UserRole } from '@prisma/client'
+import { User, UserRole } from '@prisma/client'
 import { DeleteFileExceptionFilter } from 'src/util/DeleteFileExceptionFilter'
 import { IconInterceptor, IconValidators } from 'src/util/iconHelpers'
 import { JwtAuth } from '../auth/decorators/JwtAuth'
@@ -26,6 +26,7 @@ import { Trending } from './dto/trending.dto'
 import { UpdateLinkDto } from './dto/update-link.dto'
 import { Link } from './entities/link.entity'
 import { LinksService } from './links.service'
+import { CurrentUserOptional } from '../auth/decorators/CurrentUser.decorator'
 
 @Controller('links')
 @ApiTags('links')
@@ -51,8 +52,8 @@ export class LinksController {
   }
 
   @Get()
-  findAll(@Query() params: SearchLink): Promise<Link[]> {
-    return this.linksService.findAll(params)
+  findAll(@Query() params: SearchLink, @CurrentUserOptional() user: User): Promise<Link[]> {
+    return this.linksService.findAll(params, user)
   }
 
   @Get('/trending')
