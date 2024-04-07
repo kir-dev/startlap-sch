@@ -34,4 +34,3 @@ export function fillWith0(input: number, neededLength: number) {
 
   return answer
 }
-

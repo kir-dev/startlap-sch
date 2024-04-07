@@ -17,4 +17,3 @@ export default async function CollectionPage({ params }: { params: { id: string 
     </main>
   )
 }
-
