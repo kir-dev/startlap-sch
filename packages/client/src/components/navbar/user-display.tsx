@@ -30,6 +30,9 @@ export function UserDisplay() {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={onLogout}>Kijelentkezés</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href='/profile'>Profil</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </>
