@@ -11,7 +11,6 @@ export default async function Home() {
 
   return (
     <main className='overflow-y-hidden'>
-      <h1>StartlapSCH</h1>
       <FavLinksContainer title='Felkapottak' links={links}></FavLinksContainer>
       {favLinks.success && <FavLinksContainer title='Kedvencek' links={favLinks.link}></FavLinksContainer>}
       {/* <Carousel items={DummyCollections} name="Kollekciók" /> */}

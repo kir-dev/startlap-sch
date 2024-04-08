@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 
+import Keywords from '@/components/keywords/Keywords'
 import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
@@ -50,14 +51,7 @@ export default function SubmissionCard({ submission }: { submission: Submission 
           <h6>leírás</h6>
           <p className='text-base'>{submission.description}</p>
           <h6>kulcsszavak</h6>
-          {submission.keywords.map((keyword: string, _index) => (
-            <div
-              key={_index}
-              className={'m-1 inline-block w-fit rounded bg-gray-100 px-2 py-1 ease-in-out hover:bg-gray-300 hover:transition hover:duration-100'}
-            >
-              {keyword}
-            </div>
-          ))}
+          <Keywords keywords={submission.keywords} />
           {submission.oldLinkId && (
             <>
               <h6>elavult link Id:</h6>
