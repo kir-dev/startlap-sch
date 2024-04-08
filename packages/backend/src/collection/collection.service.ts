@@ -38,6 +38,13 @@ export class CollectionService {
     }
     return collection
   }
+  async findOneBySlug(slug: string) {
+    const collection = await this.prisma.collection.findUnique({ where: { slug }, include: { links: true } })
+    if (!collection) {
+      throw new NotFoundException('Collection not found')
+    }
+    return collection
+  }
   async update(id: string, updateCollectionDto: UpdateCollectionDto, user: User) {
     const collection = await this.prisma.collection.findUnique({ where: { id } })
     if (!collection) {
