@@ -7,6 +7,7 @@ import React from 'react'
 import { BsFire } from 'react-icons/bs'
 import { FaRegStar, FaStar } from 'react-icons/fa'
 
+import Keywords from '@/components/keywords/Keywords'
 import { useProfile } from '@/hooks/queries/use-profile'
 import { cn } from '@/lib/utils'
 import { LinkEntity } from '@/types/link.type'
@@ -87,6 +88,7 @@ export default function LinkWidget(props: Props) {
         <div className='ml-2'>
           <p className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{link.description}</p>
         </div>
+        <Keywords keywords={link.keywords} />
       </div>
     </div>
   )
