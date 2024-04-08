@@ -29,8 +29,8 @@ export default function SubmissionCard({ submission }: { submission: Submission 
       <div className={`-z-1 ${getStatusColor(submission.status)} -mb-3 flex h-10 w-full items-center rounded-t-xl p-1`}>
         <h4 className='-mt-2 w-full text-center'>{submission.id}</h4>
       </div>
-      <div className='relative w-full rounded-xl bg-white p-2 pb-4'>
-        <div className='ml-2 flex'>
+      <div className='relative w-full overflow-clip rounded-xl bg-white p-2 pb-4'>
+        <div className='ml-2 flex w-full'>
           <img
             className={cn('ml-0 mt-2 aspect-square flex-none', submission.iconUrl === null ? 'h-8 w-8' : 'h-1/6 w-1/6')}
             src={iconSrc}
@@ -38,10 +38,10 @@ export default function SubmissionCard({ submission }: { submission: Submission 
             width={100}
             height={100}
           />
-          <div className='ml-2 h-2/3 flex-grow'>
+          <div className='ml-2 h-2/3 w-full'>
             <h2 className=' text-3xl'>{submission.title}</h2>
             <Link href={submission.url} target='_blank'>
-              <h4 className='mt-2 text-xs'>{submission.url}</h4>
+              <h4 className='mt-2 overflow-clip  text-xs'>{submission.url}</h4>
             </Link>
           </div>
         </div>

@@ -4,10 +4,9 @@ import '../../app/globals.css'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { BsFire } from 'react-icons/bs'
-import { FaRegStar, FaStar } from 'react-icons/fa'
+import { BsFire, BsStar, BsStarFill } from 'react-icons/bs'
 
-import Keywords from '@/components/keywords/Keywords'
+import SmallKeywords from '@/components/keywords/SmallKeywords'
 import { useProfile } from '@/hooks/queries/use-profile'
 import { cn } from '@/lib/utils'
 import { LinkEntity } from '@/types/link.type'
@@ -66,13 +65,13 @@ export default function LinkWidget(props: Props) {
           />
           <div className='ml-2 h-2/3 flex-grow overflow-hidden'>
             <div className='flex justify-between'>
-              <h2 className='flex basis-5/6 overflow-hidden overflow-ellipsis text-3xl'>{link.title}</h2>
+              <h2 className='flex basis-5/6 overflow-clip text-3xl'>{link.title}</h2>
               <div className='flex basis-1/6 justify-end rounded p-0.5 align-super text-3xl'>
                 {user.data &&
                   (!link.isFavorite ? (
-                    <FaRegStar className='text-slate-500 hover:text-amber-300' title='Favorite' onClick={e => makeFavorite(e)} />
+                    <BsStar className='text-slate-500 hover:text-amber-300' size={20} title='Favorite' onClick={e => makeFavorite(e)} />
                   ) : (
-                    <FaStar className='text-amber-300 hover:text-amber-200' title='Unfavorite' onClick={e => removeFavorite(e)} />
+                    <BsStarFill className='text-amber-300 hover:text-amber-200' size={20} title='Unfavorite' onClick={e => removeFavorite(e)} />
                   ))}
               </div>
             </div>
@@ -88,7 +87,7 @@ export default function LinkWidget(props: Props) {
         <div className='ml-2'>
           <p className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{link.description}</p>
         </div>
-        <Keywords keywords={link.keywords} />
+        <SmallKeywords keywords={link.keywords} />
       </div>
     </div>
   )
