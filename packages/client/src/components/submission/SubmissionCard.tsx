@@ -45,6 +45,7 @@ export default function SubmissionCard({ submission }: { submission: Submission 
             </Link>
           </div>
         </div>
+
         <div className='ml-2 mt-2'>
           <h6>slug</h6>
           <h4 className=' text-base'>{submission.slug}</h4>
