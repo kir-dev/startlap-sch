@@ -6,6 +6,7 @@ import { JwtAuth } from 'src/auth/decorators/JwtAuth'
 import { Roles } from 'src/auth/decorators/Roles.decorator'
 import { Link } from 'src/links/entities/link.entity'
 import { CreateSubmissionDto } from './dto/create-submission.dto'
+import { DeclineSubmissionDto } from './dto/decline-submission.dto'
 import { UpdateSubmissionDto } from './dto/update-submission.dto'
 import { SubmissionEntitiy } from './entities/submission.entity'
 import { SubmissionsService } from './submissions.service'
@@ -49,8 +50,8 @@ export class SubmissionsController {
 
   @Patch('/:id/decline')
   @Roles(UserRole.ADMIN, UserRole.MODERATOR)
-  decline(@Param('id', ParseUUIDPipe) id: string): Promise<SubmissionEntitiy> {
-    return this.submissionsService.decline(id)
+  decline(@Param('id', ParseUUIDPipe) id: string, @Body() declineSubmission: DeclineSubmissionDto): Promise<SubmissionEntitiy> {
+    return this.submissionsService.decline(id, declineSubmission)
   }
 
   @Delete(':id')

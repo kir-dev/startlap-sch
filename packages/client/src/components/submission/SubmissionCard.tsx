@@ -28,7 +28,7 @@ export default function SubmissionCard({ submission }: { submission: Submission 
       <div className={`-z-1 ${getStatusColor(submission.status)} -mb-3 flex h-10 w-full items-center rounded-t-xl p-1`}>
         <h4 className='-mt-2 w-full text-center'>{submission.id}</h4>
       </div>
-      <div className='relative w-full rounded-xl bg-white p-2 pb-1'>
+      <div className='relative w-full rounded-xl bg-white p-2 pb-4'>
         <div className='ml-2 flex'>
           <img
             className={cn('ml-0 mt-2 aspect-square flex-none', submission.iconUrl === null ? 'h-8 w-8' : 'h-1/6 w-1/6')}

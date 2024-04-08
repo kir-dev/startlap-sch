@@ -95,7 +95,7 @@ export class SubmissionsService {
       throw e
     }
   }
-  async decline(id: string): Promise<SubmissionEntitiy> {
+  async decline(id: string, declineSubmission): Promise<SubmissionEntitiy> {
     const submission = await this.prisma.submission.findUnique({
       where: { id },
     })
@@ -104,7 +104,7 @@ export class SubmissionsService {
     }
     return this.prisma.submission.update({
       where: { id },
-      data: { status: SUBMISSION_STATUS.DECLINED },
+      data: { status: SUBMISSION_STATUS.DECLINED, adminComment: declineSubmission.adminComment },
     })
   }
 
