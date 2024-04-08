@@ -31,9 +31,9 @@ export default function CollectionsContainer({ collections }: Props) {
         <div className='flex items-center'>
           {profile.data && (
             <Button asChild className='text-lg'>
-              <Link href='/links/new'>
+              <Link href='/collections/new'>
                 <TbPlus />
-                <span className='ml-4 max-md:hidden'>Új kollekció javaslat</span>
+                <span className='ml-4 max-md:hidden'>Új kollekció</span>
               </Link>
             </Button>
           )}
