@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import Keywords from '@/components/keywords/Keywords'
 import { Button } from '@/components/ui/button'
@@ -10,9 +11,10 @@ import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
 export default function AdminSubmissionCard({ submission }: { submission: Submission }) {
+  const router = useRouter()
   const changeStatus = useSubmissionChangeStatus()
-  const changeSubmissionStatus = async (approved: boolean) => {
-    changeStatus.trigger({ id: submission.id, approved })
+  const changeSubmissionStatus = async (approved: boolean, comment?: string) => {
+    changeStatus.trigger({ id: submission.id, approved, comment }).then(() => router.refresh())
   }
 
   const getStatusColor = (status: Submission['status']) => {
@@ -79,7 +81,7 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
             <Popup
               title='Biztosan el szertnéd utasítani?'
               description='Adj visszajelzést a beadónak'
-              onConfirm={(feedback: string) => changeSubmissionStatus(false)}
+              onConfirm={(feedback: string) => changeSubmissionStatus(false, feedback)}
             >
               <Button variant={'destructive'}>Elutasítás</Button>
             </Popup>
