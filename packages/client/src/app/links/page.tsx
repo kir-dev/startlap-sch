@@ -21,7 +21,7 @@ export default function Links() {
             <Button asChild className='text-lg'>
               <Link href='/links/new'>
                 <TbLink />
-                <span className='ml-4 md:hidden'>Új link javaslat</span>
+                <span className='ml-4 max-md:hidden'>Új link javaslat</span>
               </Link>
             </Button>
           )}

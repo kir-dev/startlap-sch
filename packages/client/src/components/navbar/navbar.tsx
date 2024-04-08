@@ -31,10 +31,10 @@ export default function Navbar() {
           <nav className='mr-auto items-center max-md:hidden'>
             <ul className='flex space-x-4 px-10'>
               <li>
-                <Link href='/links'>Links</Link>
+                <Link href='/links'>Linkek</Link>
               </li>
               <li>
-                <Link href='/collections'>Collections</Link>
+                <Link href='/collections'>Gyűjtemények</Link>
               </li>
             </ul>
           </nav>
