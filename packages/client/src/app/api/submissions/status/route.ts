@@ -10,8 +10,9 @@ export async function PATCH(request: NextRequest) {
   const id = body.id
   const approve = body.approved
   try {
-    const response = await authorizedApi.patch<Submission | LinkEntity>(`/submissions/${id}/${approve ? 'approve' : 'decline'}`)
-    console.log(response.data)
+    const response = await authorizedApi.patch<Submission | LinkEntity>(`/submissions/${id}/${approve ? 'approve' : 'decline'}`, {
+      adminComment: body.comment,
+    })
     return NextResponse.json(response.data)
   } catch (e) {
     if (isAxiosError(e)) {
