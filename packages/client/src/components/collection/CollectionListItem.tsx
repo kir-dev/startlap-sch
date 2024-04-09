@@ -15,7 +15,7 @@ export function CollectionListItem({ collection }: Props) {
   const fallbackImage = 'https://mozsarmate.me/marci.jpg'
 
   return (
-    <Link href={'/collections/' + collection.id} className='relative h-64 w-96 overflow-hidden rounded-xl'>
+    <Link href={'/collections/' + collection.slug} className='relative h-64 w-96 overflow-hidden rounded-xl'>
       <div className='absolute -z-10 h-full w-full'>
         <div className='absolute flex h-6 w-full flex-row items-center rounded-t-xl bg-red-400'></div>
         <Image

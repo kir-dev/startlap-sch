@@ -36,7 +36,7 @@ model Visit {
 model Collection {
   id        String   @id @default(uuid())
   bannerUrl String
-  slug      String
+  slug      String   @unique
   name      String
   links     Link[]
   createdAt DateTime @default(now())
