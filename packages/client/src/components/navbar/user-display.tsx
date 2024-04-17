@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
@@ -29,10 +30,8 @@ export function UserDisplay() {
               <Button variant='outline'>{profile.data.firstName}</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
+              <DropdownMenuItem onClick={() => redirect('/profile')}>Profila</DropdownMenuItem>
               <DropdownMenuItem onClick={onLogout}>Kijelentkezés</DropdownMenuItem>
-              <DropdownMenuItem>
-                <Link href='/profile'>Profil</Link>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </>

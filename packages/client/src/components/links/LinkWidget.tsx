@@ -48,13 +48,13 @@ export default function LinkWidget(props: Props) {
     <div
       //Fake link for preview
       title={link.url}
-      className='flex-no-wrap bg-blue flex w-max cursor-pointer flex-col items-center rounded-xl p-2'
+      className='flex-no-wrap bg-blue min-w-80 flex w-max cursor-pointer flex-col items-center rounded-xl p-2'
       onClick={e => visitLink(e)}
     >
       <div className='-z-1 -mb-3 flex h-6 w-full flex-row items-center rounded-t-xl bg-red-400'></div>
 
       <div className='h-35 relative w-fit rounded-xl bg-white p-2'>
-        <div className='flex w-max flex-row'>
+        <div className='flex w-full flex-row'>
           <img
             className={cn('ml-0 aspect-square flex-none', link.iconUrl === null ? 'h-8 w-8' : 'h-8 w-8')}
             src={
@@ -69,10 +69,10 @@ export default function LinkWidget(props: Props) {
             width={100}
             height={100}
           />
-          <div className='ml-2 h-2/3'>
-            <div className='flex justify-between'>
+          <div className='ml-2 h-2/3 w-full'>
+            <div className='flex w-full justify-between'>
               <h2 className='text-nowrap flex text-3xl'>{link.title}</h2>
-              <div className='ml-2 flex items-center'>
+              <div className='ml-4 flex items-center'>
                 {/*{!!props.visits && props.visits > 10 && (*/}
                 <div className={'mr-2 flex items-center'} title='Kattintások száma'>
                   <BsFire color={'red'} size={18} className='inline' />
