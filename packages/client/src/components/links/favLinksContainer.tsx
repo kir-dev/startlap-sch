@@ -37,7 +37,7 @@ export default function FavLinksContainer({ title, links }: Props) {
       <h1>{title}</h1>
       <div className='flex pl-4' ref={containerRef} style={{ overflowX: 'hidden' }}>
         {links.map(link => (
-          <div className='w-80' key={link.id}>
+          <div key={link.id}>
             <LinkWidget link={link} visits={link.visits} />
           </div>
         ))}
