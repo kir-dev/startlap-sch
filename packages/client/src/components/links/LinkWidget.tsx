@@ -3,7 +3,7 @@ import '../../app/globals.css'
 
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BsFire, BsStar, BsStarFill } from 'react-icons/bs'
 
 import SmallKeywords from '@/components/keywords/SmallKeywords'
@@ -20,14 +20,17 @@ export default function LinkWidget(props: Props) {
   const link = props.link
   const router = useRouter()
   const user = useProfile()
+  const [isOptimisticallyFavourite, setIsOptimisticallyFavourite] = React.useState(false)
 
   const makeFavorite = async (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation()
+    setIsOptimisticallyFavourite(true)
     await axios.post('/api/favorites/', { id: link.id })
     router.refresh()
   }
   const removeFavorite = async (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation()
+    setIsOptimisticallyFavourite(false)
     await axios.delete('/api/favorites/' + link.id)
     router.refresh()
   }
@@ -36,6 +39,10 @@ export default function LinkWidget(props: Props) {
     //Actual link, for counting clicks
     window.open(process.env.NEXT_PUBLIC_API_URL + '/links/visit/' + link.slug)
   }
+
+  useEffect(() => {
+    setIsOptimisticallyFavourite(link.isFavorite)
+  }, [link])
 
   return (
     <div
@@ -68,10 +75,10 @@ export default function LinkWidget(props: Props) {
               <h2 className='flex basis-5/6 overflow-clip text-3xl'>{link.title}</h2>
               <div className='flex basis-1/6 justify-end rounded p-0.5 align-super text-3xl'>
                 {user.data &&
-                  (!link.isFavorite ? (
-                    <BsStar className='text-slate-500 hover:text-amber-300' size={20} title='Favorite' onClick={e => makeFavorite(e)} />
+                  (!(link.isFavorite || isOptimisticallyFavourite) ? (
+                    <BsStar className='text-slate-500 hover:text-amber-300' size={20} title='Kedvelem' onClick={e => makeFavorite(e)} />
                   ) : (
-                    <BsStarFill className='text-amber-300 hover:text-amber-200' size={20} title='Unfavorite' onClick={e => removeFavorite(e)} />
+                    <BsStarFill className='text-amber-300 hover:text-amber-200' size={20} title='Nem kedvelem' onClick={e => removeFavorite(e)} />
                   ))}
               </div>
             </div>
