@@ -24,6 +24,9 @@ services:
       - '${BACKEND_PORT}:${BACKEND_PORT}'
     depends_on:
       - db
+networks:
+  default:
+      name: startlap-network
 volumes:
   startlap_db_folder:
   startlap_static_folder:
