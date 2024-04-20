@@ -26,7 +26,7 @@ services:
       - db
 networks:
   default:
-      name: startlap-network
+    name: startlap-network
 volumes:
   startlap_db_folder:
   startlap_static_folder:
