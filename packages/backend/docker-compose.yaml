@@ -1,0 +1,32 @@
+version: '3.8'
+
+name: startlap
+services:
+  db:
+    image: postgres:13.10
+    env_file:
+      - .env
+    restart: ${DOCKER_RESTART_POLICY}
+    volumes:
+      - startlap_db_folder:/var/lib/postgresql/data
+    ports:
+      - '${POSTGRES_PORT}:5432'
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    restart: ${DOCKER_RESTART_POLICY}
+    volumes:
+      - startlap_static_folder:/app/static
+    ports:
+      - '${BACKEND_PORT}:${BACKEND_PORT}'
+    depends_on:
+      - db
+networks:
+  default:
+    name: startlap-network
+volumes:
+  startlap_db_folder:
+  startlap_static_folder:

@@ -1,0 +1,6 @@
+static
+dist
+node_modules
+docker-compose.dev.yaml
+.eslintrc.js
+README.md
