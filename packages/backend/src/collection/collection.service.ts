@@ -1,6 +1,7 @@
 import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common'
 import { User, UserRole } from '@prisma/client'
 import { PrismaService } from 'nestjs-prisma'
+import { SearchLink } from 'src/links/dto/search-link.dto'
 import { CreateCollectionDto } from './dto/CreateCollection.dto'
 import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
 
@@ -24,8 +25,33 @@ export class CollectionService {
       throw new NotFoundException('Link not found')
     }
   }
-  async findAll() {
-    const result = await this.prisma.collection.findMany({ include: { _count: { select: { links: true } } } })
+  async findAll(params: SearchLink) {
+    if (typeof params.term === 'undefined') {
+      const result = await this.prisma.collection.findMany({ include: { _count: { select: { links: true } } } })
+      return result.map(({ _count, ...collection }) => ({
+        ...collection,
+        links: _count.links,
+      }))
+    }
+    const result = await this.prisma.collection.findMany({
+      where: {
+        OR: [
+          {
+            slug: {
+              contains: params.term,
+              mode: 'insensitive',
+            },
+          },
+          {
+            name: {
+              contains: params.term,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+      include: { _count: { select: { links: true } } },
+    })
     return result.map(({ _count, ...collection }) => ({
       ...collection,
       links: _count.links,

@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common'
 import { User } from '@prisma/client'
+import { SearchLink } from 'src/links/dto/search-link.dto'
 import { CurrentUser } from '../auth/decorators/CurrentUser.decorator'
 import { JwtAuth } from '../auth/decorators/JwtAuth'
 import { CollectionService } from './collection.service'
@@ -10,8 +11,8 @@ import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
 export class CollectionController {
   constructor(private readonly collectionService: CollectionService) {}
   @Get()
-  findAll() {
-    return this.collectionService.findAll()
+  findAll(@Query() params: SearchLink) {
+    return this.collectionService.findAll(params)
   }
   @Get(':id')
   findOne(@Param('id') id: string) {
