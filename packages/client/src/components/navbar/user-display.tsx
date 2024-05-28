@@ -30,7 +30,7 @@ export function UserDisplay() {
               <Button variant='outline'>{profile.data.firstName}</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => redirect('/profile')}>Profila</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => redirect('/profile')}>Profil</DropdownMenuItem>
               <DropdownMenuItem onClick={onLogout}>Kijelentkezés</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

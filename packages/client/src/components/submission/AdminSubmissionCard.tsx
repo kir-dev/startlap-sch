@@ -1,4 +1,5 @@
 'use client'
+
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -13,6 +14,7 @@ import { Submission } from '@/types/submission.type'
 export default function AdminSubmissionCard({ submission }: { submission: Submission }) {
   const router = useRouter()
   const changeStatus = useSubmissionChangeStatus()
+  /*  const users =*/
   const changeSubmissionStatus = async (approved: boolean, comment?: string) => {
     changeStatus.trigger({ id: submission.id, approved, comment }).then(() => router.refresh())
   }
@@ -49,6 +51,7 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
             width={100}
             height={100}
           />
+
           <div className='ml-2 h-2/3 w-full'>
             <h2 className=' text-3xl'>{submission.title}</h2>
             <Link href={submission.url} target='_blank'>
@@ -61,11 +64,14 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
           <h4 className=' text-base'>{submission.slug}</h4>
           <h6>leírás</h6>
           <p className='text-base'>{submission.description}</p>
+          <h6>benyújtó</h6>
+          <p className='text-base'>{submission.userId}</p>
+          <p className='text-base'>{submission.userId}</p>
           <h6>kulcsszavak</h6>
           <Keywords keywords={submission.keywords} />
           {submission.oldLinkId && (
             <>
-              <h6>elavult link Id:</h6>
+              <h6>elavult link ID:</h6>
               <p>{submission.oldLinkId}</p>
             </>
           )}
