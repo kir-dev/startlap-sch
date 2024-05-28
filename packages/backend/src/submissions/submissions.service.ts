@@ -31,10 +31,12 @@ export class SubmissionsService {
   }
 
   async findAll() {
-    return await this.prisma.submission.findMany()
+    return this.prisma.submission.findMany({
+      include: { createdBy: true },
+    })
   }
   async getOwn(user: User): Promise<SubmissionEntitiy[]> {
-    return await this.prisma.submission.findMany({
+    return this.prisma.submission.findMany({
       where: { userId: user.id },
     })
   }
