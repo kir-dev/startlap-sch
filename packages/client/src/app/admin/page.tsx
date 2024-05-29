@@ -1,4 +1,4 @@
-import SubmissionCard from '@/components/submission/AdminSubmissionCard'
+import AdminSubmissionCard from '@/components/submission/AdminSubmissionCard'
 import { getAllSubmissions } from '@/network/getAllSubmissions'
 
 export default async function Page() {
@@ -13,11 +13,26 @@ export default async function Page() {
       <h1>
         <span className='italic'>zs</span>admin
       </h1>
-      <div className='flex flex-wrap justify-center gap-4 px-4'>
-        {submissions.map(submission => (
-          <SubmissionCard key={submission.id} submission={submission} />
-        ))}
-      </div>
+      {submissions.pendingSubmissions.length > 0 && (
+        <>
+          <h2 className='ml-8'>Bírálatlan</h2>
+          <div className='flex flex-wrap justify-center gap-4 px-4'>
+            {submissions.pendingSubmissions.map(submission => (
+              <AdminSubmissionCard key={submission.id} submission={submission} />
+            ))}
+          </div>
+        </>
+      )}
+      {submissions.reviewedSubmissions.length > 0 && (
+        <>
+          <h2 className='ml-8'>Elbírált</h2>
+          <div className='flex flex-wrap justify-center gap-4 px-4'>
+            {submissions.reviewedSubmissions.map(submission => (
+              <AdminSubmissionCard key={submission.id} submission={submission} />
+            ))}
+          </div>
+        </>
+      )}
     </>
   )
 }

@@ -33,6 +33,10 @@ export class CollectionController {
   remove(@Param('id') id: string, @CurrentUser() user: User) {
     return this.collectionService.remove(id, user)
   }
+  @Get('/slug/:slug')
+  findOneBySlug(@Param('slug') slug: string) {
+    return this.collectionService.findOneBySlug(slug)
+  }
   @Post(':collectionid/links/:linkid')
   @JwtAuth()
   addLink(@Param('collectionid') collectionid: string, @Param('linkid') linkid: string, @CurrentUser() user: User) {

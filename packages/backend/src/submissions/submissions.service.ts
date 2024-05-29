@@ -31,10 +31,12 @@ export class SubmissionsService {
   }
 
   async findAll() {
-    return await this.prisma.submission.findMany()
+    return this.prisma.submission.findMany({
+      include: { createdBy: true },
+    })
   }
   async getOwn(user: User): Promise<SubmissionEntitiy[]> {
-    return await this.prisma.submission.findMany({
+    return this.prisma.submission.findMany({
       where: { userId: user.id },
     })
   }
@@ -95,7 +97,7 @@ export class SubmissionsService {
       throw e
     }
   }
-  async decline(id: string): Promise<SubmissionEntitiy> {
+  async decline(id: string, declineSubmission): Promise<SubmissionEntitiy> {
     const submission = await this.prisma.submission.findUnique({
       where: { id },
     })
@@ -104,7 +106,7 @@ export class SubmissionsService {
     }
     return this.prisma.submission.update({
       where: { id },
-      data: { status: SUBMISSION_STATUS.DECLINED },
+      data: { status: SUBMISSION_STATUS.DECLINED, adminComment: declineSubmission.adminComment },
     })
   }
 

@@ -1,6 +1,9 @@
 'use client'
-import Link from 'next/link'
 
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+
+import Keywords from '@/components/keywords/Keywords'
 import { Button } from '@/components/ui/button'
 import Popup from '@/components/ui/Popup'
 import { useSubmissionChangeStatus } from '@/hooks/mutations/use-submission-change-status'
@@ -9,9 +12,11 @@ import { cn } from '@/lib/utils'
 import { Submission } from '@/types/submission.type'
 
 export default function AdminSubmissionCard({ submission }: { submission: Submission }) {
+  const router = useRouter()
   const changeStatus = useSubmissionChangeStatus()
-  const changeSubmissionStatus = async (approved: boolean) => {
-    changeStatus.trigger({ id: submission.id, approved })
+  /*  const users =*/
+  const changeSubmissionStatus = async (approved: boolean, comment?: string) => {
+    changeStatus.trigger({ id: submission.id, approved, comment }).then(() => router.refresh())
   }
 
   const getStatusColor = (status: Submission['status']) => {
@@ -33,12 +38,12 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
       : submission.iconUrl
 
   return (
-    <div className='flex w-96 flex-col items-center rounded-xl p-2'>
+    <div className='flex w-96 flex-col items-center overflow-clip rounded-xl p-2'>
       <div className={`-z-1 ${getStatusColor(submission.status)} -mb-3 flex h-10 w-full items-center rounded-t-xl p-1`}>
-        <h4 className='-mt-2 w-full text-center'>{submission.id}</h4>
+        <h4 className='-mt-2 w-full text-center'>ADMIN: {submission.id}</h4>
       </div>
-      <div className='relative w-full rounded-xl bg-white p-2 pb-1'>
-        <div className='ml-2 flex'>
+      <div className='relative w-full rounded-xl bg-white p-2 pb-4'>
+        <div className='ml-2 flex w-full'>
           <img
             className={cn('ml-0 mt-2 aspect-square flex-none', submission.iconUrl === null ? 'h-8 w-8' : 'h-1/6 w-1/6')}
             src={iconSrc}
@@ -46,10 +51,10 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
             width={100}
             height={100}
           />
-          <div className='ml-2 h-2/3 flex-grow'>
+          <div className='ml-2 h-2/3 w-full'>
             <h2 className=' text-3xl'>{submission.title}</h2>
             <Link href={submission.url} target='_blank'>
-              <h4 className='mt-2 text-xs'>{submission.url}</h4>
+              <h4 className='mt-2  text-xs'>{submission.url}</h4>
             </Link>
           </div>
         </div>
@@ -58,18 +63,14 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
           <h4 className=' text-base'>{submission.slug}</h4>
           <h6>leírás</h6>
           <p className='text-base'>{submission.description}</p>
+          <h6>benyújtó</h6>
+          <p className='text-base'>{submission.userId}</p>
+          <p className='text-base'>{submission.userId}</p>
           <h6>kulcsszavak</h6>
-          {submission.keywords.map((keyword: string, _index) => (
-            <div
-              key={_index}
-              className={'m-1 inline-block w-fit rounded bg-gray-100 px-2 py-1 ease-in-out hover:bg-gray-300 hover:transition hover:duration-100'}
-            >
-              {keyword}
-            </div>
-          ))}
+          <Keywords keywords={submission.keywords} />
           {submission.oldLinkId && (
             <>
-              <h6>elavult link Id:</h6>
+              <h6>elavult link ID:</h6>
               <p>{submission.oldLinkId}</p>
             </>
           )}
@@ -85,7 +86,7 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
             <Popup
               title='Biztosan el szertnéd utasítani?'
               description='Adj visszajelzést a beadónak'
-              onConfirm={(feedback: string) => changeSubmissionStatus(false)}
+              onConfirm={(feedback: string) => changeSubmissionStatus(false, feedback)}
             >
               <Button variant={'destructive'}>Elutasítás</Button>
             </Popup>

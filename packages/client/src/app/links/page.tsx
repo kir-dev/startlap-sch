@@ -16,20 +16,23 @@ export default function Links() {
   return (
     <main>
       <div className='flex flex-col items-end'>
-        <SearchField searchPhrase={searchTerm} onSubmit={setSearchTerm} />
+        <div className='flex items-center'>
+          {profile.data && (
+            <Button asChild className='text-lg'>
+              <Link href='/links/new'>
+                <TbLink />
+                <span className='ml-4 max-md:hidden'>Új link javaslat</span>
+              </Link>
+            </Button>
+          )}
+          <SearchField searchPhrase={searchTerm} onSubmit={setSearchTerm} />
+        </div>
         <div className='flex w-full flex-wrap items-start justify-center gap-x-5 p-5'>
           {links.map(link => (
             <LinkWidget link={link} key={link.id} />
           ))}
         </div>
       </div>
-      {profile.data && (
-        <Button asChild>
-          <Link href='/links/new'>
-            <TbLink /> Új link
-          </Link>
-        </Button>
-      )}
     </main>
   )
 }
