@@ -91,7 +91,7 @@ export default function LinkWidget(props: Props) {
           </div>
         </div>
         <div className='ml-2'>
-          <p className='mt-2 overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{link.description}</p>
+          <p className='mt-2 max-w-md overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{link.description}</p>
         </div>
         <SmallKeywords keywords={link.keywords} />
       </div>

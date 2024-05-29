@@ -91,7 +91,9 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
               description='Adj visszajelzést a beadónak'
               onConfirm={(feedback: string) => changeSubmissionStatus(false, feedback)}
             >
-              <Button variant={'destructive'}>Elutasítás</Button>
+              <Button variant={'destructive'} disabled={changeStatus.isMutating}>
+                Elutasítás
+              </Button>
             </Popup>
             <Button onClick={() => changeSubmissionStatus(true)} disabled={changeStatus.isMutating}>
               Jóváhagyás
