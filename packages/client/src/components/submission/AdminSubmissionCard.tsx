@@ -64,8 +64,11 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
           <h6>leírás</h6>
           <p className='text-base'>{submission.description}</p>
           <h6>benyújtó</h6>
-          <p className='text-base'>{submission.userId}</p>
-          <p className='text-base'>{submission.userId}</p>
+          <p className='text-base'>
+            {submission.createdBy?.fullName}
+            <span className='ml-2 text-xs'>({submission.createdBy?.email})</span>
+          </p>
+          <p className='text-base'></p>
           <h6>kulcsszavak</h6>
           <Keywords keywords={submission.keywords} />
           {submission.oldLinkId && (
@@ -90,7 +93,9 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
             >
               <Button variant={'destructive'}>Elutasítás</Button>
             </Popup>
-            <Button onClick={() => changeSubmissionStatus(true)}>Jóváhagyás</Button>
+            <Button onClick={() => changeSubmissionStatus(true)} disabled={changeStatus.isMutating}>
+              Jóváhagyás
+            </Button>
           </div>
         )}
       </div>
