@@ -51,7 +51,6 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
             width={100}
             height={100}
           />
-
           <div className='ml-2 h-2/3 w-full'>
             <h2 className=' text-3xl'>{submission.title}</h2>
             <Link href={submission.url} target='_blank'>
