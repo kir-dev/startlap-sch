@@ -12,4 +12,4 @@ export type Submission = {
   userId: string
 }
 
-export type CreateSubmissionDto = Omit<Submission, 'id' | 'adminComment' | 'status' | 'oldLinkId'>
+export type CreateSubmissionDto = Omit<Submission, 'id' | 'userId' | 'adminComment' | 'status' | 'oldLinkId'>
