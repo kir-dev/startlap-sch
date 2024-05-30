@@ -2,6 +2,8 @@ import { ConflictException, ForbiddenException, Injectable, NotFoundException } 
 import { User, UserRole } from '@prisma/client'
 import { PrismaService } from 'nestjs-prisma'
 import { SearchLink } from 'src/links/dto/search-link.dto'
+import { AddLinksDTO } from './dto/AddLinks.dto'
+import { CollectionEntity } from './dto/CollectionEntity.dto'
 import { CreateCollectionDto } from './dto/CreateCollection.dto'
 import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
 
@@ -24,6 +26,25 @@ export class CollectionService {
     } catch (e) {
       throw new NotFoundException('Link not found')
     }
+  }
+  async addLinks(id: string, { linkIds }: AddLinksDTO, user: User): Promise<CollectionEntity> {
+    const collection = await this.prisma.collection.findUnique({ where: { id } })
+    if (!collection) {
+      throw new NotFoundException('Collection not found')
+    }
+    if (collection.userId !== user.id && user.role !== UserRole.ADMIN) {
+      throw new ForbiddenException("You don't have permission to edit this resource")
+    }
+    return this.prisma.collection.update({
+      where: { id },
+      data: {
+        links: {
+          connect: linkIds.map(link => ({
+            id: link,
+          })),
+        },
+      },
+    })
   }
   async findAll(params: SearchLink) {
     if (typeof params.term === 'undefined') {

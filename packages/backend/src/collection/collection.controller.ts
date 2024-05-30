@@ -4,6 +4,8 @@ import { SearchLink } from 'src/links/dto/search-link.dto'
 import { CurrentUser } from '../auth/decorators/CurrentUser.decorator'
 import { JwtAuth } from '../auth/decorators/JwtAuth'
 import { CollectionService } from './collection.service'
+import { AddLinksDTO } from './dto/AddLinks.dto'
+import { CollectionEntity } from './dto/CollectionEntity.dto'
 import { CreateCollectionDto } from './dto/CreateCollection.dto'
 import { UpdateCollectionDto } from './dto/UpdateCollection.dto'
 
@@ -32,6 +34,11 @@ export class CollectionController {
   @JwtAuth()
   remove(@Param('id') id: string, @CurrentUser() user: User) {
     return this.collectionService.remove(id, user)
+  }
+  @Post(':id/add')
+  @JwtAuth()
+  addLinks(@Body() links: AddLinksDTO, @CurrentUser() user: User, @Param('id') id: string): Promise<CollectionEntity> {
+    return this.collectionService.addLinks(id, links, user)
   }
   @Get('/slug/:slug')
   findOneBySlug(@Param('slug') slug: string) {
