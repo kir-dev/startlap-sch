@@ -5,6 +5,7 @@ export class UserProfile {
   collections: Collection[]
   submissions: Submission[]
   firstName: string
+  fullName: string
   email: string
   role: string
 }
