@@ -68,7 +68,6 @@ export default function AdminSubmissionCard({ submission }: { submission: Submis
             {submission.createdBy?.fullName}
             <span className='ml-2 text-xs'>({submission.createdBy?.email})</span>
           </p>
-          <p className='text-base'></p>
           <h6>kulcsszavak</h6>
           <Keywords keywords={submission.keywords} />
           {submission.oldLinkId && (
