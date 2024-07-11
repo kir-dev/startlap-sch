@@ -1,15 +1,16 @@
 'use client'
 import '../../app/globals.css'
 
-import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { BsFire, BsStar, BsStarFill } from 'react-icons/bs'
 
 import SmallKeywords from '@/components/keywords/SmallKeywords'
+import { useFavLinks } from '@/hooks/queries/use-fav-links'
 import { useProfile } from '@/hooks/queries/use-profile'
 import { cn } from '@/lib/utils'
-import { LinkEntity } from '@/types/link.type'
+import api from '@/network/apiSetup'
+import { LinkEntity, LinkWithVisitsEntity } from '@/types/link.type'
 
 interface Props {
   link: LinkEntity
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export default function LinkWidget(props: Props) {
+  const { data, mutate } = useFavLinks()
   const link = props.link
   const router = useRouter()
   const user = useProfile()
@@ -24,15 +26,32 @@ export default function LinkWidget(props: Props) {
 
   const makeFavorite = async (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation()
-    setIsOptimisticallyFavourite(true)
-    await axios.post('/api/favorites/', { id: link.id })
-    router.refresh()
+    //setIsOptimisticallyFavourite(true)
+    //await axios.post('/api/favorites/', { id: link.id })
+    //router.refresh()
+    const curLinkWithVisits: LinkWithVisitsEntity = { ...link, visits: props.visits ? props.visits : 0 }
+    props.link.isFavorite = true
+
+    mutate(api.post(`/user/favorites/${link.id}`), {
+      optimisticData: data ? [...data, curLinkWithVisits] : [curLinkWithVisits],
+      rollbackOnError: true,
+      populateCache: false,
+      revalidate: true,
+    })
   }
   const removeFavorite = async (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation()
-    setIsOptimisticallyFavourite(false)
-    await axios.delete('/api/favorites/' + link.id)
+    props.link.isFavorite = false
+    mutate(api.delete(`/user/favorites/${link.id}`), {
+      optimisticData: data ? data.filter(l => l.id !== link.id) : [],
+      rollbackOnError: true,
+      populateCache: false,
+      revalidate: true,
+    })
     router.refresh()
+    //setIsOptimisticallyFavourite(false)
+    //await axios.delete('/api/favorites/' + link.id)
+    //router.refresh()
   }
   const visitLink = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault()

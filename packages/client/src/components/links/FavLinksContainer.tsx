@@ -2,14 +2,10 @@
 import { useEffect, useRef } from 'react'
 
 import LinkWidget from '@/components/links/LinkWidget'
-import { LinkWithVisitsEntity } from '@/types/link.type'
+import { useFavLinks } from '@/hooks/queries/use-fav-links'
 
-interface Props {
-  title: string
-  links: LinkWithVisitsEntity[]
-}
-
-export default function FavLinksContainer({ title, links }: Props) {
+export default function FavLinksContainer() {
+  const { data, mutate, isLoading } = useFavLinks()
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -34,13 +30,18 @@ export default function FavLinksContainer({ title, links }: Props) {
 
   return (
     <div className='flex flex-col'>
-      <h1>{title}</h1>
+      <h1>Kedvencek</h1>
       <div className='flex pl-4' ref={containerRef} style={{ overflowX: 'hidden' }}>
-        {links.map(link => (
-          <div key={link.id}>
-            <LinkWidget link={link} visits={link.visits} />
-          </div>
-        ))}
+        {isLoading && <p className={'m-4'}>Kedvenc linkek betöltése...</p>}
+        {!isLoading && Array.isArray(data) && data.length > 0 ? (
+          data.map(link => (
+            <div key={link.id}>
+              <LinkWidget link={link} visits={link.visits} />
+            </div>
+          ))
+        ) : (
+          <p className={'m-4'}>Nincs egyetlen kedvenc linked sem</p>
+        )}
       </div>
     </div>
   )

@@ -1,18 +1,21 @@
-import FavLinksContainer from '@/components/links/favLinksContainer'
-import { getFavLinks } from '@/network/getFavLinks'
+import FavLinksContainer from '@/components/links/FavLinksContainer'
+import LinksContainer from '@/components/links/LinksContainer'
 import { getLinks } from '@/network/getLinks'
+import { getTrendingLinks } from '@/network/getTrendingLinks'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
   // const collections = await getCollections();
   const links = await getLinks()
-  const favLinks = await getFavLinks()
+  const trendinglinks = await getTrendingLinks()
+  /*  const favLinks = useFavLinks()*/
 
   return (
     <main className='overflow-y-hidden'>
-      <FavLinksContainer title='Felkapottak' links={links}></FavLinksContainer>
-      {favLinks.success && <FavLinksContainer title='Kedvencek' links={favLinks.link}></FavLinksContainer>}
+      <LinksContainer title='Felkapottak' links={trendinglinks}></LinksContainer>
+      <FavLinksContainer />
+      {/* {favLinks.data && <FavLinksContainer title='Kedvencek' links={favLinks.data}></FavLinksContainer>}*/}
       {/* <Carousel items={DummyCollections} name="Kollekciók" /> */}
     </main>
   )
