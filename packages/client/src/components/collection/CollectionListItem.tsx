@@ -23,7 +23,14 @@ export function CollectionListItem({ collection }: Props) {
           alt={collection.name}
           fill={true}
           className={cn('mt-3 overflow-hidden rounded-xl object-cover brightness-50', hasImageError ? 'bg-black' : 'bg-white')}
-          onError={() => setHasImageError(true)}
+          onError={() => {
+            setHasImageError(true)
+            console.log('error')
+          }}
+          onInvalid={() => {
+            setHasImageError(true)
+            console.log('error')
+          }}
         />
       </div>
       <div className='relative flex flex-col justify-between bg-gradient-to-b px-5 pb-10 pt-6 text-white'>

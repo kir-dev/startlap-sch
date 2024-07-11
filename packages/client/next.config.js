@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   images: {
-    domains: ['js.vik.wiki', 'images.unsplash.com', 'google.com', 'mozsarmate.me'],
+    domains: ['js.vik.wiki', 'images.unsplash.com', 'google.com', 'mozsarmate.me', 'simonyi.bme.hu'],
   },
 }
