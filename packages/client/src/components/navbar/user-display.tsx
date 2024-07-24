@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
+import { TbArrowRight, TbUser } from 'react-icons/tb'
 
 import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
@@ -22,16 +22,28 @@ export function UserDisplay() {
       )}
       {profile.data && (
         <>
-          <Button asChild variant='ghost'>
-            <Link href='/admin'>Admin panel</Link>
-          </Button>
+          {profile.data.role === 'ADMIN' && (
+            <Button asChild variant='ghost'>
+              <Link href='/admin'>Admin panel</Link>
+            </Button>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Button variant='outline'>{profile.data.firstName}</Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => redirect('/profile')}>Profil</DropdownMenuItem>
-              <DropdownMenuItem onClick={onLogout}>Kijelentkezés</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href='/profile' className={'flex items-center gap-2'}>
+                  <TbUser />
+                  Profil
+                </Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={onLogout}>
+                <span className={'flex items-center gap-2'}>
+                  <TbArrowRight />
+                  Kijelentkezés
+                </span>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </>

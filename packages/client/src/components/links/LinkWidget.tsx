@@ -73,12 +73,12 @@ export default function LinkWidget(props: Props) {
             <div className='flex w-full justify-between'>
               <h2 className='text-nowrap flex text-3xl'>{link.title}</h2>
               <div className='ml-4 flex items-center'>
-                {/*{!!props.visits && props.visits > 10 && (*/}
-                <div className={'mr-2 flex items-center'} title='Kattintások száma'>
-                  <BsFire color={'red'} size={18} className='inline' />
-                  <h4 className={'text-s'}>{props.visits}32</h4>
-                </div>
-                {/*)}*/}
+                {!!props.visits && props.visits > 10 && (
+                  <div className={'mr-2 flex items-center'} title='Kattintások száma'>
+                    <BsFire color={'red'} size={18} className='inline' />
+                    <h4 className={'text-s'}>{props.visits}32</h4>
+                  </div>
+                )}
                 {user.data &&
                   (!(link.isFavorite || isOptimisticallyFavourite) ? (
                     <BsStar className='text-slate-500 hover:text-amber-300' size={20} title='Kedvelem' onClick={e => makeFavorite(e)} />
@@ -91,7 +91,7 @@ export default function LinkWidget(props: Props) {
           </div>
         </div>
         <div className='ml-2'>
-          <p className='mt-2 max-w-md overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{link.description}</p>
+          <p className='mt-2 max-w-sm overflow-hidden overflow-ellipsis whitespace-nowrap text-base'>{link.description}</p>
         </div>
         <SmallKeywords keywords={link.keywords} />
       </div>
