@@ -17,12 +17,12 @@ export default function AddLinkCombobox({ collectionId, linkIds }: { collectionI
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant='outline' role='combobox' aria-expanded={open} className='absolute right-4 w-[200px] justify-between'>
+        <Button variant='outline' role='combobox' aria-expanded={open} className='absolute right-16 w-[200px] justify-between'>
           Link hozzáadása...
           <PlusIcon className='ml-2 h-4 w-4 shrink-0 opacity-50' />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='w-[200px] p-0'>
+      <PopoverContent className='w-[300px] p-0'>
         <Command shouldFilter={false}>
           <CommandInput placeholder='Link keresése...' onValueChange={setSearchTerm} value={searchTerm} />
           <CommandEmpty>Nem található ilyen link</CommandEmpty>
@@ -36,7 +36,10 @@ export default function AddLinkCombobox({ collectionId, linkIds }: { collectionI
                   setOpen(false)
                 }}
               >
-                {link.url}
+                <div className='flex flex-col'>
+                  <b>{link.title}</b>
+                  <h4 className='text-xs'>{link.url}</h4>
+                </div>
               </CommandItem>
             ))}
           </CommandGroup>
