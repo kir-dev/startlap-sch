@@ -15,5 +15,6 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     'prettier/prettier': 'off',
     '@next/next/no-html-link-for-pages': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
   },
 }

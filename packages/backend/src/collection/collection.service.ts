@@ -128,7 +128,7 @@ export class CollectionService {
     if (collection.userId !== user.id && user.role !== UserRole.ADMIN) {
       throw new ForbiddenException("You don't have permission to add links to this collection")
     }
-    if (collection.links.includes(link)) {
+    if (collection.links.map(l => l.id).includes(link.id)) {
       throw new ConflictException('Link already part of collection')
     }
     return await this.prisma.collection.update({
@@ -153,7 +153,7 @@ export class CollectionService {
     if (collection.userId !== user.id && user.role !== UserRole.ADMIN) {
       throw new ForbiddenException("You don't have permission to remove links from this collection")
     }
-    if (!collection.links.includes(link)) {
+    if (!collection.links.map(l => l.id).includes(link.id)) {
       throw new ConflictException('Link not found within collection')
     }
     return await this.prisma.collection.update({
